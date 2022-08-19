@@ -1,0 +1,115 @@
+.flexdefault {
+  display: flex;
+  width: 100%;
+  border: none;
+  position: static;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.textdefault {
+  font-size: 14px;
+  color: #8e8e8e;
+  text-align: start;
+  line-height: normal;
+}
+.buttondefault {
+  color: #fff;
+  background-color: #0095f6;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.Container {
+  display: flex;
+  width: 1000px;
+  height: 100%;
+  gap: 32px;
+  border: none;
+  position: static;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.homeImg {
+  width: 350px;
+  object-fit: cover;
+  size: 36;
+  height: auto;
+  background-color: #fafafa;
+}
+.pageContainer {
+  display: flex;
+  width: 350px;
+  border: none;
+  position: static;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.signContainer {
+  display: flex;
+  width: 100%;
+  border: 1px soild #dbdbdb;
+  background-color: #fff;
+  padding: 20px 0;
+  border-radius: 1px;
+  margin: 0 0 10px;
+  position: static;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.buttonContainer {
+  display: flex;
+  width: 100%;
+  height: 63px;
+  border: 1px soild #dbdbdb;
+  background-color: #fff;
+  border-radius: 1px;
+  position: static;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin: 0 0 10px;
+  overflow: visible;
+  overscroll-behavior: auto;
+}
+
+.homeText {
+  font-size: 14px;
+  color: #262626;
+  text-align: start;
+  line-height: normal;
+}
+
+.homeButton {
+  color: #00a2f8;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.homeButton:active {
+  opacity: 0.7;
+}
