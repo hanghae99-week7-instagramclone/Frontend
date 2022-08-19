@@ -1,0 +1,96 @@
+.imagedefault {
+  size: 36;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.inputdefault {
+  font-size: 12px;
+  background-color: #fafafa;
+  width: 270px;
+  height: 36;
+  padding: 11px;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 36px;
+  margin: 0px 0 8px;
+}
+.inputContainer > input {
+  font-size: 12px;
+  font-weight: 200;
+  width: 270px;
+  height: 100%;
+  background-color: #fafafa;
+  /* padding: 11px; */
+  outline: none;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+}
+
+.inputContainer > label {
+  font-size: 12px;
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  transition: 0.2s;
+  user-select: none;
+  color: #8e8e8e;
+}
+
+.inputContainer > input:not(:placeholder-shown) {
+  font-size: 12px;
+  padding-top: 23px;
+}
+
+.inputContainer > input:not(:placeholder-shown) + label {
+  transform: translateY(-5px);
+  font-size: 11px;
+}
+
+.inputContainer > input ::-ms-reveal {
+  display: none;
+}
+
+.LoginImage {
+  size: 36;
+  width: 175px;
+  height: 51px;
+  margin: 26px 0 32px;
+  object-fit: cover;
+}
+
+.buttondefault {
+  color: #fff;
+  background-color: #0095f6;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.LoginButton {
+  color: #fff;
+  background-color: #0095f6;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+  margin: 6px 0 8px;
+  width: 270px;
+  height: 30px;
+}
+
+.LoginButton:active {
+  opacity: 0.7;
+}
+
+.LoginButton:disabled {
+  opacity: 0.3;
+}
