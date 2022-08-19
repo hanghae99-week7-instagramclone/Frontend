@@ -1,7 +1,5 @@
-import React from "react";
+import { configureStore } from "@reduxjs/toolkit";
 
-const configStore = () => {
-  return <div>configStore</div>;
-};
-
-export default configStore;
+export default configureStore({
+  reducer: {},
+});
