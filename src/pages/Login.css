@@ -11,14 +11,14 @@
   height: 36;
   padding: 11px;
 }
-.inputContainer {
+.LoginInput {
   display: flex;
   flex-direction: column;
   position: relative;
   height: 36px;
   margin: 0px 0 8px;
 }
-.inputContainer > input {
+.LoginInput > input {
   font-size: 12px;
   font-weight: 200;
   width: 270px;
@@ -30,7 +30,7 @@
   border-radius: 3px;
 }
 
-.inputContainer > label {
+.LoginInput > label {
   font-size: 12px;
   position: absolute;
   top: 11px;
@@ -40,21 +40,21 @@
   color: #8e8e8e;
 }
 
-.inputContainer > input:not(:placeholder-shown) {
+.LoginInput > input:not(:placeholder-shown) {
   font-size: 12px;
   padding-top: 23px;
 }
 
-.inputContainer > input:not(:placeholder-shown) + label {
+.LoginInput > input:not(:placeholder-shown) + label {
   transform: translateY(-5px);
   font-size: 11px;
 }
 
-.inputContainer > input ::-ms-reveal {
+.LoginInput > input ::-ms-reveal {
   display: none;
 }
 
-.LoginImage {
+.loginImg {
   size: 36;
   width: 175px;
   height: 51px;
