@@ -1,0 +1,46 @@
+
+.recommend-container {
+	width: 400px;
+	height: fit-content;
+	margin: 20px;
+	background-color: aliceblue;
+}
+
+.recommend-header {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.user-profile {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 18px;
+}
+
+.user-profile > img {
+	width: 33px;
+	height: 32px;
+	margin-right: 10px;
+	border-radius: 30px;
+	background-color: #262626;
+}
+
+.recommmend-content {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.recommend-user-list {
+	margin: 20px auto;
+}
+
+.recommend-user-container {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
