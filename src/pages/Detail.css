@@ -1,0 +1,88 @@
+/* .modal-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.modal-background {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	backdrop-filter: blur(5px);
+	animation: modal-bg-show 1s;
+	@keyframes modal-bg-show {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+} */
+
+.modal-close {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	cursor: pointer;
+}
+
+.modal-wrapper {
+	display: flex;
+}
+
+.modal-image {
+	display: flex;
+	align-items: center;
+}
+
+.modal-image > img {
+	/* position: inherit; */
+	max-width: 600px;
+	object-fit: contain;
+}
+
+.modal-content {
+	width: 500px;
+	background-color: white;
+}
+
+.detail-header {
+	border-bottom: 1px solid #262626;
+}
+
+.post-user-profile > button {
+	margin-left: 10px;
+}
+
+.detail-content-container {
+	border-bottom: 1px solid #262626;
+}
+
+.post-content-detail-container {
+	margin: auto 20px;
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+}
+
+.detail-post-user-profile {
+	margin: 10px 10px 10px auto;
+}
+
+.detail-content {
+	/* background-color: #262626; */
+	width: 100%;
+}
+
+.detail-btn-container {
+	border-bottom: 1px solid #262626;
+}
+
+.detail-content-info {
+	padding: 10px 20px;
+	border-bottom: 1px solid #262626;
+}

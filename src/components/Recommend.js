@@ -1,13 +1,13 @@
 import React from "react";
-import './Recommend.css';
+import "./Recommend.css";
 
 const Recommend = () => {
   return (
     <div className="recommend-container">
       <div className="recommend-header">
-        <div className="user-profile">
+        <div className="recommend-profile">
           <img
-            alt="user-profile"
+            alt="recommend-profile"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
           />
           <span>nickname</span>
@@ -19,11 +19,11 @@ const Recommend = () => {
         <button>모두 보기</button>
       </div>
       <div className="recommend-user-list">
-        {Array.from({ length: 5 }, () => (
-          <div className="recommend-user-container">
-            <div className="user-profile">
+        {Array.from({ length: 5 }, (_, idx) => (
+          <div className="recommend-user-container" key={idx}>
+            <div className="recommend-user-profile">
               <img
-                alt="user-profile"
+                alt="recommend-user-profile"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
               />
               <span>nickname</span>
