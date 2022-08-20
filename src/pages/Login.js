@@ -5,16 +5,16 @@ export default function Login() {
   return (
     <>
       <img
-        className="LoginImage"
+        className="loginImg"
         alt="images"
         src="https://www.instagram.com/static/images/web/logged_out_wordmark.png/7a252de00b20.png"
       ></img>
 
-      <div className="inputContainer">
+      <div className="LoginInput">
         <input autoComplete="off" placeholder=" " />
         <label>아이디</label>
       </div>
-      <div className="inputContainer">
+      <div className="LoginInput">
         <input autoComplete="off" placeholder=" " type="password" />
         <label>비밀번호</label>
       </div>
