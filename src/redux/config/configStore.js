@@ -1,5 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import todos from "../modules/followSlice";
 
-export default configureStore({
-  reducer: {},
+const configStore = configureStore({
+  reducer: { todos: todos },
 });
+
+export default configStore;
