@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todos from "../modules/followSlice";
+import mypage from "../modules/mypageSlice";
 
 const configStore = configureStore({
-  reducer: { todos: todos },
+  reducer: { mypage: mypage },
 });
 
 export default configStore;
