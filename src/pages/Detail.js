@@ -4,13 +4,14 @@ import CommentList from "../components/CommentList";
 import "./Detail.css";
 import timeCalc from "../shared/time";
 
-const Detail = ({ modalVisible, setModalVisible, post }) => {
+const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
   return (
     <Modal
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       maxWidth="1100px"
       outline="none"
+			onClick={(e) => e.stopPropagation()}
     >
       <div className="modal-wrapper">
         {/* 왼쪽 이미지 */}
@@ -21,7 +22,7 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
           />
         </div>
 
-        {/* 오른쪽 글, 댓글 */}
+        {/* 오른쪽 글, 댓글 */} 
         <div className="modal-content">
           <div className="post-header detail-header">
             <div className="post-user-profile">
@@ -29,8 +30,8 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
                 alt="post-user-profile"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
               />
-              <span>{post.nickname}</span>
-              <span class="_ac6e _ac6f _ac6h">•</span>
+              <span>{postInfo.nickname}</span>
+              <span>•</span>
               <button>팔로잉</button>
             </div>
             <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
@@ -51,14 +52,14 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
                 />
               </div>
               <div className="post-content detail-content">
-                <span className="post-nickname">{post.nickname}</span>
-                <span>{post.content}</span>
-                <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
+                <span className="post-nickname">{postInfo.nickname}</span>
+                <span>{postInfo.content}</span>
+                <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
               </div>
             </div>
 
             {/* 댓글 목록 */}
-            <CommentList isMain={false} commentList={post.commentResponseDto} />
+            <CommentList isMain={false} commentList={postInfo.commentResponseDto} />
           </div>
 
           {/* 버튼 목록 */}
@@ -117,8 +118,8 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
 
           {/* 좋아요 개수, 글 작성 시간 */}
           <div className="detail-content-info">
-            <div className="like">좋아요 {post.likeResponseDto.length}개</div>
-            <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
+            <div className="like">좋아요 {postInfo.likeResponseDto.length}개</div>
+            <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
           </div>
 
           {/* 댓글 작성 */}

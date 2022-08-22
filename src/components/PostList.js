@@ -1,28 +1,32 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncGetPosts } from "../redux/modules/postListSlice";
+import { asyncGetAllPosts } from "../redux/modules/postListSlice";
 import Post from "./Post";
-import './PostList.css';
+import "./PostList.css";
 
 const PostList = () => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const postList = useSelector((state) => state.postList.postList);
-	console.log(postList);
-	
-	const getPosts = () => {
-		dispatch(asyncGetPosts());
-	}
+  const postList = useSelector((state) => state.postList.postList);
+  console.log(postList);
 
-	useEffect(() => {
-		getPosts();
-	}, [dispatch]);
+  const getAllPosts = () => {
+    dispatch(asyncGetAllPosts());
+  };
+
+  useEffect(() => {
+    getAllPosts();
+  }, [dispatch]);
 
   return (
-		<div className="post_list">
-			{postList.map((item) => <Post key={item.id} post={item}/>)}
-		</div>
-	);
+    <div className="post_list">
+      {postList.length > 0 ? (
+        postList.map((item) => <Post key={item.id} postInfo={item} />)
+      ) : (
+        <div style={{ width: "500px", textAlign: "center", marginTop: "100px"}}>글이 없습니다.</div>
+      )}
+    </div>
+  );
 };
 
 export default PostList;

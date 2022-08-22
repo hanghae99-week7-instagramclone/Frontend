@@ -1,25 +1,66 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Detail from "../pages/Detail";
+import { asyncGetCommentsByPost } from "../redux/modules/commentListSlice";
+import { asyncPostComment } from "../redux/modules/commentSlice";
+import { asyncGetOnePost } from "../redux/modules/postSlice";
 import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
 
-const Post = ({ post }) => {
-  const navigate = useNavigate();
+const Post = ({ postInfo }) => {
+  const dispatch = useDispatch();
+
+  // 모달창 여부
   const [modalVisible, setModalVisible] = useState(false);
-  console.log("post", modalVisible);
+
+  const [comment, setComment] = useState("");
+
+  // const post = useSelector((state) => state.post.post);
+  // console.log(post !== undefined);
+  // const postCheck = post !== undefined ? postInfo : post;
+
+  let commentList = useSelector((state) => state.comment.commentlist);
+
+  if (commentList.findIndex((item) => item.postId === postInfo.id) >= 0) {
+    commentList = commentList[commentList.findIndex((item) => item.postId === postInfo.id)].data;
+  } else {
+    commentList = postInfo.commentResponseDto;
+  }
+
+  commentList = commentList
+    .slice()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+    );
+
+  useEffect(() => {
+    console.log(commentList);
+  }, [dispatch]);
+
+  const onPostComment = () => {
+    console.log("1111111111", postInfo.id, comment);
+    dispatch(asyncPostComment({ comment, postId: postInfo.id }));
+    // dispatch(asyncGetCommentsByPost(postInfo.id));
+    setComment("");
+    console.log("5555555555555 finish post comment", commentList);
+  };
 
   return (
     <div className="post">
-			{/* 글 헤더 */}
+      {/* 글 헤더 */}
       <div className="post-header">
         <div className="post-user-profile">
           <img
             alt="post-user-profile"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+            src={
+              postInfo.profileUrl
+                ? postInfo.profileUrl
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+            }
           />
-          <span>{post.nickname}</span>
+          <span>{postInfo.nickname}</span>
         </div>
         <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="1.5"></circle>
@@ -28,13 +69,10 @@ const Post = ({ post }) => {
         </svg>
       </div>
 
-			{/* 글 이미지, 버튼 */}
+      {/* 글 이미지, 버튼 */}
       <div className="post-image-btn">
         <div className="post-image">
-          <img
-            alt="post-image"
-            src={post.imgUrlList[0]}
-          />
+          <img alt="post-image" src={postInfo.imgUrlList[0]} />
         </div>
         <div className="post-btn-list">
           <div className="post-btn-container">
@@ -88,45 +126,47 @@ const Post = ({ post }) => {
         </div>
       </div>
 
-			{/* 글 내용, 댓글 */}
+      {/* 글 내용, 댓글 */}
       <div className="post-content-container">
-        <div className="like">좋아요 {post.likeResponseDto.length}개</div>
+        <div className="like">좋아요 {postInfo.likeResponseDto.length}개</div>
         <div className="post-content">
-          <span className="post-nickname">{post.nickname}</span>
-          <span>{post.content}</span>
+          <span className="post-nickname">{postInfo.nickname}</span>
+          <span>{postInfo.content}</span>
         </div>
         <div className="post-comment-num" onClick={() => setModalVisible(true)}>
-          댓글 {post.commentResponseDto.length}개 모두 보기
+          댓글 {commentList.length}개 모두 보기
         </div>
-        {/* 댓글 상세보기 */}
+        {/* 글 상세보기 */}
         {modalVisible && (
           <>
             <Detail
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
-							post={post}
+              postInfo={postInfo}
             />
           </>
         )}
-        <CommentList isMain={true} commentList={post.commentResponseDto}/>
-        <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
+
+        <CommentList isMain={true} commentList={commentList.slice(0, 3)} />
+        <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
       </div>
 
-			{/* 댓글 작성 */}
+      {/* 댓글 작성 */}
       <div className="post-comment-container">
         <div className="post-btn-container">
-          <svg
-            aria-label="이모티콘"
-            role="img"
-            viewBox="0 0 24 24"
-          >
+          <svg aria-label="이모티콘" role="img" viewBox="0 0 24 24">
             <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
           </svg>
         </div>
-				<div className="post-comment-input">
-					<textarea type="text" placeholder="댓글 달기..."></textarea>
-				</div>
-				<button>게시</button>
+        <div className="post-comment-input">
+          <textarea
+            type="text"
+            placeholder="댓글 달기..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
+        </div>
+        <button onClick={() => onPostComment()}>게시</button>
       </div>
     </div>
   );

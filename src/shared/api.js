@@ -17,7 +17,18 @@ export const apis = {
       "Content-Type": "application/json",
     }),
 
-  getPosts: () => api.get("/api/posts"),
+  getAllMembers: () => api.get("/members"),
 
-  getMembers: () => api.get("/members"),
+	getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
+
+  getAllPosts: () => api.get("/api/posts"),
+
+	getOnePost: (postId) => api.get(`/api/posts/${postId}`),
+
+	getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
+
+  writeComment: (data, postId) =>
+    api.post(`/api/posts/${postId}/comments`, data, {
+      "Content-type": "application/json",
+    }),
 };

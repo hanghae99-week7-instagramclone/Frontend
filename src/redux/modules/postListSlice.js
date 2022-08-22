@@ -5,10 +5,10 @@ const initialState = {
   postList: [],
 };
 
-export const asyncGetPosts = createAsyncThunk(
-  "postList/getPosts",
+export const asyncGetAllPosts = createAsyncThunk(
+  "postList/getAllPosts",
   async (payload, thunkAPI) => {
-    const response = await apis.getPosts();
+    const response = await apis.getAllPosts();
     
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
@@ -22,7 +22,7 @@ const postListSlice = createSlice({
   name: "postList",
   initialState,
   extraReducers: {
-    [asyncGetPosts.fulfilled]: (state, action) => {
+    [asyncGetAllPosts.fulfilled]: (state, action) => {
       // action.payload -> post list
       state.postList = action.payload;
     },

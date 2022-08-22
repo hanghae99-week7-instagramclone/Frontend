@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apis } from "../../shared/api";
 
 //멤버조회
-export const asyncGetMembers = createAsyncThunk(
-  "postList/getMembers",
+export const asyncGetAllMembers = createAsyncThunk(
+  "postList/getAllMembers",
   async (payload, thunkAPI) => {
-    const response = await apis.getMembers();
+    const response = await apis.getAllMembers();
 
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
@@ -14,6 +14,19 @@ export const asyncGetMembers = createAsyncThunk(
     }
   }
 );
+
+export const asyncGetOneMemberProfile = createAsyncThunk(
+	"postList/getOneMemberProfile",
+	async (payload, thunkAPI) => {
+		const response = await apis.getOneMemberProfile(payload);
+		
+    if (response.status === 200 && response.data.success === true) {
+      return response.data.data;
+    } else {
+      return null;
+    }
+	}
+)
 
 //회원가입
 export const createMemberDB = (data) => {
@@ -52,7 +65,7 @@ export const loginMemberDB = (data) => {
         } else {
           return (
             localStorage.setItem("token", response.headers.authorization),
-            localStorage.setItem("nickname", response.data.data.id),
+            localStorage.setItem("id", response.data.data.id),
             localStorage.setItem("nickname", response.data.data.nickname),
             alert(`${localStorage.nickname}님 환영합니다.`),
             window.location.replace("/")
@@ -67,6 +80,7 @@ export const loginMemberDB = (data) => {
 
 const initialState = {
   memberlist: [],
+	member: {}
 };
 
 const memberSlice = createSlice({
@@ -74,10 +88,15 @@ const memberSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [asyncGetMembers.fulfilled]: (state, action) => {
+    [asyncGetAllMembers.fulfilled]: (state, action) => {
       // action.payload -> member list
       state.memberlist = action.payload;
     },
+
+		[asyncGetOneMemberProfile.fulfilled]: (state, action) => {
+			// action.payload -> member
+			state.member = action.payload;
+		}
   },
 });
 
