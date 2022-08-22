@@ -6,9 +6,8 @@ import mypage from "../modules/mypageSlice";
 
 export default configureStore({
   reducer: {
-		postList: postListSlice,
-		member: memberSlice,
-    mypage: mypage
-	},
-
+    postList: postListSlice,
+    member: memberSlice,
+    mypage: mypage,
+  },
 });
