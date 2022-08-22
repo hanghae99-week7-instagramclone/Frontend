@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import { GrGrid } from "react-icons/fa";
+import { GrGrid } from "react-icons/gr";
+import { BiMoviePlay } from "react-icons/bi";
 import "./Mypage.css";
 import "../components/Header.js";
 import axios from "axios"; // axios import 합니다.
@@ -72,8 +73,15 @@ const Mypage = () => {
         <hr className="hr-line"></hr>
         <div className="mypage-navbar">
           <div className="mypage-navbar-wrap"></div>
+          <div className="navbar-posts-icon">
+            <GrGrid />
+          </div>
           <div className="navbar-posts">게시물</div>
+          <div className="navbar-reels-icon">
+            <BiMoviePlay />
+          </div>
           <div className="navbar-reels">릴스</div>
+          <div className="navbar-tagged-icon"></div>
           <div className="navbar-tagged">태그됨</div>
         </div>
         <div className="post-box">

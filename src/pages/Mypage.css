@@ -175,7 +175,6 @@
 }
 
 .mypage-navbar {
-  padding: 20px 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -187,11 +186,12 @@
   flex-shrink: 0;
   font: inherit;
   font-size: 12px;
-  font-weight: var(--font-weight-system-semibold);
+  font-weight: 700;
+  /* var(--font-weight-system-semibold); */
 
   letter-spacing: 1px;
   margin: 0;
-  padding: 14px 0px 20px 0px;
+  padding: 12px 0px 20px 0px;
   position: relative;
   text-align: center;
   vertical-align: baseline;
@@ -203,13 +203,30 @@
   background-color: ;
 }
 
+.navbar-posts-icon {
+  padding: 1px 8px 0px 0px;
+  font-size: 10px;
+  background-color: ;
+}
+
 .navbar-posts {
   padding: 0px 60px 0px 0px;
   background-color: ;
 }
 
+.navbar-reels-icon {
+  padding: 2px 8px 0px 0px;
+  font-size: 14px;
+  background-color: ;
+}
+
 .navbar-reels {
   padding: 0px 60px 0px 0px;
+  background-color: ;
+}
+
+.navbar-tagged-icon {
+  padding: 0px 10px 0px 0px;
   background-color: ;
 }
 

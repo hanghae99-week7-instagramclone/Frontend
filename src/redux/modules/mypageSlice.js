@@ -47,7 +47,7 @@ export const mypageSlice = createSlice({
     [getMypageThunk.fulfilled]: (state, action) => {
       console.log(state);
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.mypage = action.payload; // Store에 있는 todos에 서버에서 가져온 todos를 넣습니다.
+      state.mypage = action.payload; // Store에 있는 mypage에 서버에서 가져온 mypage를 넣습니다.
       console.log(state.isLoading);
     },
     [getMypageThunk.rejected]: (state, action) => {
