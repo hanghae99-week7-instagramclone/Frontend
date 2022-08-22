@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Detail from "../pages/Detail";
+import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
 
-const Post = () => {
+const Post = ({ post }) => {
   const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
   console.log("post", modalVisible);
@@ -18,7 +19,7 @@ const Post = () => {
             alt="post-user-profile"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
           />
-          <span>nickname</span>
+          <span>{post.nickname}</span>
         </div>
         <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="1.5"></circle>
@@ -32,7 +33,7 @@ const Post = () => {
         <div className="post-image">
           <img
             alt="post-image"
-            src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/82895319_3086466004790781_4663987480163254272_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=973b4a&_nc_ohc=Fnpfjr8-wTIAX_LMcoE&_nc_ht=scontent-ssn1-1.xx&oh=00_AT_DyCQEirCRa6Ge5WrCsFI3K-6rI3Q_K7LYK1qidBdB0w&oe=6324D52C"
+            src={post.imgUrlList[0]}
           />
         </div>
         <div className="post-btn-list">
@@ -89,26 +90,26 @@ const Post = () => {
 
 			{/* 글 내용, 댓글 */}
       <div className="post-content-container">
-        <div className="like">좋아요 {100}개</div>
+        <div className="like">좋아요 {post.likeResponseDto.length}개</div>
         <div className="post-content">
-          <span className="post-nickname">nickname</span>
-          <span>귀여운 시골 강아지를 만났다!</span>
+          <span className="post-nickname">{post.nickname}</span>
+          <span>{post.content}</span>
         </div>
         <div className="post-comment-num" onClick={() => setModalVisible(true)}>
-          댓글 {11}개 모두 보기
+          댓글 {post.commentResponseDto.length}개 모두 보기
         </div>
         {/* 댓글 상세보기 */}
         {modalVisible && (
           <>
-            {/* <div>Detail Modal</div> */}
             <Detail
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
+							post={post}
             />
           </>
         )}
-        <CommentList isMain={true} />
-        <div className="post-createdAt">30분 전</div>
+        <CommentList isMain={true} commentList={post.commentResponseDto}/>
+        <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
       </div>
 
 			{/* 댓글 작성 */}

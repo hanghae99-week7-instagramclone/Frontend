@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { asyncGetPosts } from "../redux/modules/postListSlice";
 import Post from "./Post";
 import './PostList.css';
 
 const PostList = () => {
+	const dispatch = useDispatch();
+
+	const postList = useSelector((state) => state.postList.postList);
+	console.log(postList);
+	
+	const getPosts = () => {
+		dispatch(asyncGetPosts());
+	}
+
+	useEffect(() => {
+		getPosts();
+	}, [dispatch]);
+
   return (
 		<div className="post_list">
-			{Array.from({length: 3}, (_, idx) => <Post key={idx}/>)}
+			{postList.map((item) => <Post key={item.id} post={item}/>)}
+			{/* {Array.from({length: 3}, (_, idx) => <Post key={idx}/>)} */}
 		</div>
 	);
 };

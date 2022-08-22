@@ -14,11 +14,11 @@ export default function Modal({
 }) {
   return (
     <>
-      <ModalOverlay
-        modalVisible={modalVisible}
-        onClick={() => setModalVisible(false)}
-      >
-        <ModalClose className="modal-close">
+      <ModalOverlay modalVisible={modalVisible}>
+        <ModalClose
+          className="modal-close"
+          onClick={() => setModalVisible(false)}
+        >
           <svg
             aria-label="닫기"
             class="om3e55n1 b6ax4al1"
@@ -37,20 +37,20 @@ export default function Modal({
             />
           </svg>
         </ModalClose>
-        <ModalWrapper className={className} modalVisible={modalVisible}>
-          <ModalInner
-            className="modal-inner"
-            width={width}
-            maxWidth={maxWidth}
-            outline={outline}
-            // style={{ outline: "none" }}
-            borderRadius={borderRadius}
-            padding={padding}
-          >
-            {children}
-          </ModalInner>
-        </ModalWrapper>
       </ModalOverlay>
+      <ModalWrapper className={className} modalVisible={modalVisible}>
+        <ModalInner
+          className="modal-inner"
+          width={width}
+          maxWidth={maxWidth}
+          outline={outline}
+          // style={{ outline: "none" }}
+          borderRadius={borderRadius}
+          padding={padding}
+        >
+          {children}
+        </ModalInner>
+      </ModalWrapper>
     </>
   );
 }
@@ -85,7 +85,7 @@ const ModalWrapper = styled.div`
   z-index: 1000;
   overflow: auto;
   outline: 0;
-	pointer-events: none;
+  pointer-events: none;
 `;
 
 const ModalInner = styled.div`

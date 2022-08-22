@@ -4,6 +4,7 @@ import "./Recommend.css";
 const Recommend = () => {
   return (
     <div className="recommend-container">
+			{/* 팔로우 추천 헤더 */}
       <div className="recommend-header">
         <div className="recommend-profile">
           <img
@@ -14,10 +15,14 @@ const Recommend = () => {
         </div>
         <button>전환</button>
       </div>
+
+			{/* 팔로우 추천 내용 */}
       <div className="recommend-content">
         <span>회원님을 위한 추천</span>
         <button>모두 보기</button>
       </div>
+			
+			{/* 팔로우 추천 목록 */}
       <div className="recommend-user-list">
         {Array.from({ length: 5 }, (_, idx) => (
           <div className="recommend-user-container" key={idx}>

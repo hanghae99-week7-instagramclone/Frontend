@@ -2,8 +2,9 @@ import React from "react";
 import Modal from "../elements/Modal";
 import CommentList from "../components/CommentList";
 import "./Detail.css";
+import timeCalc from "../shared/time";
 
-const Detail = ({ modalVisible, setModalVisible }) => {
+const Detail = ({ modalVisible, setModalVisible, post }) => {
   return (
     <Modal
       modalVisible={modalVisible}
@@ -28,7 +29,7 @@ const Detail = ({ modalVisible, setModalVisible }) => {
                 alt="post-user-profile"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
               />
-              <span>nickname</span>
+              <span>{post.nickname}</span>
               <span class="_ac6e _ac6f _ac6h">•</span>
               <button>팔로잉</button>
             </div>
@@ -50,14 +51,14 @@ const Detail = ({ modalVisible, setModalVisible }) => {
                 />
               </div>
               <div className="post-content detail-content">
-                <span className="post-nickname">nickname</span>
-                <span>귀여운 시골 강아지를 만났다! 너무너무 귀여웠다</span>
-                <div className="post-createdAt">30분 전</div>
+                <span className="post-nickname">{post.nickname}</span>
+                <span>{post.content}</span>
+                <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
               </div>
             </div>
 
             {/* 댓글 목록 */}
-            <CommentList isMain={false} />
+            <CommentList isMain={false} commentList={post.commentResponseDto}/>
           </div>
 
           <div className="detail-btn-container">
@@ -115,8 +116,8 @@ const Detail = ({ modalVisible, setModalVisible }) => {
 
             {/* 좋아요 개수, 글 작성 시간 */}
             <div className="detail-content-info">
-              <div className="like">좋아요 {100}개</div>
-              <div className="post-createdAt">30분 전</div>
+              <div className="like">좋아요 {post.likeResponseDto.length}개</div>
+              <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
             </div>
 
             {/* 댓글 작성 */}

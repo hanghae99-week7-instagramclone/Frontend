@@ -4,7 +4,7 @@ const tokencheck = document.cookie;
 const token = tokencheck.split("=")[1];
 const api = axios.create({
   // 실제 베이스 유알엘
-  //   baseURL: "http://13.125.107.22:8080",
+  baseURL: process.env.REACT_APP_URL,
 
   headers: {
     "content-type": "application/json;charset=UTF-8",
@@ -27,4 +27,7 @@ const apiMultipart = axios.create({
     token: token,
   },
 });
-export const apis = {};
+
+export const apis = {
+	getPosts: () => api.get("/api/posts"),
+};
