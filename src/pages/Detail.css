@@ -48,10 +48,15 @@
 .modal-content {
 	width: 500px;
 	background-color: white;
+	position: relative;
 }
 
 .detail-header {
 	border-bottom: 1px solid #262626;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
 }
 
 .post-user-profile > button {
@@ -60,6 +65,11 @@
 
 .detail-content-container {
 	border-bottom: 1px solid #262626;
+	position: absolute;
+	top: 61px;
+	left: 0;
+	right: 0;
+	bottom: 191px;
 }
 
 .post-content-detail-container {
@@ -80,9 +90,24 @@
 
 .detail-btn-container {
 	border-bottom: 1px solid #262626;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 136px;
 }
 
 .detail-content-info {
 	padding: 10px 20px;
 	border-bottom: 1px solid #262626;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 55px;
+}
+
+.detail-comment-container {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }

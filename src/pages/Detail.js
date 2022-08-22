@@ -58,11 +58,11 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
             </div>
 
             {/* 댓글 목록 */}
-            <CommentList isMain={false} commentList={post.commentResponseDto}/>
+            <CommentList isMain={false} commentList={post.commentResponseDto} />
           </div>
 
+          {/* 버튼 목록 */}
           <div className="detail-btn-container">
-            {/* 버튼 목록 */}
             <div className="post-btn-list">
               <div className="post-btn-container">
                 <svg aria-label="활동 피드" role="img" viewBox="0 0 24 24">
@@ -113,25 +113,25 @@ const Detail = ({ modalVisible, setModalVisible, post }) => {
                 </svg>
               </div>
             </div>
+          </div>
 
-            {/* 좋아요 개수, 글 작성 시간 */}
-            <div className="detail-content-info">
-              <div className="like">좋아요 {post.likeResponseDto.length}개</div>
-              <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
-            </div>
+          {/* 좋아요 개수, 글 작성 시간 */}
+          <div className="detail-content-info">
+            <div className="like">좋아요 {post.likeResponseDto.length}개</div>
+            <div className="post-createdAt">{timeCalc(post.createdAt)}</div>
+          </div>
 
-            {/* 댓글 작성 */}
-            <div className="post-comment-container">
-              <div className="post-btn-container">
-                <svg aria-label="이모티콘" role="img" viewBox="0 0 24 24">
-                  <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
-                </svg>
-              </div>
-              <div className="post-comment-input">
-                <textarea type="text" placeholder="댓글 달기..."></textarea>
-              </div>
-              <button>게시</button>
+          {/* 댓글 작성 */}
+          <div className="post-comment-container detail-comment-container">
+            <div className="post-btn-container">
+              <svg aria-label="이모티콘" role="img" viewBox="0 0 24 24">
+                <path d="M15.83 10.997a1.167 1.167 0 101.167 1.167 1.167 1.167 0 00-1.167-1.167zm-6.5 1.167a1.167 1.167 0 10-1.166 1.167 1.167 1.167 0 001.166-1.167zm5.163 3.24a3.406 3.406 0 01-4.982.007 1 1 0 10-1.557 1.256 5.397 5.397 0 008.09 0 1 1 0 00-1.55-1.263zM12 .503a11.5 11.5 0 1011.5 11.5A11.513 11.513 0 0012 .503zm0 21a9.5 9.5 0 119.5-9.5 9.51 9.51 0 01-9.5 9.5z"></path>
+              </svg>
             </div>
+            <div className="post-comment-input">
+              <textarea type="text" placeholder="댓글 달기..."></textarea>
+            </div>
+            <button>게시</button>
           </div>
         </div>
       </div>
