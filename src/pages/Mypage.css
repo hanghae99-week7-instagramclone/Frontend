@@ -1,0 +1,277 @@
+.whole-mypage {
+  width: 900px;
+  height: 100vh;
+  padding: 0px 10px;
+  /* background-color: lightgray; */
+}
+
+.mypage-frame {
+  padding: 5px;
+  /* 패딩은 임시로 */
+  /* background-color: pink; */
+}
+
+.wrap-info {
+  max-width: 100%;
+  height: 230px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* 가로축-중심축 */
+  align-items: center;
+  /* 세로축-중심축 */
+  padding: 10px 0px 8px 15px;
+  /* border: 2px solid yellow; */
+  /* background-color: purple; */
+}
+
+.image-area {
+  height: 170px;
+  width: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  padding: 10px;
+  position: relative;
+  /* background-color: orange; */
+}
+
+.my-image {
+  position: absolute;
+  height: 170px;
+  width: 170px;
+}
+
+.right-info {
+  width: 70%;
+  height: 170px;
+  padding: 2px;
+  margin-left: 20px;
+  /* background-color: red; */
+}
+
+.info-line-1 {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 5px 0px 0px;
+  margin-bottom: 20px;
+  /* background-color: yellowgreen; */
+}
+
+.user-nickname {
+  font-size: 28px;
+  font-weight: 345;
+  margin: 0px 30px 0px 0px;
+  background-color: ;
+}
+
+.button-send-message {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px 8px 0px 0px;
+  padding: 7px 7px 5px 8px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button-follow {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 25px 6px 25px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0px 18px 0px 0px;
+}
+.info-option {
+  padding-bottom: 3px;
+}
+
+.info-line-2 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 26px;
+  /* background-color: yellow; */
+}
+
+.post-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-post {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.post-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.follower-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-follower {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.follower-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.follow-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-follow {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.follow-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.info-line-3 {
+  /* background-color: white; */
+}
+
+.mypage-username {
+  font-weight: bold;
+  background-color: ;
+}
+
+.hr-line {
+  height: 1px;
+  border: 0;
+  background-color: lightgray;
+}
+
+.mypage-navbar {
+  padding: 20px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  border: 0;
+  box-sizing: border-box;
+  color: var(--grey-5);
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: var(--font-weight-system-semibold);
+
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 14px 0px 20px 0px;
+  position: relative;
+  text-align: center;
+  vertical-align: baseline;
+
+  /* background-color: lightblue; */
+}
+
+.mypage-navbar-wrap {
+  background-color: ;
+}
+
+.navbar-posts {
+  padding: 0px 60px 0px 0px;
+  background-color: ;
+}
+
+.navbar-reels {
+  padding: 0px 60px 0px 0px;
+  background-color: ;
+}
+
+.navbar-tagged {
+  background-color: ;
+}
+
+.post-box {
+  /* height: 400px; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: lightseagreen;
+}
+
+.div-post-1 {
+  width: 30%;
+  height: 270px;
+  /* border: 1px solid black; */
+  background-color: ;
+}
+
+.post-1 {
+  width: 100%;
+  max-width: 270px;
+  height: 100%;
+  max-height: 270px;
+  background-size: cover;
+  background-image: url("https://i.pinimg.com/originals/d1/06/9f/d1069fdb4aab2a9e5eb862895d9c4c0b.jpg");
+}
+
+.div-post-2 {
+  width: 30%;
+  height: 270px;
+  /* border: 1px solid black; */
+  background-color: ;
+}
+
+.post-2 {
+  width: 100%;
+  max-width: 270px;
+  height: 100%;
+  max-height: 270px;
+  background-size: cover;
+  background-image: url("https://kenh14cdn.com/thumb_w/620/203336854389633024/2022/7/22/photo-1-1658450469027618692691.jpg");
+  background-color: ;
+}
+
+.div-post-3 {
+  width: 30%;
+  height: 270px;
+  /* border: 1px solid black; */
+  background-color: ;
+}
+
+.post-3 {
+  /* width: 100%; */
+  min-width: 270px;
+  height: 100%;
+  min-height: 270px;
+  background-size: cover;
+  background-image: url("https://pbs.twimg.com/media/FYM_8rlVEAAH7pL.jpg");
+  background-color: ;
+}
