@@ -21,7 +21,6 @@ const PostList = () => {
   return (
 		<div className="post_list">
 			{postList.map((item) => <Post key={item.id} post={item}/>)}
-			{/* {Array.from({length: 3}, (_, idx) => <Post key={idx}/>)} */}
 		</div>
 	);
 };
