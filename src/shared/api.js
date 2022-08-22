@@ -29,6 +29,7 @@ const apiMultipart = axios.create({
 });
 
 export const apis = {
+
 	getPosts: () => api.get("/api/posts"),
 	
 	getMembers: () => api.get("/members"),

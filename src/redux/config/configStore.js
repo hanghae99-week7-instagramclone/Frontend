@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+
 import postListSlice from "../modules/postListSlice";
 import memberSlice from "../modules/memberSlice";
 import mypage from "../modules/mypageSlice";
@@ -9,6 +10,5 @@ export default configureStore({
 		member: memberSlice,
     mypage: mypage
 	},
-});
 
-export default configStore;
+});
