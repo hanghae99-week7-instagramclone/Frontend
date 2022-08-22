@@ -1,5 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
 import api from "./api";
+import { apis } from "../../shared/api";
+
+//멤버조회
+export const asyncGetMembers = createAsyncThunk(
+  "postList/getMembers",
+  async (payload, thunkAPI) => {
+    const response = await apis.getMembers();
+    
+    if (response.status === 200 && response.data.success === true) {
+      return response.data.data;
+    } else {
+      return null;
+    }
+  },
+);
+
 
 //회원가입
 export const createMemberDB = (data) => {
@@ -62,7 +78,12 @@ const memberSlice = createSlice({
   name: "member",
   initialState,
   reducers: {},
-  extraReducers: {},
+   extraReducers: {
+    [asyncGetMembers.fulfilled]: (state, action) => {
+      // action.payload -> member list
+      state.memberlist = action.payload;
+    },
+  },
 });
 
 // export const { } = memberSlice.actions;

@@ -1,8 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import member from "../modules/memberSlice";
+
+import postListSlice from "../modules/postListSlice";
+import memberSlice from "../modules/memberSlice";
+import mypage from "../modules/mypageSlice";
 
 export default configureStore({
   reducer: {
-    member,
-  },
+		postList: postListSlice,
+		member: memberSlice,
+    mypage: mypage
+	},
+
 });
