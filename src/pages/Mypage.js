@@ -42,7 +42,7 @@ const Mypage = () => {
           </div>
           <div className="right-info">
             <div className="info-line-1">
-              <div className="user-nickname">{mypage.nickname}</div>
+              <div className="user-nickname">{mypage?.nickname}</div>
               <button className="button-send-message">메시지 보내기</button>
               <button className="button-follow">
                 {/* onClick={onClickHandlerFollow} */}
@@ -65,7 +65,7 @@ const Mypage = () => {
               </div>
             </div>
             <div className="info-line-3">
-              <div className="mypage-username">{mypage.username}</div>
+              <div className="mypage-username">{mypage?.username}</div>
             </div>
           </div>
         </div>
