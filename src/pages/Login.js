@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
 import "./Login.css";
+import { loginMemberDB } from "../redux/modules/memberSlice";
 
 export default function Login() {
+  const dispatch = useDispatch();
+
+  const email_ref = useRef(null);
+  const password_ref = useRef(null);
+
+  const login = () => {
+    dispatch(
+      loginMemberDB({
+        email: email_ref.current.value,
+        password: password_ref.current.value,
+      })
+    );
+  };
+
   return (
     <>
       <img
@@ -11,15 +27,22 @@ export default function Login() {
       ></img>
 
       <div className="LoginInput">
-        <input autoComplete="off" placeholder=" " />
-        <label>아이디</label>
+        <input autoComplete="off" placeholder=" " ref={email_ref} />
+        <label>이메일</label>
       </div>
       <div className="LoginInput">
-        <input autoComplete="off" placeholder=" " type="password" />
+        <input
+          autoComplete="off"
+          placeholder=" "
+          type="password"
+          ref={password_ref}
+        />
         <label>비밀번호</label>
       </div>
 
-      <button className="LoginButton">로그인</button>
+      <button className="LoginButton" onClick={login}>
+        로그인
+      </button>
     </>
   );
 }

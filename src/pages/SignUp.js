@@ -1,8 +1,38 @@
-import React from "react";
 import "./SignUp.css";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createMemberDB } from "../redux/modules/memberSlice";
 
 export default function SignUp(props) {
-  const { goLoginPage } = props;
+  const dispatch = useDispatch();
+
+  const initialState = {
+    email: "",
+    nickname: "",
+    username: "",
+    password: "",
+    passwordConfirm: "",
+  };
+
+  const [member, setMember] = useState(initialState);
+
+  const onSignUpHandler = (event) => {
+    const { name, value } = event.target;
+    setMember({ ...member, [name]: value });
+  };
+
+  const createMember = () => {
+    console.log("눌렸다");
+    dispatch(
+      createMemberDB({
+        email: member.email,
+        nickname: member.nickname,
+        username: member.username,
+        password: member.password,
+        passwordConfirm: member.passwordConfirm,
+      })
+    );
+  };
 
   return (
     <>
@@ -16,26 +46,59 @@ export default function SignUp(props) {
       </div>
 
       <div className="signUpInput">
-        <input autoComplete="off" placeholder=" " />
+        <input
+          onChange={onSignUpHandler}
+          autoComplete="off"
+          placeholder=" "
+          name="email"
+          value={member.email}
+        />
         <label>이메일</label>
       </div>
       <div className="signUpInput">
-        <input autoComplete="off" placeholder=" " />
+        <input
+          onChange={onSignUpHandler}
+          autoComplete="off"
+          placeholder=" "
+          name="nickname"
+          value={member.nickname}
+        />
         <label>닉네임</label>
       </div>
       <div className="signUpInput">
-        <input autoComplete="off" placeholder=" " />
+        <input
+          onChange={onSignUpHandler}
+          autoComplete="off"
+          placeholder=" "
+          name="username"
+          value={member.username}
+        />
         <label>사용자 이름</label>
       </div>
       <div className="signUpInput">
-        <input autoComplete="off" placeholder=" " type="password" />
+        <input
+          onChange={onSignUpHandler}
+          autoComplete="off"
+          type="password"
+          placeholder=" "
+          name="password"
+          value={member.password}
+        />
         <label>비밀번호</label>
       </div>
       <div className="signUpInput">
-        <input autoComplete="off" placeholder=" " type="password" />
+        <input
+          onChange={onSignUpHandler}
+          type="password"
+          placeholder=" "
+          name="passwordConfirm"
+          value={member.passwordConfirm}
+        />
         <label>비밀번호 확인</label>
       </div>
-      <button className="signUpButton">가입</button>
+      <button className="signUpButton" onClick={createMember}>
+        가입
+      </button>
     </>
   );
 }
