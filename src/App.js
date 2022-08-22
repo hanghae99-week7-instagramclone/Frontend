@@ -4,7 +4,6 @@ import Main from "./pages/Main";
 import Detail from "./pages/Detail";
 import Mypage from "./pages/Mypage";
 import Posting from "./pages/Posting";
-import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/mypage/:id" element={<Mypage />} />
         <Route path="/posting" element={<Posting />} />
-        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </div>
   );
