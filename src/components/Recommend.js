@@ -5,7 +5,7 @@ import "./Recommend.css";
 
 const Recommend = () => {
   const dispatch = useDispatch();
-  let memberList = useSelector((state) => state.member.memberList);
+  let memberList = useSelector((state) => state.member.memberlist);
   console.log(memberList);
 
 	const onCheckMemberList = () => {
