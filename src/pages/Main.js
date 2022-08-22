@@ -5,6 +5,7 @@ import Recommend from "../components/Recommend";
 import "./Main.css";
 
 const Main = () => {
+
   return (
     <>
       <Header />
