@@ -12,6 +12,14 @@ export const apis = {
       "Content-Type": "application/json",
     }),
 
+  checkEmail: async (email) =>
+    await api.get("/members/email-check", { params: { email: email } }),
+
+  checkNickname: async (nickname) =>
+    await api.get("/members/nickname-check", {
+      params: { nickname: nickname },
+    }),
+
   loginMember: (data) =>
     api.post("/members/login", data, {
       "Content-Type": "application/json",

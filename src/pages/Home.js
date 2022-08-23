@@ -23,11 +23,7 @@ export default function Home() {
       ></img>
       <div className="pageContainer">
         <div className="signContainer">
-          {loginPage ? (
-            <Login></Login>
-          ) : (
-            <SignUp goLoginPage={goLoginPage}></SignUp>
-          )}
+          {loginPage ? <Login></Login> : <SignUp></SignUp>}
         </div>
         <div className="buttonContainer">
           {loginPage ? (
