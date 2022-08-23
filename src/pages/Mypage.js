@@ -20,7 +20,7 @@ const Mypage = () => {
   const mypage = useSelector((state) => state.mypage.mypage.data);
   const postImageList = useSelector((state) => state.mypage.postImageList);
 
-  console.log(postImageList);
+  console.log(mypage);
 
   // const { mypage } = useSelector((state) => state.mypage);
   // (원래 이렇게 했다가 데이터 불러오는거 실패함. 경로도 틀렸고, const mypage의 중괄호도 빼야함)
@@ -32,14 +32,18 @@ const Mypage = () => {
   const [followNumber, setFollowNumber] = useState(0);
   const [postImage, setPostImage] = useState([]);
 
-  useEffect(() => {
-    dispatch(getMypageThunk());
-    dispatch(getPostImageListThunk());
-  }, [dispatch]);
+  // const isFollow (input) => {
+
+  // } ;
 
   // const onClickHandlerFollow = () => {
   //   dispatch(FollowToggle());
   // };
+
+  useEffect(() => {
+    dispatch(getMypageThunk());
+    dispatch(getPostImageListThunk());
+  }, [dispatch]);
 
   return (
     <>
@@ -56,10 +60,22 @@ const Mypage = () => {
               <div className="info-line-1">
                 <div className="user-nickname">{mypage?.nickname}</div>
                 <button className="button-send-message">메시지 보내기</button>
-                <button className="button-follow">
-                  {/* onClick={onClickHandlerFollow} */}
-                  팔로우
-                </button>
+                {/* {isFollow ? ( */}
+                {1 ? (
+                  <button className="button-follow">
+                    {/* onClick={onClickHandlerFollow} */}
+                    팔로우
+                  </button>
+                ) : (
+                  <button className="button-unfollow">
+                    {/* onClick={onClickHandlerFollow} */}
+                    팔로우 취소
+                  </button>
+                )}
+                {/* <button className="button-follow"> */}
+                {/* onClick={onClickHandlerFollow} */}
+                {/* 팔로우 */}
+                {/* </button> */}
                 <p className="info-option">•••</p>
               </div>
               <div className="info-line-2">
@@ -78,8 +94,8 @@ const Mypage = () => {
               </div>
               <div className="info-line-3">
                 <div className="mypage-username">{mypage?.username}</div>
-                <div className="mypage-bio">We Are NewJeans👖</div>
-                <div className="mypage-url">ingrv.es/NewJeans</div>
+                <div className="mypage-bio">{mypage?.bio}</div>
+                <div className="mypage-url">{mypage?.websiteUrl}</div>
               </div>
             </div>
           </div>
@@ -103,12 +119,10 @@ const Mypage = () => {
             {postImageList?.map((postImage) => {
               return (
                 <div className="div-post-image">
-                  <div className="post-image">
-                    <img
-                      className="post-image-set"
-                      src={postImage.imageUrlList[0]}
-                    />
-                  </div>
+                  <img
+                    className="post-image-set"
+                    src={postImage.imageUrlList[0]}
+                  />
                 </div>
               );
             })}

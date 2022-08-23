@@ -26,12 +26,13 @@
 
 .search-container > input {
   height: 18px;
-  width: 250px;
+  width: 230px;
   padding: 10px 20px;
   background-color: #efefef;
   border-radius: 7px;
   border: none;
   font-size: 16px;
+  margin-left: 80px;
 }
 
 .header-btn {
@@ -41,15 +42,15 @@
 }
 
 .header-btn > svg {
-  width: 25px;
+  width: 24px;
   height: 30px;
   margin-left: 22px;
   color: #262626;
 }
 
 .user-profile > img {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin-left: 22px;
   border-radius: 30px;
   background-color: #262626;
