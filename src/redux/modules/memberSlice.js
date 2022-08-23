@@ -16,17 +16,17 @@ export const asyncGetAllMembers = createAsyncThunk(
 );
 
 export const asyncGetOneMemberProfile = createAsyncThunk(
-	"postList/getOneMemberProfile",
-	async (payload, thunkAPI) => {
-		const response = await apis.getOneMemberProfile(payload);
-		
+  "postList/getOneMemberProfile",
+  async (payload, thunkAPI) => {
+    const response = await apis.getOneMemberProfile(payload);
+
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
     } else {
       return null;
     }
-	}
-)
+  }
+);
 
 //회원가입
 export const createMemberDB = (data) => {
@@ -60,8 +60,9 @@ export const loginMemberDB = (data) => {
     await apis
       .loginMember(data)
       .then((response) => {
+        console.log(response);
         if (response.data.success === false) {
-          return window.alert(response.data.error.message);
+          return window.alert(response.data.message);
         } else {
           return (
             localStorage.setItem("token", response.headers.authorization),
@@ -72,15 +73,17 @@ export const loginMemberDB = (data) => {
           );
         }
       })
-      .catch((response) => {
-        console.log(response);
+      .catch((error) => {
+        if (error.response.status === 400) {
+          window.alert(error.response.data.message);
+        }
       });
   };
 };
 
 const initialState = {
   memberlist: [],
-	member: {}
+  member: {},
 };
 
 const memberSlice = createSlice({
@@ -93,10 +96,10 @@ const memberSlice = createSlice({
       state.memberlist = action.payload;
     },
 
-		[asyncGetOneMemberProfile.fulfilled]: (state, action) => {
-			// action.payload -> member
-			state.member = action.payload;
-		}
+    [asyncGetOneMemberProfile.fulfilled]: (state, action) => {
+      // action.payload -> member
+      state.member = action.payload;
+    },
   },
 });
 
