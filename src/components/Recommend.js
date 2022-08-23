@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncGetMembers } from "../redux/modules/memberSlice";
+import { asyncGetAllMembers } from "../redux/modules/memberSlice";
 import "./Recommend.css";
 
-const Recommend = () => {
+const Recommend = ({ memberInfo }) => {
   const dispatch = useDispatch();
   let memberList = useSelector((state) => state.member.memberlist);
-  console.log(memberList);
 
   const onCheckMemberList = () => {
     if (memberList.length > 0) {
@@ -14,7 +13,7 @@ const Recommend = () => {
         .slice()
         .sort(
           (a, b) =>
-            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+            new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
         )
         .slice(0, 5);
 
@@ -40,7 +39,7 @@ const Recommend = () => {
   };
 
   useEffect(() => {
-    dispatch(asyncGetMembers());
+    dispatch(asyncGetAllMembers());
   }, [dispatch]);
 
   return (
@@ -50,9 +49,13 @@ const Recommend = () => {
         <div className="recommend-profile">
           <img
             alt="recommend-profile"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+            src={
+              memberInfo.profileUrl
+                ? memberInfo.profileUrl
+                : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+            }
           />
-          <span>nickname</span>
+          <span>{memberInfo.nickname}</span>
         </div>
         <button>전환</button>
       </div>
