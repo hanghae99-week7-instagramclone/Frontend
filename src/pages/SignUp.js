@@ -1,10 +1,15 @@
 import "./SignUp.css";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { createMemberDB } from "../redux/modules/memberSlice";
+import { apis } from "../shared/api";
 
-export default function SignUp(props) {
+export default function SignUp() {
   const dispatch = useDispatch();
+
+  const email_ref = useRef("");
+
+  const [btnState, setBtnState] = useState(false);
 
   const initialState = {
     email: "",
@@ -19,10 +24,21 @@ export default function SignUp(props) {
   const onSignUpHandler = (event) => {
     const { name, value } = event.target;
     setMember({ ...member, [name]: value });
+
+    if (
+      member.email &&
+      member.nickname &&
+      member.email &&
+      member.password &&
+      member.passwordConfirm.length > 0
+    ) {
+      setBtnState(true);
+    } else {
+      setBtnState(false);
+    }
   };
 
   const createMember = () => {
-    console.log("눌렸다");
     dispatch(
       createMemberDB({
         email: member.email,
@@ -32,6 +48,51 @@ export default function SignUp(props) {
         passwordConfirm: member.passwordConfirm,
       })
     );
+  };
+
+  const handleEmailCheck = () => {
+    if (member.email === "") {
+      alert("이메일을 입력하세요");
+      return;
+    }
+
+    apis.checkEmail(member.email).then((response) => {
+      if (response.data.data) {
+        alert("사용 가능한 아이디입니다.");
+      } else {
+        alert("사용 불가능한 아이디입니다.");
+        setMember({
+          email: "",
+          nickname: "",
+          username: "",
+          password: "",
+          passwordConfirm: "",
+        });
+      }
+    });
+  };
+
+  const handleNicknameCheck = () => {
+    apis.checkNickname(member.nickname).then((response) => {
+      console.log(response);
+      if (member.nickname === "") {
+        alert("이메일을 입력하세요");
+        return;
+      }
+
+      if (response.data.data) {
+        alert("사용 가능한 닉네임입니다.");
+      } else {
+        alert("사용 불가능한 닉네임입니다.");
+        setMember({
+          email: member.email,
+          username: member.username,
+          nickname: "",
+          password: "",
+          passwordConfirm: "",
+        });
+      }
+    });
   };
 
   return (
@@ -48,6 +109,8 @@ export default function SignUp(props) {
       <div className="signUpInput">
         <input
           onChange={onSignUpHandler}
+          onBlur={handleEmailCheck}
+          ref={email_ref}
           autoComplete="off"
           placeholder=" "
           name="email"
@@ -60,20 +123,21 @@ export default function SignUp(props) {
           onChange={onSignUpHandler}
           autoComplete="off"
           placeholder=" "
-          name="nickname"
-          value={member.nickname}
-        />
-        <label>닉네임</label>
-      </div>
-      <div className="signUpInput">
-        <input
-          onChange={onSignUpHandler}
-          autoComplete="off"
-          placeholder=" "
           name="username"
           value={member.username}
         />
         <label>사용자 이름</label>
+      </div>
+      <div className="signUpInput">
+        <input
+          onChange={onSignUpHandler}
+          onBlur={handleNicknameCheck}
+          autoComplete="off"
+          placeholder=" "
+          name="nickname"
+          value={member.nickname}
+        />
+        <label>닉네임</label>
       </div>
       <div className="signUpInput">
         <input
@@ -96,7 +160,11 @@ export default function SignUp(props) {
         />
         <label>비밀번호 확인</label>
       </div>
-      <button className="signUpButton" onClick={createMember}>
+      <button
+        className="signUpButton"
+        disabled={btnState ? false : true}
+        onClick={createMember}
+      >
         가입
       </button>
     </>

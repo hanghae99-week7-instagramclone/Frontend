@@ -52,7 +52,7 @@ export const loginMemberDB = (data) => {
         } else {
           return (
             localStorage.setItem("token", response.headers.authorization),
-            localStorage.setItem("nickname", response.data.data.id),
+            localStorage.setItem("id", response.data.data.id),
             localStorage.setItem("nickname", response.data.data.nickname),
             alert(`${localStorage.nickname}님 환영합니다.`),
             window.location.replace("/")
