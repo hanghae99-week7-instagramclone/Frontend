@@ -51,8 +51,13 @@ export default function SignUp() {
   };
 
   const handleEmailCheck = () => {
-    if (member.email === "") {
-      alert("이메일을 입력하세요");
+    let regExp =
+      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+    if (regExp.test(member.email) === false) {
+      alert("이메일 형식을 맞춰주세요");
+      setMember({
+        email: "",
+      });
       return;
     }
 
@@ -63,10 +68,6 @@ export default function SignUp() {
         alert("사용 불가능한 아이디입니다.");
         setMember({
           email: "",
-          nickname: "",
-          username: "",
-          password: "",
-          passwordConfirm: "",
         });
       }
     });
@@ -74,7 +75,6 @@ export default function SignUp() {
 
   const handleNicknameCheck = () => {
     apis.checkNickname(member.nickname).then((response) => {
-      console.log(response);
       if (member.nickname === "") {
         alert("이메일을 입력하세요");
         return;
@@ -114,7 +114,7 @@ export default function SignUp() {
           autoComplete="off"
           placeholder=" "
           name="email"
-          value={member.email}
+          value={member.email || ""}
         />
         <label>이메일</label>
       </div>
@@ -124,7 +124,7 @@ export default function SignUp() {
           autoComplete="off"
           placeholder=" "
           name="username"
-          value={member.username}
+          value={member.username || ""}
         />
         <label>사용자 이름</label>
       </div>
@@ -135,7 +135,7 @@ export default function SignUp() {
           autoComplete="off"
           placeholder=" "
           name="nickname"
-          value={member.nickname}
+          value={member.nickname || ""}
         />
         <label>닉네임</label>
       </div>
@@ -146,7 +146,7 @@ export default function SignUp() {
           type="password"
           placeholder=" "
           name="password"
-          value={member.password}
+          value={member.password || ""}
         />
         <label>비밀번호</label>
       </div>
@@ -156,7 +156,7 @@ export default function SignUp() {
           type="password"
           placeholder=" "
           name="passwordConfirm"
-          value={member.passwordConfirm}
+          value={member.passwordConfirm || ""}
         />
         <label>비밀번호 확인</label>
       </div>
