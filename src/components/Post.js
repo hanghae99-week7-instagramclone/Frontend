@@ -40,11 +40,8 @@ const Post = ({ postInfo }) => {
   }, [dispatch]);
 
   const onPostComment = () => {
-    console.log("1111111111", postInfo.id, comment);
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
-    // dispatch(asyncGetCommentsByPost(postInfo.id));
     setComment("");
-    console.log("5555555555555 finish post comment", commentList);
   };
 
   return (
@@ -147,7 +144,7 @@ const Post = ({ postInfo }) => {
           </>
         )}
 
-        <CommentList isMain={true} commentList={commentList.slice(0, 3)} />
+        <CommentList isMain={true} commentList={commentList.slice(0, 2)} />
         <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
       </div>
 

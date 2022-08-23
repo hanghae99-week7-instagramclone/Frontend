@@ -31,4 +31,6 @@ export const apis = {
     api.post(`/api/posts/${postId}/comments`, data, {
       "Content-type": "application/json",
     }),
+
+	removeComment: (postId, commentId) => api.delete(`/api/posts/${postId}/comments/${commentId}`),
 };
