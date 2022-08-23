@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Detail from "../pages/Detail";
-import { asyncGetCommentsByPost } from "../redux/modules/commentListSlice";
 import { asyncPostComment } from "../redux/modules/commentSlice";
-import { asyncGetOnePost } from "../redux/modules/postSlice";
 import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
@@ -36,7 +34,7 @@ const Post = ({ postInfo }) => {
     );
 
   useEffect(() => {
-    console.log(commentList);
+    // console.log(commentList);
   }, [dispatch]);
 
   const onPostComment = () => {
@@ -68,9 +66,7 @@ const Post = ({ postInfo }) => {
 
       {/* 글 이미지, 버튼 */}
       <div className="post-image-btn">
-        <div className="post-image">
-          <img alt="post-image" src={postInfo.imgUrlList[0]} />
-        </div>
+        <img className="post-image" alt="post-image" src={postInfo.imgUrlList[0]} />
         <div className="post-btn-list">
           <div className="post-btn-container">
             <svg aria-label="활동 피드" role="img" viewBox="0 0 24 24">
@@ -140,11 +136,12 @@ const Post = ({ postInfo }) => {
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
               postInfo={postInfo}
+							commentList={commentList}
             />
           </>
         )}
 
-        <CommentList isMain={true} commentList={commentList.slice(0, 2)} />
+        <CommentList isMain={true} commentList={commentList} />
         <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
       </div>
 

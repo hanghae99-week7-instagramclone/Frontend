@@ -3,9 +3,8 @@ import Modal from "../elements/Modal";
 import CommentList from "../components/CommentList";
 import "./Detail.css";
 import timeCalc from "../shared/time";
-import Modal2 from "../elements/Modal2";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncPostComment } from "../redux/modules/commentSlice";
+import { asyncGetCommentsByPost, asyncPostComment } from "../redux/modules/commentSlice";
 
 const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
 	const dispatch = useDispatch();
@@ -17,7 +16,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
   if (commentList.findIndex((item) => item.postId === postInfo.id) >= 0) {
     commentList = commentList[commentList.findIndex((item) => item.postId === postInfo.id)].data;
   } else {
-    commentList = postInfo.commentResponseDto;
+		dispatch(asyncGetCommentsByPost(postInfo.id));
   }
 
   commentList = commentList
@@ -39,7 +38,6 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
 
 
   return (
-		// <Modal2 width="1100px" postInfo={postInfo} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
     <Modal
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
