@@ -1,0 +1,40 @@
+/* 글 상세화면 댓글 */
+.comment-react {
+	display: flex;
+	align-items: center;
+}
+
+.comment-like {
+	margin: auto 10px;
+	color: #8e8e8e;
+	font-size: 14px;
+}
+
+.comment-option {
+	width: 30px;
+	height: 30px;
+	margin-left: 20px;
+	color: #8e8e8e;
+	background-color: transparent;
+	border: none;
+	/* display: none; */
+}
+
+.detail-content:hover {
+	display: block;
+}
+
+.comment-option-modal-wrapper {
+	text-align: center;
+	background-color: white;
+	border-radius: 20px;
+	margin: 20px auto;
+	overflow: hidden;
+}
+
+.comment-option-modal-wrapper > div {
+	font-size: 22px;
+	font-weight: bold;
+	padding: 30px 10px;
+	border-bottom: 1px solid #8e8e8e;
+}
