@@ -7,6 +7,7 @@ export default function Modal({
   children,
   width,
   outline,
+	minWidth,
   maxWidth,
   zIndex,
   borderRadius,
@@ -19,6 +20,7 @@ export default function Modal({
 
   return (
     <ModalOverlay
+			z-index={zIndex}
       modalVisible={modalVisible}
       onClick={() => setModalVisible(false)}
     >
@@ -46,11 +48,13 @@ export default function Modal({
         <ModalInner
           className="modal-inner"
           width={width}
+					minWidth={minWidth}
           maxWidth={maxWidth}
           outline={outline}
           // style={{ outline: "none" }}
           borderRadius={borderRadius}
           padding={padding}
+					z-index={zIndex}
           onClick={(e) => e.stopPropagation()}
         >
           {children}
@@ -97,9 +101,10 @@ const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-  background-color: #000;
+  background-color: transparent;
   border-radius: ${(props) => props.borderRadius};
   width: ${(props) => props.width};
+	min-width: ${(props) => props.minWidth};
   max-width: ${(props) => props.maxWidth};
   top: 50%;
   transform: translate(0, -50%);

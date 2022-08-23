@@ -16,12 +16,13 @@ const PostList = () => {
 
   useEffect(() => {
     getAllPosts();
-  }, [dispatch]);
+		console.log('postlist', postList);
+  }, [dispatch, JSON.stringify(postList)]);
 
   return (
     <div className="post_list">
       {postList.length > 0 ? (
-        postList.map((item) => <Post key={item.id} postInfo={item} />)
+        postList?.map((item) => <Post key={item.id} postInfo={item} />)
       ) : (
         <div style={{ width: "500px", textAlign: "center", marginTop: "100px"}}>글이 없습니다.</div>
       )}
