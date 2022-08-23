@@ -65,6 +65,8 @@ export default function Modal({
 }
 
 const ModalOverlay = styled.div`
+	width: 100%;
+	height: 100%;
   box-sizing: border-box;
   display: ${(props) => (props.modalVisible ? "block" : "none")};
   position: fixed;

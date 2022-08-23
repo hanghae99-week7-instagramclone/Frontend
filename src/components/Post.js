@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../elements/Modal";
 import Detail from "../pages/Detail";
+import Posting from "../pages/Posting";
 import { asyncPostComment } from "../redux/modules/commentSlice";
 import { asyncRemovePost } from "../redux/modules/postListSlice";
 import timeCalc from "../shared/time";
@@ -13,7 +14,10 @@ const Post = ({ postInfo }) => {
 
   // 모달창 여부
   const [modalVisible, setModalVisible] = useState(false);
-	const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
+  const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
+  const [modalPostingVisible, setModalPostingVisible] = useState(false);
+
+  const member = useSelector((state) => state.member.member);
 
   const [comment, setComment] = useState("");
 
@@ -43,14 +47,14 @@ const Post = ({ postInfo }) => {
 
   useEffect(() => {
     // console.log(commentList);
-  }, [dispatch]);
+  }, [dispatch, postInfo]);
 
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
   };
 
-  const removePost = (postId) => {
+  const onRemovePost = (postId) => {
     console.log("post page!!", postId);
     dispatch(asyncRemovePost(postId));
     setModalPostOptionVisible(false);
@@ -59,19 +63,36 @@ const Post = ({ postInfo }) => {
   const showPostOption = (postId) => {
     return (
       modalPostOptionVisible && (
-        <Modal
-          maxWidth="300px"
-          outline="none"
-          zIndex="200"
-          modalVisible={modalPostOptionVisible}
-          setModalVisible={setModalPostOptionVisible}
-        >
-          <div className="comment-option-modal-wrapper">
-            <div onClick={() => removePost(postId)}>삭제</div>
-            <div>수정</div>
-            <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
-          </div>
-        </Modal>
+        <>
+          <Modal
+            maxWidth="300px"
+            outline="none"
+            zIndex="50"
+            modalVisible={modalPostOptionVisible}
+            setModalVisible={setModalPostOptionVisible}
+          >
+            <div className="comment-option-modal-wrapper">
+              <div
+                onClick={() => onRemovePost(postId)}
+                className="modal-delete-btn"
+              >
+                삭제
+              </div>
+              <div onClick={() => setModalPostingVisible(true)}>수정</div>
+              <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
+            </div>
+          </Modal>
+
+          {modalPostingVisible && (
+            <Posting
+              modalPostingVisible={modalPostingVisible}
+              setModalPostingVisible={setModalPostingVisible}
+              memberInfo={member}
+              postInfo={postInfo}
+							setModalPostOptionVisible={setModalPostOptionVisible}
+            />
+          )}
+        </>
       )
     );
   };
@@ -91,7 +112,12 @@ const Post = ({ postInfo }) => {
           />
           <span>{postInfo.nickname}</span>
         </div>
-        <svg onClick={() => setModalPostOptionVisible(true)} aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
+        <svg
+          onClick={() => setModalPostOptionVisible(true)}
+          aria-label="옵션 더 보기"
+          role="img"
+          viewBox="0 0 24 24"
+        >
           <circle cx="12" cy="12" r="1.5"></circle>
           <circle cx="6" cy="12" r="1.5"></circle>
           <circle cx="18" cy="12" r="1.5"></circle>

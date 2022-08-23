@@ -20,15 +20,14 @@ const Comment = ({ comment }) => {
     return (
       commentOptionVisible && (
         <Modal
-          maxWidth="300px"
+          maxWidth="400px"
           outline="none"
           zIndex="200"
           modalVisible={commentOptionVisible}
           setModalVisible={setCommentOptionVisible}
         >
           <div className="comment-option-modal-wrapper">
-            <div onClick={() => removeComment(postId, commentId)}>삭제</div>
-            <div>수정</div>
+            <div onClick={() => removeComment(postId, commentId)} className="modal-delete-btn">삭제</div>
             <div onClick={() => setCommentOptionVisible(false)}>취소</div>
           </div>
         </Modal>
@@ -52,8 +51,6 @@ const Comment = ({ comment }) => {
 
         <div className="comment-react">
           <div className="post-createdAt">{timeCalc(comment.createdAt)}</div>
-          <div className="like comment-like">좋아요 {10}개</div>
-          <button>답글 달기</button>
 
           <button
             className="comment-option"

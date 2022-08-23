@@ -1,25 +1,31 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SwiperImage from "../components/SwiperImage";
 import Modal from "../elements/Modal";
-import { asyncWritePost } from "../redux/modules/postListSlice";
+import { asyncEditPost, asyncWritePost } from "../redux/modules/postListSlice";
 import "./Posting.css";
 
 const Posting = ({
-  postingModalVisible,
-  setPostingModalVisible,
+  modalPostingVisible,
+  setModalPostingVisible,
   memberInfo,
+  postInfo,
+  setModalPostOptionVisible,
 }) => {
-  console.log("posting page");
-	const dispatch = useDispatch();
+  console.log("posting page", postInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fileInput = useRef();
-	const [fileImage, setFileImage] = useState([]);	// image list
-  const [fileImageUrl, setFileImageUrl] = useState([]);	// image url list
-  const [writeVisible, setWriteVisible] = useState(false);
+  const [fileImage, setFileImage] = useState([]); // image list
+  const [fileImageUrl, setFileImageUrl] = useState(
+    postInfo ? postInfo.imgUrlList : [],
+  ); // image url list
+  const [writeVisible, setWriteVisible] = useState(postInfo ? true : false);
   // const [postingWriteVisible, setPostingWriteVisible] = useState(false);
 
-  const [posting, setPosting] = useState("");
+  const [posting, setPosting] = useState(postInfo ? postInfo.content : "");
 
   const onImgChange = (e) => {
     const imgList = e.target.files;
@@ -31,50 +37,66 @@ const Posting = ({
     }
     console.log(imgUrlList);
 
-		setFileImage(imgList);
+    setFileImage(imgList);
     setFileImageUrl(imgUrlList);
     setWriteVisible(true);
   };
 
   const onClickBackBtn = () => {
-    setWriteVisible(false);
-		setFileImage([]);
-    setFileImageUrl([]);
+    if (postInfo) {
+			setModalPostOptionVisible(false);
+      setModalPostingVisible(false);
+    } else {
+      setWriteVisible(false);
+      setFileImage([]);
+      setFileImageUrl([]);
+    }
   };
 
   const onClickPostBtn = () => {
-		if (posting === '' || fileImageUrl === []) {
-			alert("글을 작성해주세요");
-		} else {
-			let formData = new FormData();
+    if (posting === "" || fileImageUrl === []) {
+      alert("글을 작성해주세요");
+    } else {
+      let formData = new FormData();
 
-			const data = {
-				content: posting
-			};
+      const data = {
+        content: posting,
+      };
 
-			for (let i=0; i<fileImage.length; i++) {
-				formData.append('multipartFile', fileImage[i]);
-			}
+      for (let i = 0; i < fileImage.length; i++) {
+        formData.append("multipartFile", fileImage[i]);
+      }
 
-			// formData.append('multipartFile', fileImage);
-			formData.append('postRequestDto', new Blob([JSON.stringify(data)], {
-				type: 'application/json',
-			}));
+      // formData.append('multipartFile', fileImage);
+      formData.append(
+        "postRequestDto",
+        new Blob([JSON.stringify(data)], {
+          type: "application/json",
+        }),
+      );
 
-			for (const keyValue of formData) console.log(keyValue); 
-			
-			dispatch(asyncWritePost(formData));
-			setPostingModalVisible(false);
-			console.log('finish dispatch')
-		}
+      for (const keyValue of formData) console.log(keyValue);
+
+      if (postInfo) {
+        dispatch(asyncEditPost({ data: formData, postId: postInfo.id }));
+        setModalPostOptionVisible(false);
+        // navigate('/')
+        // window.location.replace('/')
+      } else {
+        dispatch(asyncWritePost(formData));
+      }
+
+      setModalPostingVisible(false);
+      console.log("finish dispatch");
+    }
   };
 
   return (
     <Modal
-      modalVisible={postingModalVisible}
-      setModalVisible={setPostingModalVisible}
+      modalVisible={modalPostingVisible}
+      setModalVisible={setModalPostingVisible}
       width="60%"
-			minWidth="700px"
+      minWidth="700px"
       maxWidth="1100px"
       outline="none"
       zIndex="100"
@@ -103,7 +125,7 @@ const Posting = ({
               className="modal-posting-img-preview"
               style={{ display: "flex" }}
             >
-              <SwiperImage data={fileImageUrl} />
+              {/* <SwiperImage data={fileImageUrl} /> */}
               <img src={fileImageUrl[0]} alt="" />
             </div>
             <div className="modal-posting-write-wrap">
@@ -131,11 +153,11 @@ const Posting = ({
                     onChange={(e) => setPosting(e.target.value)}
                   ></textarea>
                 </div>
-								<div className="modal-posting-etc">
-	                <div>위치 추가</div>
-	                <div>접근성</div>
-	                <div>고급 설정</div>
-								</div>
+                <div className="modal-posting-etc">
+                  <div>위치 추가</div>
+                  <div>접근성</div>
+                  <div>고급 설정</div>
+                </div>
               </div>
             </div>
           </div>

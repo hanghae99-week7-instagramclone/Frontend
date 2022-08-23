@@ -39,6 +39,12 @@ export const apis = {
 		}
 	}),
 
+	editPost: (data, postId) => api.put(`/api/posts/${postId}`, data, {
+		headers: {
+			"Content-Type": "multipart/form-data"
+		}
+	}),
+
 	removePost: (postId) => api.delete(`/api/posts/${postId}`),
 
 	getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
