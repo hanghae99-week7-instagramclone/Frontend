@@ -37,8 +37,13 @@
 	color: #262626
 }
 
-.post-image > img {
+.post-image-btn {
 	width: 100%;
+}
+
+.post-image-btn > img {
+	width: 100%;
+	height: auto;
 }
 
 .post-btn-list {

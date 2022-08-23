@@ -27,11 +27,19 @@ export const apis = {
 
   getAllMembers: () => api.get("/members"),
 
-	getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
+  getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
 
   getAllPosts: () => api.get("/api/posts"),
 
-	getOnePost: (postId) => api.get(`/api/posts/${postId}`),
+  getOnePost: (postId) => api.get(`/api/posts/${postId}`),
+
+	writePost: (data) => api.post('/api/posts', data, {
+		headers: {
+			"Content-Type": "multipart/form-data"
+		}
+	}),
+
+	removePost: (postId) => api.delete(`/api/posts/${postId}`),
 
 	getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
 
@@ -40,5 +48,6 @@ export const apis = {
       "Content-type": "application/json",
     }),
 
-	removeComment: (postId, commentId) => api.delete(`/api/posts/${postId}/comments/${commentId}`),
+  removeComment: (postId, commentId) =>
+    api.delete(`/api/posts/${postId}/comments/${commentId}`),
 };

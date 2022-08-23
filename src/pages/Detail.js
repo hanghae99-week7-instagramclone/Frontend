@@ -4,7 +4,7 @@ import CommentList from "../components/CommentList";
 import "./Detail.css";
 import timeCalc from "../shared/time";
 import { useDispatch, useSelector } from "react-redux";
-import { asyncPostComment } from "../redux/modules/commentSlice";
+import { asyncGetCommentsByPost, asyncPostComment } from "../redux/modules/commentSlice";
 
 const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
       commentList[commentList.findIndex((item) => item.postId === postInfo.id)]
         .data;
   } else {
-    commentList = postInfo.commentResponseDto;
+		dispatch(asyncGetCommentsByPost(postInfo.id));
   }
 
   commentList = commentList
@@ -50,7 +50,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
         <div className="modal-image">
           <img
             alt="modal-image"
-            src="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/82895319_3086466004790781_4663987480163254272_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=973b4a&_nc_ohc=Fnpfjr8-wTIAX_LMcoE&_nc_ht=scontent-ssn1-1.xx&oh=00_AT_DyCQEirCRa6Ge5WrCsFI3K-6rI3Q_K7LYK1qidBdB0w&oe=6324D52C"
+            src={postInfo.imgUrlList[0]}
           />
         </div>
 

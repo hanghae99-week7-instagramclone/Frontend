@@ -17,7 +17,7 @@ const Main = () => {
 
   return (
     <>
-      <Header />
+      <Header memberInfo={member}/>
       <div className="main-content">
         <PostList />
 				<Recommend memberInfo={member}/>

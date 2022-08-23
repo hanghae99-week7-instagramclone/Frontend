@@ -29,7 +29,7 @@ const Comment = ({ comment }) => {
           <div className="comment-option-modal-wrapper">
             <div onClick={() => removeComment(postId, commentId)}>삭제</div>
             <div>수정</div>
-            <div>취소</div>
+            <div onClick={() => setCommentOptionVisible(false)}>취소</div>
           </div>
         </Modal>
       )
