@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Modal from "../elements/Modal";
 import Detail from "../pages/Detail";
-import { asyncGetCommentsByPost } from "../redux/modules/commentListSlice";
 import { asyncPostComment } from "../redux/modules/commentSlice";
-import { asyncGetOnePost } from "../redux/modules/postSlice";
+import { asyncRemovePost } from "../redux/modules/postListSlice";
 import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
@@ -13,6 +13,7 @@ const Post = ({ postInfo }) => {
 
   // 모달창 여부
   const [modalVisible, setModalVisible] = useState(false);
+	const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
 
   const [comment, setComment] = useState("");
 
@@ -23,25 +24,56 @@ const Post = ({ postInfo }) => {
   let commentList = useSelector((state) => state.comment.commentlist);
 
   if (commentList.findIndex((item) => item.postId === postInfo.id) >= 0) {
-    commentList = commentList[commentList.findIndex((item) => item.postId === postInfo.id)].data;
+    commentList =
+      commentList[commentList.findIndex((item) => item.postId === postInfo.id)]
+        .data;
   } else {
     commentList = postInfo.commentResponseDto;
   }
 
-  commentList = commentList
-    .slice()
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
-    );
+  // console.log("Post commentlist", commentList);
+  if (commentList) {
+    commentList = commentList
+      .slice()
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+      );
+  }
 
   useEffect(() => {
-    console.log(commentList);
+    // console.log(commentList);
   }, [dispatch]);
 
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
+  };
+
+  const removePost = (postId) => {
+    console.log("post page!!", postId);
+    dispatch(asyncRemovePost(postId));
+    setModalPostOptionVisible(false);
+  };
+
+  const showPostOption = (postId) => {
+    return (
+      modalPostOptionVisible && (
+        <Modal
+          maxWidth="300px"
+          outline="none"
+          zIndex="200"
+          modalVisible={modalPostOptionVisible}
+          setModalVisible={setModalPostOptionVisible}
+        >
+          <div className="comment-option-modal-wrapper">
+            <div onClick={() => removePost(postId)}>삭제</div>
+            <div>수정</div>
+            <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
+          </div>
+        </Modal>
+      )
+    );
   };
 
   return (
@@ -59,18 +91,21 @@ const Post = ({ postInfo }) => {
           />
           <span>{postInfo.nickname}</span>
         </div>
-        <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
+        <svg onClick={() => setModalPostOptionVisible(true)} aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="1.5"></circle>
           <circle cx="6" cy="12" r="1.5"></circle>
           <circle cx="18" cy="12" r="1.5"></circle>
         </svg>
+        {showPostOption(postInfo.id)}
       </div>
 
       {/* 글 이미지, 버튼 */}
       <div className="post-image-btn">
-        <div className="post-image">
-          <img alt="post-image" src={postInfo.imgUrlList[0]} />
-        </div>
+        <img
+          className="post-image"
+          alt="post-image"
+          src={postInfo.imgUrlList[0]}
+        />
         <div className="post-btn-list">
           <div className="post-btn-container">
             <svg aria-label="활동 피드" role="img" viewBox="0 0 24 24">
@@ -125,14 +160,19 @@ const Post = ({ postInfo }) => {
 
       {/* 글 내용, 댓글 */}
       <div className="post-content-container">
-        <div className="like">좋아요 {postInfo.likeResponseDto.length}개</div>
+        <div className="like">좋아요 {postInfo.likeResponseDto?.length}개</div>
         <div className="post-content">
           <span className="post-nickname">{postInfo.nickname}</span>
           <span>{postInfo.content}</span>
         </div>
-        <div className="post-comment-num" onClick={() => setModalVisible(true)}>
-          댓글 {commentList.length}개 모두 보기
-        </div>
+        {commentList ? (
+          <div
+            className="post-comment-num"
+            onClick={() => setModalVisible(true)}
+          >
+            댓글 {commentList.length}개 모두 보기
+          </div>
+        ) : null}
         {/* 글 상세보기 */}
         {modalVisible && (
           <>
@@ -140,11 +180,14 @@ const Post = ({ postInfo }) => {
               modalVisible={modalVisible}
               setModalVisible={setModalVisible}
               postInfo={postInfo}
+              commentList={commentList}
             />
           </>
         )}
 
-        <CommentList isMain={true} commentList={commentList.slice(0, 2)} />
+        {commentList ? (
+          <CommentList isMain={true} commentList={commentList} />
+        ) : null}
         <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
       </div>
 
