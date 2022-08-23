@@ -89,6 +89,18 @@
   cursor: pointer;
   margin: 0px 18px 0px 0px;
 }
+
+.button-unfollow {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 12px 6px 13px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0px 18px 0px 0px;
+}
+
 .info-option {
   cursor: pointer;
   padding-bottom: 3px;
@@ -205,7 +217,7 @@
 
   letter-spacing: 1px;
   margin: 0;
-  padding: 6px 0px 14px 0px;
+  padding: 8px 0px 16px 0px;
   position: relative;
   text-align: center;
   vertical-align: baseline;
@@ -224,65 +236,74 @@
 }
 
 .navbar-posts {
+  /* border: 1px solid black; */
   padding: 0px 65px 0px 0px;
+  cursor: pointer;
   background-color: ;
 }
 
 .navbar-reels-icon {
+  color: rgb(155, 155, 155);
   padding: 2px 6px 0px 0px;
   font-size: 14px;
   background-color: ;
 }
 
 .navbar-reels {
+  color: rgb(155, 155, 155);
   padding: 0px 65px 0px 0px;
   background-color: ;
 }
 
 .navbar-tagged-icon {
-  padding: 4px 6px 0px 0px;
-  font-size: 16px;
+  color: rgb(155, 155, 155);
+  padding: 3px 6px 0px 0px;
+  font-size: 15px;
   background-color: ;
 }
 
 .navbar-tagged {
+  color: rgb(155, 155, 155);
   background-color: ;
 }
 
 .post-box {
   /* height: 400px; */
+  /* height: 100%; */
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
+  overflow: hidden;
+  /* object-fit: contain; */
+
   /* background-color: lightseagreen; */
 }
 
 .div-post-image {
   width: 295px;
   height: 295px;
+  margin-bottom: 28px;
+  background-size: contain;
+  box-sizing: border-box;
   /* border: 1px solid black; */
-  background-color: pink;
-}
-
-.post-image {
-  width: 295px;
-  height: 295px;
-  background-size: cover;
-
-  /* display: flex;
+  /* background-size: cover; */
+  overflow: hidden;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center; */
-
+  /* align-items: center; */
+  background-color: pink;
   /* background-image: url("https://i.pinimg.com/originals/d1/06/9f/d1069fdb4aab2a9e5eb862895d9c4c0b.jpg"); */
 }
 
 .post-image-set {
   /* max-width: 295px; */
   /* max-height: 295px; */
+  object-fit: cover;
+  /* ㄴ이미지가 div에 꽉차게 하는 속성 */
   width: 100%;
-  height: 100%;
-  /* background-repeat: no-repeat; */
-  background-size: cover;
+  height: auto;
+  /* background-size: contain; */
 }

@@ -27,18 +27,19 @@ export const apis = {
 
   getAllMembers: () => api.get("/members"),
 
-	getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
+  getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
 
   getAllPosts: () => api.get("/api/posts"),
 
-	getOnePost: (postId) => api.get(`/api/posts/${postId}`),
+  getOnePost: (postId) => api.get(`/api/posts/${postId}`),
 
-	getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
+  getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
 
   writeComment: (data, postId) =>
     api.post(`/api/posts/${postId}/comments`, data, {
       "Content-type": "application/json",
     }),
 
-	removeComment: (postId, commentId) => api.delete(`/api/posts/${postId}/comments/${commentId}`),
+  removeComment: (postId, commentId) =>
+    api.delete(`/api/posts/${postId}/comments/${commentId}`),
 };

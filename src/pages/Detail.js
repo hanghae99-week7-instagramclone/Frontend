@@ -3,19 +3,20 @@ import Modal from "../elements/Modal";
 import CommentList from "../components/CommentList";
 import "./Detail.css";
 import timeCalc from "../shared/time";
-import Modal2 from "../elements/Modal2";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncPostComment } from "../redux/modules/commentSlice";
 
 const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   let commentList = useSelector((state) => state.comment.commentlist);
 
   if (commentList.findIndex((item) => item.postId === postInfo.id) >= 0) {
-    commentList = commentList[commentList.findIndex((item) => item.postId === postInfo.id)].data;
+    commentList =
+      commentList[commentList.findIndex((item) => item.postId === postInfo.id)]
+        .data;
   } else {
     commentList = postInfo.commentResponseDto;
   }
@@ -24,28 +25,25 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
     .slice()
     .sort(
       (a, b) =>
-        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
     );
 
   useEffect(() => {
     console.log(commentList);
   }, [dispatch]);
 
-	
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
   };
 
-
   return (
-		// <Modal2 width="1100px" postInfo={postInfo} modalVisible={modalVisible} setModalVisible={setModalVisible}/>
     <Modal
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       maxWidth="1100px"
       outline="none"
-			zIndex="100"
+      zIndex="100"
     >
       <div className="modal-wrapper">
         {/* 왼쪽 이미지 */}
@@ -56,7 +54,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
           />
         </div>
 
-        {/* 오른쪽 글, 댓글 */} 
+        {/* 오른쪽 글, 댓글 */}
         <div className="modal-content">
           <div className="post-header detail-header">
             <div className="post-user-profile">
@@ -88,12 +86,18 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
               <div className="post-content detail-content">
                 <span className="post-nickname">{postInfo.nickname}</span>
                 <span>{postInfo.content}</span>
-                <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
+                <div className="post-createdAt">
+                  {timeCalc(postInfo.createdAt)}
+                </div>
               </div>
             </div>
 
             {/* 댓글 목록 */}
-            <CommentList isMain={false} postId={postInfo.id} commentList={commentList} />
+            <CommentList
+              isMain={false}
+              postId={postInfo.id}
+              commentList={commentList}
+            />
           </div>
 
           {/* 버튼 목록 */}
@@ -152,7 +156,9 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
 
           {/* 좋아요 개수, 글 작성 시간 */}
           <div className="detail-content-info">
-            <div className="like">좋아요 {postInfo.likeResponseDto.length}개</div>
+            <div className="like">
+              좋아요 {postInfo.likeResponseDto.length}개
+            </div>
             <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
           </div>
 
@@ -164,11 +170,15 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
               </svg>
             </div>
             <div className="post-comment-input">
-              <textarea type="text" placeholder="댓글 달기..." value={comment} onChange={(e) => setComment(e.target.value)}></textarea>
+              <textarea
+                type="text"
+                placeholder="댓글 달기..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+              ></textarea>
             </div>
             <button onClick={() => onPostComment()}>게시</button>
           </div>
-
         </div>
       </div>
     </Modal>
