@@ -6,7 +6,7 @@ const Header = () => {
 	const navigate = useNavigate();
 
   return (
-		<>
+    <>
       <div className="header">
         <div className="header-container">
           <img
@@ -115,8 +115,8 @@ const Header = () => {
           </div>
         </div>
       </div>
-		</>
-	);
+    </>
+  );
 };
 
 export default Header;
