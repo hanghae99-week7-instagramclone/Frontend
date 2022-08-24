@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  mypage: [],
+  mypage: {},
   //stateOfFollow: false,
   postImageList: [],
   isLoading: false,
@@ -19,6 +19,20 @@ export const getMypageThunk = createAsyncThunk(
         `http://43.200.178.245/api/profile/${payload}`
       );
       return thunkAPI.fulfillWithValue(data.data.data); // 엑스트라 리듀서로 넘겨줌
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
+    }
+  }
+);
+
+export const changeFollowerThunk = createAsyncThunk(
+  "follower/getfollowerThunk",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.post(
+        `http://43.200.178.245/api/follow/${payload}` //toMemberId
+      );
+      return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
       return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
     }
@@ -83,6 +97,22 @@ export const mypageSlice = createSlice({
       state.postImageList = action.payload; // Store에 있는 mypage에 서버에서 가져온 mypage를 넣습니다.
     },
     [getPostImageListThunk.rejected]: (state, action) => {
+      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
+      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+      console.log("this is error");
+    },
+
+    //아래는 follow 추가하는 thunk
+    [changeFollowerThunk.pending]: (state) => {
+      // 데이터를 가져오는 중
+      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
+    },
+    [changeFollowerThunk.fulfilled]: (state, action) => {
+      state.mypage.followers = action.payload; // followers 자리에 api바뀐 값 기재하기
+      // isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
+      console.log("팔로우 성공");
+    },
+    [changeFollowerThunk.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
       console.log("this is error");
