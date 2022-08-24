@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import styled from "styled-components";
 
-const SwiperImage = ({ data, zIndex, maxWidth, minHeight }) => {
+const SwiperImage = ({ data, maxWidth, minHeight }) => {
   const ref = useRef(null);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
@@ -31,7 +31,7 @@ const SwiperImage = ({ data, zIndex, maxWidth, minHeight }) => {
   };
 
   return (
-    <SwiperContainer zIndex={zIndex} maxWidth={maxWidth}>
+    <SwiperContainer maxWidth={maxWidth}>
       <SwiperShowContainer ref={ref} style={style}>
         {data?.map((item, idx) => {
           return <SwipeImage key={idx} src={item} minHeight={minHeight}/>;
@@ -57,8 +57,6 @@ const SwiperContainer = styled.div`
   max-width: ${(props) => props.maxWidth};
   position: relative;
   overflow: hidden;
-	z-index: 0;
-	/* z-index: ${(props) => props.zIndex}; */
 `;
 
 const SwiperShowContainer = styled.div`

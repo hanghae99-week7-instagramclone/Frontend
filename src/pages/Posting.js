@@ -123,7 +123,7 @@ const Posting = ({
               className="modal-posting-img-preview"
               style={{ display: "flex" }}
             >
-              <SwiperImage data={fileImageUrl} zIndex="200"/>
+              <SwiperImage data={fileImageUrl}/>
               {/* <img src={fileImageUrl[0]} alt="" /> */}
             </div>
             <div className="modal-posting-write-wrap">

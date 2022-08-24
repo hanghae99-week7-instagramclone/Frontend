@@ -59,6 +59,7 @@ const ReviseMypage = () => {
 
   useEffect(() => {
     //memberId값을 넣어야함
+
     dispatch(asyncGetOneMemberProfile(localStorage.getItem("id")));
   }, [dispatch, member]);
 
@@ -76,6 +77,8 @@ const ReviseMypage = () => {
     websiteUrl: "",
     bio: "",
   };
+  //dispatch(putReviseThunk(reviseUserInfo.id));
+
   const [reviseProfile, setReviseProfile] = useState(initialState);
 
   const onChangeHandler = (e) => {
@@ -124,7 +127,7 @@ const ReviseMypage = () => {
       }
     });
   };
-
+  
   return (
     <>
       <Header />
@@ -172,13 +175,14 @@ const ReviseMypage = () => {
             ></input>
           </div>
           <div className="revise-line-3">
-            <div className="revise-nickname">사용자 이름</div>
+            <div className="revise-nickname">닉네임</div>
             <input
               className="revise-nickname-input"
               type="text"
               value={reviseProfile.nickname || ""}
               name="nickname"
               onChange={onChangeHandler}
+              
               onBlur={handleNicknameCheck}
               placeholder={member.nickname}
             ></input>
