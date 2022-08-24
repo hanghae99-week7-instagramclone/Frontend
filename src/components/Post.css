@@ -1,7 +1,7 @@
 .post {
-	width: 500px;
+	width: 480px;
 	margin: 20px 0px;
-	border: 1px solid #262626;
+	border: 1px solid #d3d3d3;
 	border-radius: 10px;
 	background-color: white;
 }
@@ -24,7 +24,7 @@
 	width: 40px;
 	height: 40px;
 	border-radius: 30px;
-	background-color: #262626;
+	/* background-color: #262626; */
 }
 
 .post-user-profile > span {
@@ -34,7 +34,7 @@
 .post-header > svg {
 	width: 30px;
 	height: 30px;
-	color: #262626
+	color: black
 }
 
 .post-image-btn {
@@ -56,19 +56,19 @@
 	width: 30px;
 	height: 30px;
 	margin-right: 20px;
-	color: #262626
+	color: black
 }
 
 .post-btn-save-container > svg {
 	width: 30px;
 	height: 30px;
-	color: #262626
+	color: black
 }
 
 .post-content-container {
 	padding: 0 20px 20px 20px;
 	font-size: 16px;
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #d3d3d3;
 }
 
 .like {

@@ -1,7 +1,7 @@
 .layout {
   display: flex;
   background-color: #fafafa;
-  height: 100vh;
+  height: 100%;
   border: none;
   position: static;
   justify-content: start;

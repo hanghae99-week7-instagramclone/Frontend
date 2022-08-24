@@ -1,7 +1,7 @@
 .recommend-container {
-	width: 400px;
+	width: 300px;
 	height: fit-content;
-	margin: 20px 50px;
+	margin: 20px 30px;
 	/* background-color: aliceblue; */
 }
 
@@ -19,15 +19,16 @@
 }
 
 .recommend-profile > img {
-	width: 40px;
-	height: 40px;
-	margin-right: 10px;
+	width: 56px;
+	height: 56px;
+	margin-right: 20px;
 	border-radius: 30px;
-	background-color: #262626;
 }
 
 .recommend-content {
 	margin: 10px auto;
+	font-size: 15px;
+	color: #8e8e8e;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -43,13 +44,11 @@
 .recommend-user-profile {
 	display: flex;
 	align-items: center;
-	font-weight: bold;
 }
 
 .recommend-user-profile > img {
 	width: 32px;
 	height: 32px;
-	margin-right: 10px;
+	margin-right: 20px;
 	border-radius: 30px;
-	background-color: #262626;
 }

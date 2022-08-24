@@ -16,7 +16,7 @@ const PostList = () => {
 
   useEffect(() => {
     getAllPosts();
-		console.log('postlist', postList);
+		// console.log('postlist', postList);
   }, [dispatch, JSON.stringify(postList)]);
 
   return (
