@@ -55,13 +55,11 @@ const ReviseMypage = () => {
 
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     //memberId값을 넣어야함
     dispatch(getMypageThunk(memberId));
   }, [dispatch, memberId]);
-  
-  
+
   //input 태그 안에 value에다가 값이 저장 -> 1. state 바꿔놔야함(어떻게 바꾸는지)
 
   //2. onclick 했을 때
@@ -75,8 +73,8 @@ const ReviseMypage = () => {
 
     formData.append("image", fileImage);
 
-    dispatch(putReviseThunk({ formData, memberId }))   
-}
+    dispatch(putReviseThunk({ formData, memberId }));
+  };
 
   const initialState = {
     nickname: "",
@@ -85,16 +83,15 @@ const ReviseMypage = () => {
     bio: "",
   };
 
- //dispatch(putReviseThunk(reviseUserInfo.id));
+  //dispatch(putReviseThunk(reviseUserInfo.id));
 
   const [reviseProfile, setReviseProfile] = useState(initialState);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setReviseProfile({ ...reviseProfile, [name]: value });
-
   };
-  
+
   return (
     <>
       <Header />
@@ -140,14 +137,14 @@ const ReviseMypage = () => {
             ></input>
           </div>
           <div className="revise-line-3">
-            <div className="revise-nickname">사용자 이름</div>
+            <div className="revise-nickname">닉네임</div>
             <input
               className="revise-nickname-input"
               type="text"
               value={reviseProfile.nickname}
               name="nickname"
               onChange={onChangeHandler}
-              placeholder="사용자 이름"
+              placeholder="닉네임"
             ></input>
           </div>
           <div className="revise-line-4">

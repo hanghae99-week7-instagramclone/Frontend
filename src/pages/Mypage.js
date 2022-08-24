@@ -10,12 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getMypageThunk,
   getPostImageListThunk,
+  followEventThunk,
 } from "../redux/modules/mypageSlice";
-import FollowToggle from "../redux/modules/mypageSlice";
+import {
+  FollowToggle,
+  changeFollowerThunk,
+} from "../redux/modules/mypageSlice";
 import postListSlice from "../redux/modules/postListSlice";
 import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
+  const memberId = localStorage.getItem("id");
   const dispatch = useDispatch();
   //const { isLoading, error, mypage, stateOfFollow } = useSelector(
   const navigate = useNavigate();
@@ -33,6 +38,18 @@ const Mypage = () => {
   const [followerNumber, setFollowerNumber] = useState(0);
   const [followNumber, setFollowNumber] = useState(0);
   const [postImage, setPostImage] = useState([]);
+
+  const [follow, setFollow] = useState(false);
+
+  // const onClickHandlerFollow = (e) => {
+  //   const { name, value } = e.target;
+  //   if (follow == true) setFollow(false);
+  //   else {
+  //     setFollow(true);
+  //   }
+  // };
+
+  const isMe = mypage?.id != memberId;
 
   //mypage -> 프로필 수정 -> 지금 페이지 주인(??) == 로그인한 사람(localstorage)
 
@@ -53,13 +70,10 @@ const Mypage = () => {
   //   dispatch(FollowToggle());
   // };
 
-  //TODO
-  const tempMemberId = 23;
-
   useEffect(() => {
     //memberId값을 넣어야함
-    dispatch(getMypageThunk(tempMemberId));
-    dispatch(getPostImageListThunk(tempMemberId));
+    dispatch(getMypageThunk(memberId));
+    dispatch(getPostImageListThunk(memberId));
   }, [dispatch]);
 
   // 프로필 수정 버튼에서
@@ -104,26 +118,38 @@ const Mypage = () => {
             <div className="right-info">
               <div className="info-line-1">
                 <div className="user-nickname">{mypage?.nickname}</div>
-                <button
-                  onClick={() => {
-                    navigate("/ReviseMypage");
-                  }}
-                  className="button-lets-revise-mypage"
-                >
-                  프로필 편집
-                </button>
-                <button className="button-send-message">메시지 보내기</button>
-                {1 ? (
-                  <button className="button-follow">
-                    {/* onClick={onClickHandlerFollow} */}
-                    팔로우
+                {isMe ? (
+                  <button
+                    onClick={() => {
+                      navigate("/ReviseMypage");
+                    }}
+                    className="button-lets-revise-mypage"
+                  >
+                    프로필 편집
                   </button>
-                ) : (
-                  <button className="button-unfollow">
-                    {/* onClick={onClickHandlerFollow} */}
+                ) : null}
+
+                {isMe ? null : (
+                  <button className="button-send-message">메시지 보내기</button>
+                )}
+
+                {isMe ? null : follow ? (
+                  //follow자리에 mypage.~~ 넣기.
+                  <button
+                    className="button-unfollow"
+                    onClick={() => dispatch(changeFollowerThunk(mypage.id))}
+                  >
                     팔로우 취소
                   </button>
+                ) : (
+                  <button
+                    className="button-follow"
+                    onClick={() => dispatch(changeFollowerThunk(mypage.id))}
+                  >
+                    팔로우
+                  </button>
                 )}
+
                 <p className="info-option">•••</p>
               </div>
               <div className="info-line-2">
