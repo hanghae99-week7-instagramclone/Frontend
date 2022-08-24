@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { asyncGetCommentsByPost, asyncPostComment } from "../redux/modules/commentSlice";
 import { asyncRemovePost } from "../redux/modules/postListSlice";
 import Posting from "./Posting";
+import SwiperImage from "../components/SwiperImage";
 
 const Detail = ({ modalVisible, setModalVisible, postInfo, memberInfo }) => {
   const dispatch = useDispatch();
@@ -93,17 +94,19 @@ const Detail = ({ modalVisible, setModalVisible, postInfo, memberInfo }) => {
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
       maxWidth="1100px"
+			minHeight="600px"
       outline="none"
       zIndex="100"
     >
       <div className="modal-wrapper">
         {/* 왼쪽 이미지 */}
         <div className="modal-image">
-          <img
+          {/* <img
             alt="modal-image"
             src={postInfo.imgUrlList[0]}
-          />
+          /> */}
         </div>
+				<SwiperImage data={postInfo.imgUrlList} maxWidth="600px" minHeight="600px"/>
 
         {/* 오른쪽 글, 댓글 */}
         <div className="modal-content">

@@ -37,12 +37,12 @@
 .modal-image {
 	display: flex;
 	align-items: center;
+	min-height: 600px;
 }
 
 .modal-image > img {
 	/* position: inherit; */
 	max-width: 600px;
-	min-height: 600px;
 	background-color: black;
 	object-fit: contain;
 }
