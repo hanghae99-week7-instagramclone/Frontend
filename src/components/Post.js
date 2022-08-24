@@ -56,6 +56,7 @@ const Post = ({ postInfo }) => {
   }
 	
   useEffect(() => {
+		// console.log(postInfo);
 		
 		// if (post.length === 0) {
 		// 	dispatch(asyncGetOnePost(postInfo.id));
@@ -136,7 +137,7 @@ const Post = ({ postInfo }) => {
       <div className="post-header">
         <div className="post-user-profile">
           <img
-            // onClick={() => navigate(`/mypage/${postInfo.nickname}`)}
+            onClick={() => navigate(`/mypage/${postInfo.authorId}`)}
             alt="post-user-profile"
             src={
               postInfo.profileUrl

@@ -20,6 +20,7 @@ export const asyncGetOneMemberProfile = createAsyncThunk(
   async (payload, thunkAPI) => {
     const response = await apis.getOneMemberProfile(payload);
 
+		// console.log(response);
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
     } else {

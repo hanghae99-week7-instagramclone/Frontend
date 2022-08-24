@@ -158,8 +158,7 @@ const Posting = ({
         ) : (
           <div className="modal-posting-content">
             <div>사진과 동영상을 여기에 끌어다 놓으세요</div>
-            <button className="modal-posting-img-btn">
-              <label htmlFor="file">컴퓨터에서 선택</label>
+            <div className="modal-posting-choose-img">
               <input
                 type="file"
                 multiple="multiple"
@@ -168,7 +167,15 @@ const Posting = ({
                 accept="image/*"
                 onChange={onImgChange}
               />
-            </button>
+              <div
+                className="modal-posting-img-btn"
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+              >
+                컴퓨터에서 선택
+              </div>
+            </div>
           </div>
         )}
       </div>

@@ -7,7 +7,7 @@ const Recommend = ({ memberInfo }) => {
   const dispatch = useDispatch();
   let memberList = useSelector((state) => state.member.memberlist);
 	
-	console.log(memberList);
+	// console.log(memberList);
 	useEffect(() => {
 	}, [memberList])
 
@@ -20,7 +20,7 @@ const Recommend = ({ memberInfo }) => {
 				new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
         )
         .slice(0, 5);
-			console.log(memberList);
+			// console.log(memberList);
 
       return (
         <div className="recommend-user-list">
