@@ -28,7 +28,7 @@ export default function SignUp() {
     if (
       member.email &&
       member.nickname &&
-      member.email &&
+      member.username &&
       member.password &&
       member.passwordConfirm.length > 0
     ) {
@@ -75,11 +75,6 @@ export default function SignUp() {
 
   const handleNicknameCheck = () => {
     apis.checkNickname(member.nickname).then((response) => {
-      if (member.nickname === "") {
-        alert("이메일을 입력하세요");
-        return;
-      }
-
       if (response.data.data) {
         alert("사용 가능한 닉네임입니다.");
       } else {
@@ -88,8 +83,6 @@ export default function SignUp() {
           email: member.email,
           username: member.username,
           nickname: "",
-          password: "",
-          passwordConfirm: "",
         });
       }
     });

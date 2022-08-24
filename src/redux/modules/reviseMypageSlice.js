@@ -4,14 +4,7 @@ import axios from "axios";
 import { apis } from "../../shared/api";
 
 const initialState = {
-  mypage: {
-    username: "",
-    nickname: "",
-    url: "",
-    bio: "",
-    isLoading: false,
-    error: null,
-  },
+  mypage: {},
 };
 
 // Thunk 미들웨어 함수
@@ -19,15 +12,12 @@ export const putReviseThunk = createAsyncThunk(
   "revise/putRevise",
   async (payload, thunkAPI) => {
     try {
-
       const data = await apis.editMyPage(payload.memberId, payload.formData);
-
-   //   const data = await axios.put(
-   //     `http://43.200.178.245/api/profile/${payload}`,
-   //     payload
-   //   );
-
-      console.log(data);
+      //   const data = await axios.put(
+      //     `http://43.200.178.245/api/profile/${payload}`,
+      //     payload
+      //   );
+      console.log(data.data);
       return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
       return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
