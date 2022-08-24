@@ -19,10 +19,10 @@ const Mypage = () => {
   const dispatch = useDispatch();
   //const { isLoading, error, mypage, stateOfFollow } = useSelector(
   const navigate = useNavigate();
-  const mypage = useSelector((state) => state.mypage.mypage.data);
+  const mypage = useSelector((state) => state.mypage.mypage);
   const postImageList = useSelector((state) => state.mypage.postImageList);
 
-  console.log(mypage);
+  console.log("Checking mypage", mypage);
 
   // const { mypage } = useSelector((state) => state.mypage);
   // (원래 이렇게 했다가 데이터 불러오는거 실패함. 경로도 틀렸고, const mypage의 중괄호도 빼야함)

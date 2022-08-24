@@ -19,7 +19,14 @@ export const putReviseThunk = createAsyncThunk(
   "revise/putRevise",
   async (payload, thunkAPI) => {
     try {
+
       const data = await apis.editMyPage(payload.memberId, payload.formData);
+
+   //   const data = await axios.put(
+   //     `http://43.200.178.245/api/profile/${payload}`,
+   //     payload
+   //   );
+
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {

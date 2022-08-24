@@ -1,12 +1,9 @@
-import React, { useRef, useState } from 'react';
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
-import styled from 'styled-components';
+import React, { useRef, useState } from "react";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import styled from "styled-components";
 
-const SwiperImage = ({ data }) => {
+const SwiperImage = ({ data, zIndex, maxWidth, minHeight }) => {
   const ref = useRef(null);
-
-  const [imageList, setImageList] = useState(data);
-	console.log(imageList);
 
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
@@ -16,6 +13,7 @@ const SwiperImage = ({ data }) => {
   });
 
   const nextSlide = () => {
+    console.log(currentImgIndex + 1);
     setCurrentImgIndex(currentImgIndex + 1);
     setStyle({
       transform: `translateX(-${currentImgIndex + 1}00%)`,
@@ -24,6 +22,7 @@ const SwiperImage = ({ data }) => {
   };
 
   const prevSlide = () => {
+    console.log(currentImgIndex - 1);
     setCurrentImgIndex(currentImgIndex - 1);
     setStyle({
       transform: `translateX(-${currentImgIndex - 1}00%)`,
@@ -32,42 +31,69 @@ const SwiperImage = ({ data }) => {
   };
 
   return (
-    <SwiperContainer>
-      <div
-        className="overflow-hidden max-w-[480px] min-w-[280px] w-full bg-black"
-      >
-        <div ref={ref} style={style} className="swiper-img-container">
-          {data?.map((item, idx) => {
-            return (
-              <img
-                key={idx}
-                src={item}
-                className={'w-auto h-auto object-contain'}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="swiper-btn">
-        <button onClick={prevSlide}>
-          <IoIosArrowBack />
-        </button>
-        <button onClick={nextSlide}>
-          <IoIosArrowForward />
-        </button>
-      </div>
+    <SwiperContainer zIndex={zIndex} maxWidth={maxWidth}>
+      <SwiperShowContainer ref={ref} style={style}>
+        {data?.map((item, idx) => {
+          return <SwipeImage key={idx} src={item} minHeight={minHeight}/>;
+        })}
+      </SwiperShowContainer>
+
+      {currentImgIndex !== 0 ? (
+        <SwiperBtn location="prev" onClick={prevSlide}>
+          <IoIosArrowBack size="20"/>
+        </SwiperBtn>
+      ) : null}
+
+      {currentImgIndex !== data.length - 1 ? (
+        <SwiperBtn location="next" onClick={nextSlide}>
+          <IoIosArrowForward size="20"/>
+        </SwiperBtn>
+      ) : null}
     </SwiperContainer>
   );
 };
 
 const SwiperContainer = styled.div`
-	position: relative;
-	height: 60vh;
-	max-height: 80vh;
-	padding-bottom: 20px;
-	overflow: hidden;
+  max-width: ${(props) => props.maxWidth};
+  position: relative;
+  overflow: hidden;
+	z-index: 0;
+	/* z-index: ${(props) => props.zIndex}; */
+`;
+
+const SwiperShowContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+`;
+
+const SwipeImage = styled.img`
+  width: 100%;
+	min-width: 100%;
+  min-height: ${(props) => props.minHeight};
+  height: auto;
+  object-fit: contain;
+  background-color: black;
+`;
+
+const SwiperBtn = styled.button`
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: ${(props) => (props.location === "prev" ? "10px" : null)};
+  right: ${(props) => (props.location === "next" ? "10px" : null)};
+  border: none;
+  border-radius: 15px;
+  opacity: 0.6;
 	display: flex;
-	align-content: center;
+	justify-content: center;
+	align-items: center;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
 export default SwiperImage;
