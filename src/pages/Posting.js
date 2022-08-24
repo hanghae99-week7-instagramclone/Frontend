@@ -80,8 +80,6 @@ const Posting = ({
       if (postInfo) {
         dispatch(asyncEditPost({ data: formData, postId: postInfo.id }));
         setModalPostOptionVisible(false);
-        // navigate('/')
-        // window.location.replace('/')
       } else {
         dispatch(asyncWritePost(formData));
       }
@@ -99,7 +97,7 @@ const Posting = ({
       minWidth="700px"
       maxWidth="1100px"
       outline="none"
-      zIndex="100"
+      zIndex="200"
       borderRadius="20"
     >
       <div className="modal-posting-wrapper">

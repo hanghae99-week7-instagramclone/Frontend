@@ -87,7 +87,7 @@ const Post = ({ postInfo }) => {
     setModalPostOptionVisible(false);
   };
 
-  const showPostOption = (postId) => {
+  const onShowPostOption = (postId) => {
     return (
       modalPostOptionVisible && (
         <>
@@ -150,7 +150,7 @@ const Post = ({ postInfo }) => {
           <circle cx="6" cy="12" r="1.5"></circle>
           <circle cx="18" cy="12" r="1.5"></circle>
         </svg>
-        {showPostOption(postInfo.id)}
+        {onShowPostOption(postInfo.id)}
       </div>
 
       {/* 글 이미지, 버튼 */}
@@ -259,6 +259,7 @@ const Post = ({ postInfo }) => {
               setModalVisible={setModalVisible}
               postInfo={postInfo}
               commentList={commentList}
+							memberInfo={member}
             />
           </>
         )}

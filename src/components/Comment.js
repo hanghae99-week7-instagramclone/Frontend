@@ -36,6 +36,7 @@ const Comment = ({ comment }) => {
   };
 
   return (
+		<>
     <div className="post-content-detail-container" key={comment.id}>
       {/* 댓글 작성자 프로필 */}
       <div className="post-user-profile detail-post-user-profile">
@@ -62,10 +63,11 @@ const Comment = ({ comment }) => {
               <circle cx="18" cy="12" r="1.5"></circle>
             </svg>
           </button>
-          {showCommentOption(comment.postId, comment.id)}
         </div>
       </div>
     </div>
+    {showCommentOption(comment.postId, comment.id)}
+		</>
   );
 };
 

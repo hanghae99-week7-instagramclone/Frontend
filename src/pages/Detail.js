@@ -5,9 +5,14 @@ import "./Detail.css";
 import timeCalc from "../shared/time";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncGetCommentsByPost, asyncPostComment } from "../redux/modules/commentSlice";
+import { asyncRemovePost } from "../redux/modules/postListSlice";
+import Posting from "./Posting";
 
-const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
+const Detail = ({ modalVisible, setModalVisible, postInfo, memberInfo }) => {
   const dispatch = useDispatch();
+
+  const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
+  const [modalPostingVisible, setModalPostingVisible] = useState(false);
 
   const [comment, setComment] = useState("");
 
@@ -30,14 +35,60 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
 
   useEffect(() => {
     console.log(commentList);
-  }, [dispatch]);
+  }, [dispatch, JSON.stringify(postInfo)]);
 
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
   };
+	
+  const onRemovePost = (postId) => {
+    console.log("post page!!", postId);
+    dispatch(asyncRemovePost(postId));
+    setModalPostOptionVisible(false);
+		setModalVisible(false);
+  };
+
+  const onShowPostOption = (postId) => {
+    return (
+      modalPostOptionVisible && (
+        <>
+          <Modal
+            maxWidth="300px"
+            outline="none"
+            zIndex="150"
+            modalVisible={modalPostOptionVisible}
+            setModalVisible={setModalPostOptionVisible}
+          >
+            <div className="comment-option-modal-wrapper">
+              <div
+                onClick={() => onRemovePost(postId)}
+                className="modal-delete-btn"
+              >
+                삭제
+              </div>
+              <div onClick={() => setModalPostingVisible(true)}>수정</div>
+              <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
+            </div>
+          </Modal>
+
+          {modalPostingVisible && (
+            <Posting
+              modalPostingVisible={modalPostingVisible}
+              setModalPostingVisible={setModalPostingVisible}
+              memberInfo={memberInfo}
+              postInfo={postInfo}
+              setModalPostOptionVisible={setModalPostOptionVisible}
+            />
+          )}
+        </>
+      )
+    );
+  };
+
 
   return (
+		<>
     <Modal
       modalVisible={modalVisible}
       setModalVisible={setModalVisible}
@@ -66,7 +117,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
               <span>•</span>
               <button>팔로잉</button>
             </div>
-            <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
+            <svg onClick={() => setModalPostOptionVisible(true)} aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="1.5"></circle>
               <circle cx="6" cy="12" r="1.5"></circle>
               <circle cx="18" cy="12" r="1.5"></circle>
@@ -157,7 +208,7 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
           {/* 좋아요 개수, 글 작성 시간 */}
           <div className="detail-content-info">
             <div className="like">
-              좋아요 {postInfo.likeResponseDto.length}개
+              좋아요 {postInfo.likeResponseDto?.length}개
             </div>
             <div className="post-createdAt">{timeCalc(postInfo.createdAt)}</div>
           </div>
@@ -182,6 +233,8 @@ const Detail = ({ modalVisible, setModalVisible, postInfo }) => {
         </div>
       </div>
     </Modal>
+		{onShowPostOption(postInfo.id)}
+		</>
   );
 };
 
