@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SwiperImage from "../components/SwiperImage";
-import Modal from "../elements/Modal";
+import Modal from "../components/Modal";
 import { asyncEditPost, asyncWritePost } from "../redux/modules/postListSlice";
 import "./Posting.css";
 
@@ -44,8 +44,8 @@ const Posting = ({
 
   const onClickBackBtn = () => {
     if (postInfo) {
-			setModalPostingVisible(false);
-			// setModalPostOptionVisible(false);
+      setModalPostingVisible(false);
+      // setModalPostOptionVisible(false);
     } else {
       setWriteVisible(false);
       setFileImage([]);
@@ -119,12 +119,8 @@ const Posting = ({
         {/* 글 작성 내용 */}
         {writeVisible ? (
           <div className="modal-posting-write-content">
-            <div
-              className="modal-posting-img-preview"
-              style={{ display: "flex" }}
-            >
-              <SwiperImage data={fileImageUrl}/>
-              {/* <img src={fileImageUrl[0]} alt="" /> */}
+            <div className="modal-posting-img-preview">
+              <SwiperImage data={fileImageUrl} maxWidth="100%" />
             </div>
             <div className="modal-posting-write-wrap">
               {/* <div className="modal-posting-write"> */}

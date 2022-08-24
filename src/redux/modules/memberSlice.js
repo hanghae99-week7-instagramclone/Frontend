@@ -42,7 +42,7 @@ export const createMemberDB = (data) => {
             window.alert(
               `${response.data.data.nickname}님 회원가입을 축하드립니다!`
             ),
-            window.location.replace("/home")
+            window.location.replace("/")
           );
         }
       })
@@ -67,7 +67,7 @@ export const loginMemberDB = (data) => {
             localStorage.setItem("token", response.headers.authorization),
             localStorage.setItem("id", response.data.data.id),
             alert(`환영합니다.`),
-            window.location.replace("/")
+            window.location.replace("/main")
           );
         }
       })

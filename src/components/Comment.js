@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import Modal from "../elements/Modal";
+import Modal from "./Modal";
 import { asyncRemoveComment } from "../redux/modules/commentSlice";
 import timeCalc from "../shared/time";
 import "./Comment.css";

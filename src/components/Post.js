@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Modal from "../elements/Modal";
+import Modal from "./Modal";
 import Detail from "../pages/Detail";
 import Posting from "../pages/Posting";
 import { asyncPostComment } from "../redux/modules/commentSlice";
@@ -24,6 +24,7 @@ const Post = ({ postInfo }) => {
   const member = useSelector((state) => state.member.member);
 
   const post = useSelector((state) => state.post.post);
+	// post = post ? post : postInfo;
 
   // 댓글 작성
   const [comment, setComment] = useState("");
@@ -53,10 +54,14 @@ const Post = ({ postInfo }) => {
           new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
       );
   }
-
+	
   useEffect(() => {
+		
+		// if (post.length === 0) {
+		// 	dispatch(asyncGetOnePost(postInfo.id));
+		// }
+		
     // console.log(commentList);
-    // dispatch(asyncGetOnePost(postInfo.id));
     const checkLike = postInfo.likeResponseDto?.find(
       (item) => item.nickname === member.nickname,
     );
@@ -233,9 +238,11 @@ const Post = ({ postInfo }) => {
           <Detail
             modalVisible={modalVisible}
             setModalVisible={setModalVisible}
-            postInfo={postInfo}
+            postInfo={post.id ? post : postInfo}
             commentList={commentList}
             memberInfo={member}
+						isLike={isLike}
+						setIsLike={setIsLike}
           />
         </>
       )}

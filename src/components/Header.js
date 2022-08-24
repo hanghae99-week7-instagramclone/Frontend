@@ -30,7 +30,7 @@ const Header = () => {
         <div className="header-container">
           <img
             className="header-title"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/main")}
             src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
             alt="Instagram Logo"
           />
@@ -40,7 +40,7 @@ const Header = () => {
 
           <div className="header-btn">
             <svg
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/main")}
               aria-label="홈"
               role="img"
               viewBox="0 0 24 24"

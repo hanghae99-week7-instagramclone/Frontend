@@ -8,7 +8,6 @@ const PostList = () => {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.postList.postList);
-  console.log(postList);
 
   const getAllPosts = () => {
     dispatch(asyncGetAllPosts());
@@ -16,7 +15,6 @@ const PostList = () => {
 
   useEffect(() => {
     getAllPosts();
-		// console.log('postlist', postList);
   }, [dispatch, JSON.stringify(postList)]);
 
   return (
