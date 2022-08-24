@@ -18,7 +18,7 @@ export const putReviseThunk = createAsyncThunk(
     try {
       console.log("put 시도중^^^");
       const data = await axios.put(
-        `http://43.200.178.245/api/profile/23`,
+        `http://43.200.178.245/api/profile/${payload}`,
         payload
       );
       console.log(data);

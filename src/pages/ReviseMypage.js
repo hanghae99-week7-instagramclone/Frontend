@@ -20,27 +20,30 @@ import setReviseBio from "../redux/modules/reviseMypageSlice";
 // console.log( response.headers.authorization );
 
 const reviseUserInfo = localStorage;
+console.log(reviseUserInfo.id);
 
 const ReviseMypage = () => {
   const dispatch = useDispatch();
 
-  //const [reviseUsername, setReviseUsername] = useState([]);
-  //const [reviseNickname, setReviseNickname] = useState([]);
-  //const [reviseUrl, setReviseUrl] = useState([]);
-  //const [reviseBio, setReviseBio] = useState([]);
-  const reviseUsername = useSelector((state) => state.username);
-  const reviseNickname = useSelector((state) => state.nickname);
-  const reviseUrl = useSelector((state) => state.url);
-  const reviseBio = useSelector((state) => state.bio);
-  //useEffect => { __get~~}
-
-  const onClickProfileUpdate = () => {
-    console.log(reviseUsername);
-    console.log(reviseNickname);
-    console.log(reviseUrl);
-    console.log(reviseBio);
-    //  dispatch(reviseUpdateProfile);
+  const initialState = {
+    nickname: "",
+    username: "",
+    websiteUrl: "",
+    bio: "",
   };
+
+  dispatch(putReviseThunk(reviseUserInfo.id));
+
+  const [reviseProfile, setReviseProfile] = useState(initialState);
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setReviseProfile({ ...reviseProfile, [name]: value });
+  };
+
+  console.log(reviseProfile);
+
+  const onClickProfileUpdate = () => {};
 
   //input 태그 안에 value에다가 값이 저장 -> 1. state 바꿔놔야함(어떻게 바꾸는지)
 
@@ -70,9 +73,10 @@ const ReviseMypage = () => {
             <div className="revise-username">이름</div>
             <input
               className="revise-username-input"
-              // value={reviseUsername}
-              // onChange={(e) => setReviseUsername(e.target.value)}
-              // placeholder={reviseUserInfo.username}
+              type="text"
+              value={reviseProfile.username}
+              name="username"
+              onChange={onChangeHandler}
               placeholder="이름"
             ></input>
           </div>
@@ -80,9 +84,10 @@ const ReviseMypage = () => {
             <div className="revise-nickname">사용자 이름</div>
             <input
               className="revise-nickname-input"
-              // value={reviseNickname}
-              // onChange={(e) => setReviseNickname(e.target.value)}
-              // placeholder={reviseUserInfo.nickname}
+              type="text"
+              value={reviseProfile.nickname}
+              name="nickname"
+              onChange={onChangeHandler}
               placeholder="사용자 이름"
             ></input>
           </div>
@@ -90,19 +95,23 @@ const ReviseMypage = () => {
             <div className="revise-url">웹사이트</div>
             <input
               className="revise-url-input"
+              type="text"
+              value={reviseProfile.websiteUrl}
+              name="websiteUrl"
+              onChange={onChangeHandler}
               placeholder="웹사이트"
-              value={reviseUrl}
-              onChange={(e) => setReviseUrl(e.target.value)}
             ></input>
           </div>
           <div className="revise-line-5">
             <div className="revise-bio">소개</div>
-            <input
+            <textarea
               className="revise-bio-input"
+              type="text"
+              value={reviseProfile.bio}
+              name="bio"
+              onChange={onChangeHandler}
               placeholder="소개"
-              value={reviseBio}
-              onChange={(e) => setReviseBio(e.target.value)}
-            ></input>
+            ></textarea>
           </div>
           <button className="revise-sub-button" onClick={onClickProfileUpdate}>
             제출

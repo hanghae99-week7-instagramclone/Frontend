@@ -6,7 +6,7 @@ import "./Header.css";
 const Header = ({ memberInfo }) => {
   const navigate = useNavigate();
   const [modalPostingVisible, setModalPostingVisible] = useState(false);
-	console.log(memberInfo);
+  console.log(memberInfo);
 
   const onClickPosting = () => {
     return (
@@ -14,7 +14,7 @@ const Header = ({ memberInfo }) => {
         <Posting
           modalPostingVisible={modalPostingVisible}
           setModalPostingVisible={setModalPostingVisible}
-					memberInfo={memberInfo}
+          memberInfo={memberInfo}
         />
       )
     );
@@ -26,7 +26,7 @@ const Header = ({ memberInfo }) => {
         <div className="header-container">
           <img
             className="header-title"
-						onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
             alt="Instagram Logo"
           />
@@ -35,7 +35,12 @@ const Header = ({ memberInfo }) => {
           </div>
 
           <div className="header-btn">
-            <svg onClick={() => navigate('/')} aria-label="홈" role="img" viewBox="0 0 24 24">
+            <svg
+              onClick={() => navigate("/")}
+              aria-label="홈"
+              role="img"
+              viewBox="0 0 24 24"
+            >
               <path d="M22 23h-6.001a1 1 0 01-1-1v-5.455a2.997 2.997 0 10-5.993 0V22a1 1 0 01-1 1H2a1 1 0 01-1-1V11.543a1.002 1.002 0 01.31-.724l10-9.543a1.001 1.001 0 011.38 0l10 9.543a1.002 1.002 0 01.31.724V22a1 1 0 01-1 1z"></path>
             </svg>
 
@@ -132,10 +137,10 @@ const Header = ({ memberInfo }) => {
                 className=""
                 alt="user-profile"
                 src={
-									memberInfo?.profileUrl
-										? memberInfo.profileUrl
-										: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
-								}
+                  memberInfo?.profileUrl
+                    ? memberInfo.profileUrl
+                    : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+                }
               />
             </div>
           </div>
