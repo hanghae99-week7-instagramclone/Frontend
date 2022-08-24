@@ -10,7 +10,7 @@
 
 .header-container {
   width: 100%;
-  max-width: 900px;
+  max-width: 970px;
   margin: 0 auto;
   /* background-color: aqua; */
 
@@ -25,14 +25,15 @@
 }
 
 .search-container > input {
-  height: 18px;
+  height: 16px;
   width: 230px;
   padding: 10px 20px;
   background-color: #efefef;
   border-radius: 7px;
   border: none;
   font-size: 16px;
-  margin-left: 80px;
+  font-weight: lighter;
+  margin-left: 160px;
 }
 
 .header-btn {

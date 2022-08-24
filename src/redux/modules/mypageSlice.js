@@ -16,7 +16,9 @@ export const getMypageThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log("hell world");
-      const data = await axios.get("http://43.200.178.245/api/profile/23");
+      const data = await axios.get(
+        `http://43.200.178.245/api/profile/${payload}`
+      );
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
@@ -30,7 +32,9 @@ export const getPostImageListThunk = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       // console.log("잘 들어오나");
-      const data = await axios.get("http://43.200.178.245/api/posts/member/23");
+      const data = await axios.get(
+        `http://43.200.178.245/api/posts/member/${payload}`
+      );
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
