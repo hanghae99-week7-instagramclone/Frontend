@@ -9,6 +9,7 @@ export default function Modal({
   outline,
 	minWidth,
   maxWidth,
+	minHeight,
   zIndex,
   borderRadius,
   padding,
@@ -50,6 +51,7 @@ export default function Modal({
           width={width}
 					minWidth={minWidth}
           maxWidth={maxWidth}
+					minHeight={minHeight}
           outline={outline}
           // style={{ outline: "none" }}
           borderRadius={borderRadius}
@@ -93,7 +95,6 @@ const ModalWrapper = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: ${(props) => props.zIndex};
   overflow: auto;
   outline: 0;
   /* pointer-events: none; */
@@ -108,9 +109,11 @@ const ModalInner = styled.div`
   width: ${(props) => props.width};
 	min-width: ${(props) => props.minWidth};
   max-width: ${(props) => props.maxWidth};
+	min-height: ${(props) => props.minHeight};
   top: 50%;
   transform: translate(0, -50%);
   margin: 0 auto;
   padding: ${(props) => props.padding};
   outline: ${(props) => props.outline};
+  z-index: ${(props) => props.zIndex};
 `;

@@ -18,7 +18,7 @@ export const getMypageThunk = createAsyncThunk(
       const data = await axios.get(
         `http://43.200.178.245/api/profile/${payload}`
       );
-      return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
+      return thunkAPI.fulfillWithValue(data.data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
       return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
     }

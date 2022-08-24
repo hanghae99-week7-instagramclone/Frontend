@@ -10,6 +10,7 @@ import { asyncPressLike, asyncGetOnePost } from "../redux/modules/postSlice";
 import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
+import SwiperImage from "./SwiperImage";
 
 const Post = ({ postInfo }) => {
   const dispatch = useDispatch();
@@ -61,10 +62,10 @@ const Post = ({ postInfo }) => {
     );
 
     if (checkLike) {
-      console.log(checkLike);
+      // console.log(checkLike);
       setIsLike(true);
     }
-    console.log(post);
+    // console.log(post);
     // dispatch(asyncGetOnePost(postInfo.id));
   }, [dispatch, JSON.stringify(post)]);
 
@@ -155,11 +156,7 @@ const Post = ({ postInfo }) => {
 
       {/* 글 이미지, 버튼 */}
       <div className="post-image-btn">
-        <img
-          className="post-image"
-          alt="post-image"
-          src={postInfo.imgUrlList[0]}
-        />
+				<SwiperImage data={postInfo.imgUrlList} maxWidth="100%"/>
         <div className="post-btn-list">
           <div className="post-btn-container">
             {isLike ? (
