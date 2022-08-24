@@ -4,12 +4,16 @@ import "./ReviseMypage.css";
 import { useState } from "react";
 import axios from "axios"; // axios import 합니다.
 import { useDispatch, useSelector } from "react-redux";
-import { putReviseThunk } from "../redux/modules/reviseMypageSlice";
 import setReviseUsername from "../redux/modules/reviseMypageSlice";
 import setReviseNickname from "../redux/modules/reviseMypageSlice";
 import setReviseUrl from "../redux/modules/reviseMypageSlice";
 import setReviseBio from "../redux/modules/reviseMypageSlice";
 import { getMypageThunk } from "../redux/modules/mypageSlice.js";
+import {
+  asyncGetOneMemberProfile,
+  putReviseThunk,
+} from "../redux/modules/memberSlice.js";
+import { apis } from "../shared/api.js";
 
 //response.headers.authorization로 저장한 setToken의 값은 지금 로그인 한 유저의 정보가 맞는지??
 
@@ -20,12 +24,10 @@ import { getMypageThunk } from "../redux/modules/mypageSlice.js";
 // console.log(b);
 // console.log( response.headers.authorization );
 
-const reviseUserInfo = localStorage;
-console.log(reviseUserInfo.id);
-
 const ReviseMypage = () => {
   const memberId = localStorage.getItem("id"); // 로컬스토리지에 있는 memberId 가져오기
-  const mypage = useSelector((state) => state.mypage.mypage.data); // 정보 가져오기
+  const member = useSelector((state) => state.member.member);
+  const [btnState, setBtnState] = useState(false);
   const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
   // 이미지가 없을 시 기본 프로필
   const [image, setImage] = useState(
@@ -57,8 +59,9 @@ const ReviseMypage = () => {
 
   useEffect(() => {
     //memberId값을 넣어야함
-    dispatch(getMypageThunk(memberId));
-  }, [dispatch, memberId]);
+
+    dispatch(asyncGetOneMemberProfile(localStorage.getItem("id")));
+  }, [dispatch, member]);
 
   //input 태그 안에 value에다가 값이 저장 -> 1. state 바꿔놔야함(어떻게 바꾸는지)
 
@@ -68,21 +71,12 @@ const ReviseMypage = () => {
   // else
   //     아무것도안함
 
-  const onClickProfileUpdate = () => {
-    const formData = new FormData();
-
-    formData.append("image", fileImage);
-
-    dispatch(putReviseThunk({ formData, memberId }));
-  };
-
   const initialState = {
     nickname: "",
     username: "",
     websiteUrl: "",
     bio: "",
   };
-
   //dispatch(putReviseThunk(reviseUserInfo.id));
 
   const [reviseProfile, setReviseProfile] = useState(initialState);
@@ -90,8 +84,50 @@ const ReviseMypage = () => {
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setReviseProfile({ ...reviseProfile, [name]: value });
+
+    if (
+      reviseProfile.nickname &&
+      reviseProfile.username &&
+      reviseProfile.websiteUrl &&
+      reviseProfile.bio.length > 0
+    ) {
+      setBtnState(true);
+    } else {
+      setBtnState(false);
+    }
   };
 
+  const onClickProfileUpdate = () => {
+    const formData = new FormData();
+
+    formData.append("image", fileImage);
+
+    const blob = new Blob([JSON.stringify(reviseProfile)], {
+      type: "application/json",
+    });
+
+    formData.append("data", blob);
+
+    dispatch(putReviseThunk({ formData, memberId }));
+
+    setReviseProfile(initialState);
+  };
+  //dispatch(putReviseThunk(reviseUserInfo.id));
+
+  const handleNicknameCheck = () => {
+    apis.checkNickname(reviseProfile.nickname).then((response) => {
+      if (response.data.data) {
+        alert("사용 가능한 닉네임입니다.");
+      } else {
+        alert("사용 불가능한 닉네임입니다.");
+        setReviseProfile({
+          username: reviseProfile.username,
+          nickname: "",
+        });
+      }
+    });
+  };
+  
   return (
     <>
       <Header />
@@ -101,17 +137,14 @@ const ReviseMypage = () => {
             <div className="revise-image-area">
               <div className="revise-image">
                 <img
-                  src={mypage?.proprofileUrl ? mypage.proprofileUrl : image}
+                  src={member?.profileUrl ? member.profileUrl : image}
                   alt=""
                   style={{ width: "50px", height: "50px" }}
-                  onClick={() => {
-                    fileInput.current.click();
-                  }}
                 ></img>
                 <input
                   type="file"
                   style={{ display: "none" }}
-                  accept="image/jpg,impge/png,image/jpeg"
+                  accept="image/jpg,image/png,image/jpeg"
                   name="profile_img"
                   onChange={onProfileChange}
                   ref={fileInput}
@@ -119,10 +152,15 @@ const ReviseMypage = () => {
               </div>
             </div>
             <div className="show-and-change">
-              <div className="revise-show-nickname">
-                {reviseUserInfo.nickname}
+              <div className="revise-show-nickname">{member.nickname}</div>
+              <div
+                className="revise-change-image"
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+              >
+                프로필 사진 바꾸기
               </div>
-              <div className="revise-change-image">프로필 사진 바꾸기</div>
             </div>
           </div>
           <div className="revise-line-2">
@@ -130,10 +168,10 @@ const ReviseMypage = () => {
             <input
               className="revise-username-input"
               type="text"
-              value={reviseProfile.username}
               name="username"
+              value={reviseProfile.username || ""}
               onChange={onChangeHandler}
-              placeholder="이름"
+              placeholder={member.username}
             ></input>
           </div>
           <div className="revise-line-3">
@@ -141,10 +179,12 @@ const ReviseMypage = () => {
             <input
               className="revise-nickname-input"
               type="text"
-              value={reviseProfile.nickname}
+              value={reviseProfile.nickname || ""}
               name="nickname"
               onChange={onChangeHandler}
-              placeholder="닉네임"
+              
+              onBlur={handleNicknameCheck}
+              placeholder={member.nickname}
             ></input>
           </div>
           <div className="revise-line-4">
@@ -152,10 +192,10 @@ const ReviseMypage = () => {
             <input
               className="revise-url-input"
               type="text"
-              value={reviseProfile.websiteUrl}
+              value={reviseProfile.websiteUrl || ""}
               name="websiteUrl"
               onChange={onChangeHandler}
-              placeholder="웹사이트"
+              placeholder={member.websiteUrl}
             ></input>
           </div>
           <div className="revise-line-5">
@@ -163,13 +203,17 @@ const ReviseMypage = () => {
             <textarea
               className="revise-bio-input"
               type="text"
-              value={reviseProfile.bio}
+              value={reviseProfile.bio || ""}
               name="bio"
               onChange={onChangeHandler}
-              placeholder="소개"
+              placeholder={member.bio}
             ></textarea>
           </div>
-          <button className="revise-sub-button" onClick={onClickProfileUpdate}>
+          <button
+            className="revise-sub-button"
+            onClick={onClickProfileUpdate}
+            disabled={btnState ? false : true}
+          >
             제출
           </button>
         </div>
