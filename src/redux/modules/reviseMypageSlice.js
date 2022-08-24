@@ -1,14 +1,17 @@
 import React from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apis } from "../../shared/api";
 
 const initialState = {
-  username: "",
-  nickname: "",
-  url: "",
-  bio: "",
-  isLoading: false,
-  error: null,
+  mypage: {
+    username: "",
+    nickname: "",
+    url: "",
+    bio: "",
+    isLoading: false,
+    error: null,
+  },
 };
 
 // Thunk 미들웨어 함수
@@ -16,11 +19,7 @@ export const putReviseThunk = createAsyncThunk(
   "revise/putRevise",
   async (payload, thunkAPI) => {
     try {
-      console.log("put 시도중^^^");
-      const data = await axios.put(
-        `http://43.200.178.245/api/profile/23`,
-        payload
-      );
+      const data = await apis.editMyPage(payload.memberId, payload.formData);
       console.log(data);
       return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {

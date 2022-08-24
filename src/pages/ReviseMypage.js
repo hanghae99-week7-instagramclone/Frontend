@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Header from "../components/Header.js";
 import "./ReviseMypage.css";
 import { useState } from "react";
@@ -9,6 +9,7 @@ import setReviseUsername from "../redux/modules/reviseMypageSlice";
 import setReviseNickname from "../redux/modules/reviseMypageSlice";
 import setReviseUrl from "../redux/modules/reviseMypageSlice";
 import setReviseBio from "../redux/modules/reviseMypageSlice";
+import { getMypageThunk } from "../redux/modules/mypageSlice.js";
 
 //response.headers.authorization로 저장한 setToken의 값은 지금 로그인 한 유저의 정보가 맞는지??
 
@@ -22,7 +23,41 @@ import setReviseBio from "../redux/modules/reviseMypageSlice";
 const reviseUserInfo = localStorage;
 
 const ReviseMypage = () => {
+  const memberId = localStorage.getItem("id"); // 로컬스토리지에 있는 memberId 가져오기
+  const mypage = useSelector((state) => state.mypage.mypage.data); // 정보 가져오기
+  const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
+  // 이미지가 없을 시 기본 프로필
+  const [image, setImage] = useState(
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+  );
+  const fileInput = useRef(null);
+
+  // 프로필 사진 변경
+  const onProfileChange = (e) => {
+    if (e.target.files[0]) {
+      setFileImage(e.target.files[0]);
+    } else {
+      //업로드 취소할 시
+      setImage(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    //memberId값을 넣어야함
+    dispatch(getMypageThunk(memberId));
+  }, [dispatch, memberId]);
 
   //const [reviseUsername, setReviseUsername] = useState([]);
   //const [reviseNickname, setReviseNickname] = useState([]);
@@ -35,10 +70,16 @@ const ReviseMypage = () => {
   //useEffect => { __get~~}
 
   const onClickProfileUpdate = () => {
-    console.log(reviseUsername);
-    console.log(reviseNickname);
-    console.log(reviseUrl);
-    console.log(reviseBio);
+    const formData = new FormData();
+
+    formData.append("image", fileImage);
+
+    dispatch(putReviseThunk({ formData, memberId }));
+
+    // console.log(reviseUsername);
+    // console.log(reviseNickname);
+    // console.log(reviseUrl);
+    // console.log(reviseBio);
     //  dispatch(reviseUpdateProfile);
   };
 
@@ -57,7 +98,24 @@ const ReviseMypage = () => {
         <div className="revise-frame">
           <div className="revise-line-1">
             <div className="revise-image-area">
-              <div className="revise-image"></div>
+              <div className="revise-image">
+                <img
+                  src={mypage?.proprofileUrl ? mypage.proprofileUrl : image}
+                  alt=""
+                  style={{ width: "50px", height: "50px" }}
+                  onClick={() => {
+                    fileInput.current.click();
+                  }}
+                ></img>
+                <input
+                  type="file"
+                  style={{ display: "none" }}
+                  accept="image/jpg,impge/png,image/jpeg"
+                  name="profile_img"
+                  onChange={onProfileChange}
+                  ref={fileInput}
+                />
+              </div>
             </div>
             <div className="show-and-change">
               <div className="revise-show-nickname">
