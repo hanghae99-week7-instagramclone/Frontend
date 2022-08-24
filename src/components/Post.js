@@ -61,10 +61,10 @@ const Post = ({ postInfo }) => {
     );
 
     if (checkLike) {
-      console.log(checkLike);
+      // console.log(checkLike);
       setIsLike(true);
     }
-    console.log(post);
+    // console.log(post);
     // dispatch(asyncGetOnePost(postInfo.id));
   }, [dispatch, JSON.stringify(post)]);
 
