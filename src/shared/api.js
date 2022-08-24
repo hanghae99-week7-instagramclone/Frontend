@@ -33,21 +33,23 @@ export const apis = {
 
   getOnePost: (postId) => api.get(`/api/posts/${postId}`),
 
-	writePost: (data) => api.post('/api/posts', data, {
-		headers: {
-			"Content-Type": "multipart/form-data"
-		}
-	}),
+  writePost: (data) =>
+    api.post("/api/posts", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
 
-	editPost: (data, postId) => api.put(`/api/posts/${postId}`, data, {
-		headers: {
-			"Content-Type": "multipart/form-data"
-		}
-	}),
+  editPost: (data, postId) =>
+    api.put(`/api/posts/${postId}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
 
-	removePost: (postId) => api.delete(`/api/posts/${postId}`),
+  removePost: (postId) => api.delete(`/api/posts/${postId}`),
 
-	getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
+  getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
 
   writeComment: (data, postId) =>
     api.post(`/api/posts/${postId}/comments`, data, {
@@ -57,5 +59,10 @@ export const apis = {
   removeComment: (postId, commentId) =>
     api.delete(`/api/posts/${postId}/comments/${commentId}`),
 
-	pressLike: (postId) => api.post(`/api/posts/${postId}/likes`)
+  pressLike: (postId) => api.post(`/api/posts/${postId}/likes`),
+
+  editMyPage: (memberId, data) =>
+    api.put(`/api/profile/${memberId}`, data, {
+      "Content-Type": "multipart/form-data",
+    }),
 };
