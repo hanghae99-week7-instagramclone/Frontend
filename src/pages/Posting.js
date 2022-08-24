@@ -44,8 +44,8 @@ const Posting = ({
 
   const onClickBackBtn = () => {
     if (postInfo) {
-			setModalPostOptionVisible(false);
-      setModalPostingVisible(false);
+			setModalPostingVisible(false);
+			// setModalPostOptionVisible(false);
     } else {
       setWriteVisible(false);
       setFileImage([]);

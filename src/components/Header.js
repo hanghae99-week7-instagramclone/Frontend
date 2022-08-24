@@ -6,6 +6,7 @@ import "./Header.css";
 const Header = ({ memberInfo }) => {
   const navigate = useNavigate();
   const [modalPostingVisible, setModalPostingVisible] = useState(false);
+	console.log(memberInfo);
 
   const onClickPosting = () => {
     return (
@@ -130,7 +131,11 @@ const Header = ({ memberInfo }) => {
               <img
                 className=""
                 alt="user-profile"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+                src={
+									memberInfo?.profileUrl
+										? memberInfo.profileUrl
+										: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
+								}
               />
             </div>
           </div>

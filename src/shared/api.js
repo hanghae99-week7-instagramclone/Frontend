@@ -56,4 +56,6 @@ export const apis = {
 
   removeComment: (postId, commentId) =>
     api.delete(`/api/posts/${postId}/comments/${commentId}`),
+
+	pressLike: (postId) => api.post(`/api/posts/${postId}/likes`)
 };
