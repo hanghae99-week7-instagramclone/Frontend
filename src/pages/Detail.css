@@ -42,6 +42,8 @@
 .modal-image > img {
 	/* position: inherit; */
 	max-width: 600px;
+	min-height: 600px;
+	background-color: black;
 	object-fit: contain;
 }
 
@@ -52,7 +54,7 @@
 }
 
 .detail-header {
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #d3d3d3;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -64,7 +66,7 @@
 }
 
 .detail-content-container {
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #d3d3d3;
 	position: absolute;
 	top: 61px;
 	left: 0;
@@ -90,7 +92,7 @@
 }
 
 .detail-btn-container {
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #d3d3d3;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -99,7 +101,7 @@
 
 .detail-content-info {
 	padding: 10px 20px;
-	border-bottom: 1px solid #262626;
+	border-bottom: 1px solid #d3d3d3;
 	position: absolute;
 	left: 0;
 	right: 0;

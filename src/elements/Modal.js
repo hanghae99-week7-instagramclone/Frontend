@@ -65,6 +65,8 @@ export default function Modal({
 }
 
 const ModalOverlay = styled.div`
+	width: 100%;
+	height: 100%;
   box-sizing: border-box;
   display: ${(props) => (props.modalVisible ? "block" : "none")};
   position: fixed;
@@ -100,7 +102,7 @@ const ModalWrapper = styled.div`
 const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  /* box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5); */
   background-color: transparent;
   border-radius: ${(props) => props.borderRadius};
   width: ${(props) => props.width};

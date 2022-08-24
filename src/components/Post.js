@@ -1,21 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Modal from "../elements/Modal";
 import Detail from "../pages/Detail";
+import Posting from "../pages/Posting";
 import { asyncPostComment } from "../redux/modules/commentSlice";
 import { asyncRemovePost } from "../redux/modules/postListSlice";
+import { asyncPressLike, asyncGetOnePost } from "../redux/modules/postSlice";
 import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
 
 const Post = ({ postInfo }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 모달창 여부
   const [modalVisible, setModalVisible] = useState(false);
-	const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
+  const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
+  const [modalPostingVisible, setModalPostingVisible] = useState(false);
 
+  const member = useSelector((state) => state.member.member);
+
+  const post = useSelector((state) => state.post.post);
+
+  // 댓글 작성
   const [comment, setComment] = useState("");
+
+  const [isLike, setIsLike] = useState(false);
 
   // const post = useSelector((state) => state.post.post);
   // console.log(post !== undefined);
@@ -43,35 +55,71 @@ const Post = ({ postInfo }) => {
 
   useEffect(() => {
     // console.log(commentList);
-  }, [dispatch]);
+    // dispatch(asyncGetOnePost(postInfo.id));
+    const checkLike = postInfo.likeResponseDto?.find(
+      (item) => item.nickname === member.nickname,
+    );
+
+    if (checkLike) {
+      console.log(checkLike);
+      setIsLike(true);
+    }
+    console.log(post);
+    // dispatch(asyncGetOnePost(postInfo.id));
+  }, [dispatch, JSON.stringify(post)]);
+
+  const onClickLikeBtn = async () => {
+    console.log("click like");
+    await dispatch(asyncPressLike(postInfo.id));
+    await dispatch(asyncGetOnePost(postInfo.id));
+    setIsLike(!isLike);
+    console.log(post);
+  };
 
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
   };
 
-  const removePost = (postId) => {
+  const onRemovePost = (postId) => {
     console.log("post page!!", postId);
     dispatch(asyncRemovePost(postId));
     setModalPostOptionVisible(false);
   };
 
-  const showPostOption = (postId) => {
+  const onShowPostOption = (postId) => {
     return (
       modalPostOptionVisible && (
-        <Modal
-          maxWidth="300px"
-          outline="none"
-          zIndex="200"
-          modalVisible={modalPostOptionVisible}
-          setModalVisible={setModalPostOptionVisible}
-        >
-          <div className="comment-option-modal-wrapper">
-            <div onClick={() => removePost(postId)}>삭제</div>
-            <div>수정</div>
-            <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
-          </div>
-        </Modal>
+        <>
+          <Modal
+            maxWidth="300px"
+            outline="none"
+            zIndex="50"
+            modalVisible={modalPostOptionVisible}
+            setModalVisible={setModalPostOptionVisible}
+          >
+            <div className="comment-option-modal-wrapper">
+              <div
+                onClick={() => onRemovePost(postId)}
+                className="modal-delete-btn"
+              >
+                삭제
+              </div>
+              <div onClick={() => setModalPostingVisible(true)}>수정</div>
+              <div onClick={() => setModalPostOptionVisible(false)}>취소</div>
+            </div>
+          </Modal>
+
+          {modalPostingVisible && (
+            <Posting
+              modalPostingVisible={modalPostingVisible}
+              setModalPostingVisible={setModalPostingVisible}
+              memberInfo={member}
+              postInfo={postInfo}
+              setModalPostOptionVisible={setModalPostOptionVisible}
+            />
+          )}
+        </>
       )
     );
   };
@@ -82,6 +130,7 @@ const Post = ({ postInfo }) => {
       <div className="post-header">
         <div className="post-user-profile">
           <img
+            // onClick={() => navigate(`/mypage/${postInfo.nickname}`)}
             alt="post-user-profile"
             src={
               postInfo.profileUrl
@@ -91,12 +140,17 @@ const Post = ({ postInfo }) => {
           />
           <span>{postInfo.nickname}</span>
         </div>
-        <svg onClick={() => setModalPostOptionVisible(true)} aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
+        <svg
+          onClick={() => setModalPostOptionVisible(true)}
+          aria-label="옵션 더 보기"
+          role="img"
+          viewBox="0 0 24 24"
+        >
           <circle cx="12" cy="12" r="1.5"></circle>
           <circle cx="6" cy="12" r="1.5"></circle>
           <circle cx="18" cy="12" r="1.5"></circle>
         </svg>
-        {showPostOption(postInfo.id)}
+        {onShowPostOption(postInfo.id)}
       </div>
 
       {/* 글 이미지, 버튼 */}
@@ -108,9 +162,27 @@ const Post = ({ postInfo }) => {
         />
         <div className="post-btn-list">
           <div className="post-btn-container">
-            <svg aria-label="활동 피드" role="img" viewBox="0 0 24 24">
-              <path d="M16.792 3.904A4.989 4.989 0 0121.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 014.708-5.218 4.21 4.21 0 013.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 013.679-1.938m0-2a6.04 6.04 0 00-4.797 2.127 6.052 6.052 0 00-4.787-2.127A6.985 6.985 0 00.5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 003.518 3.018 2 2 0 002.174 0 45.263 45.263 0 003.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 00-6.708-7.218z"></path>
-            </svg>
+            {isLike ? (
+              <svg
+                onClick={onClickLikeBtn}
+                aria-label="좋아요 취소"
+                color="#ed4956"
+                fill="#ed4956"
+                role="img"
+                viewBox="0 0 48 48"
+              >
+                <path d="M34.6 3.1c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5s1.1-.2 1.6-.5c1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z"></path>
+              </svg>
+            ) : (
+              <svg
+                onClick={onClickLikeBtn}
+                aria-label="좋아요"
+                role="img"
+                viewBox="0 0 24 24"
+              >
+                <path d="M16.792 3.904A4.989 4.989 0 0121.5 9.122c0 3.072-2.652 4.959-5.197 7.222-2.512 2.243-3.865 3.469-4.303 3.752-.477-.309-2.143-1.823-4.303-3.752C5.141 14.072 2.5 12.167 2.5 9.122a4.989 4.989 0 014.708-5.218 4.21 4.21 0 013.675 1.941c.84 1.175.98 1.763 1.12 1.763s.278-.588 1.11-1.766a4.17 4.17 0 013.679-1.938m0-2a6.04 6.04 0 00-4.797 2.127 6.052 6.052 0 00-4.787-2.127A6.985 6.985 0 00.5 9.122c0 3.61 2.55 5.827 5.015 7.97.283.246.569.494.853.747l1.027.918a44.998 44.998 0 003.518 3.018 2 2 0 002.174 0 45.263 45.263 0 003.626-3.115l.922-.824c.293-.26.59-.519.885-.774 2.334-2.025 4.98-4.32 4.98-7.94a6.985 6.985 0 00-6.708-7.218z"></path>
+              </svg>
+            )}
 
             <svg aria-label="댓글 달기" role="img" viewBox="0 0 24 24">
               <path
@@ -160,7 +232,13 @@ const Post = ({ postInfo }) => {
 
       {/* 글 내용, 댓글 */}
       <div className="post-content-container">
-        <div className="like">좋아요 {postInfo.likeResponseDto?.length}개</div>
+        <div className="like">
+          좋아요{" "}
+          {post.likeResponseDto
+            ? post.likeResponseDto?.length
+            : postInfo.likeResponseDto?.length}
+          개
+        </div>
         <div className="post-content">
           <span className="post-nickname">{postInfo.nickname}</span>
           <span>{postInfo.content}</span>
@@ -181,6 +259,7 @@ const Post = ({ postInfo }) => {
               setModalVisible={setModalVisible}
               postInfo={postInfo}
               commentList={commentList}
+							memberInfo={member}
             />
           </>
         )}
