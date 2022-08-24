@@ -4,6 +4,7 @@ import { BiMoviePlay } from "react-icons/bi";
 import { MdOutlinePersonPin } from "react-icons/md";
 import "./Mypage.css";
 import Header from "../components/Header.js";
+import ReviseMypage from "./ReviseMypage";
 import axios from "axios"; // axios import 합니다.
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -12,11 +13,12 @@ import {
 } from "../redux/modules/mypageSlice";
 import FollowToggle from "../redux/modules/mypageSlice";
 import postListSlice from "../redux/modules/postListSlice";
+import { useNavigate } from "react-router-dom";
 
 const Mypage = () => {
   const dispatch = useDispatch();
   //const { isLoading, error, mypage, stateOfFollow } = useSelector(
-
+  const navigate = useNavigate();
   const mypage = useSelector((state) => state.mypage.mypage.data);
   const postImageList = useSelector((state) => state.mypage.postImageList);
 
@@ -32,18 +34,61 @@ const Mypage = () => {
   const [followNumber, setFollowNumber] = useState(0);
   const [postImage, setPostImage] = useState([]);
 
-  // const isFollow (input) => {
+  //mypage -> 프로필 수정 -> 지금 페이지 주인(??) == 로그인한 사람(localstorage)
 
-  // } ;
+  //불러오고 난 뒤
+  //--------
+
+  //-> 페이지 조회 -> username, nickname, 기타등등 (placeholder)
+
+  //내용 입력(var) -> button -> axios.put
+
+  ///{memberid}
+
+  //const isMe (localStorage) => {
+  // if(localStorage.id === )
+  //} ;
 
   // const onClickHandlerFollow = () => {
   //   dispatch(FollowToggle());
   // };
 
+  //TODO
+  const tempMemberId = 23;
+
   useEffect(() => {
-    dispatch(getMypageThunk());
-    dispatch(getPostImageListThunk());
+    //memberId값을 넣어야함
+    dispatch(getMypageThunk(tempMemberId));
+    dispatch(getPostImageListThunk(tempMemberId));
   }, [dispatch]);
+
+  // 프로필 수정 버튼에서
+  // {isMe?
+  // ( <button onClick()=> 페이지 넘기기
+  //  ></button>
+  // )
+  // :
+  // <button 메시지 & 팔로우 버튼></button>
+  // }
+
+  // const isFollow = () => {
+  //    if (1)
+  // tempMemberId == localStorage.id;
+  //      <button className="button-follow">
+  //{
+  /* onClick={onClickHandlerFollow} */
+  //}
+  // 팔로우;
+  //     </button>
+  //   );
+  //  else
+  //    return (
+  //      <button className="button-unfollow">
+  //        {/* onClick={onClickHandlerFollow} */}
+  //        팔로우 취소
+  //      </button>
+  //    );
+  //};
 
   return (
     <>
@@ -59,8 +104,15 @@ const Mypage = () => {
             <div className="right-info">
               <div className="info-line-1">
                 <div className="user-nickname">{mypage?.nickname}</div>
+                <button
+                  onClick={() => {
+                    navigate("/ReviseMypage");
+                  }}
+                  className="button-lets-revise-mypage"
+                >
+                  프로필 편집
+                </button>
                 <button className="button-send-message">메시지 보내기</button>
-                {/* {isFollow ? ( */}
                 {1 ? (
                   <button className="button-follow">
                     {/* onClick={onClickHandlerFollow} */}
@@ -72,24 +124,20 @@ const Mypage = () => {
                     팔로우 취소
                   </button>
                 )}
-                {/* <button className="button-follow"> */}
-                {/* onClick={onClickHandlerFollow} */}
-                {/* 팔로우 */}
-                {/* </button> */}
                 <p className="info-option">•••</p>
               </div>
               <div className="info-line-2">
                 <div className="post-area">
                   <div className="mypage-post">게시물</div>
-                  <div className="post-number">{postNumber}</div>
+                  <div className="post-number">{mypage?.postCount}</div>
                 </div>
                 <div className="follower-area">
                   <div className="mypage-follower">팔로워</div>
-                  <div className="follower-number">{followerNumber}</div>
+                  <div className="follower-number">{mypage?.follower}</div>
                 </div>
                 <div className="follow-area">
                   <div className="mypage-follow">팔로우</div>
-                  <div className="follow-number">{followNumber}</div>
+                  <div className="follow-number">{mypage?.follow}</div>
                 </div>
               </div>
               <div className="info-line-3">

@@ -6,14 +6,16 @@ import mypage from "../modules/mypageSlice";
 import commentSlice from "../modules/commentSlice";
 import postSlice from "../modules/postSlice";
 import commentListSlice from "../modules/commentListSlice";
+import reviseMypageSlice from "../modules/reviseMypageSlice";
 
 export default configureStore({
   reducer: {
-		post: postSlice,
+    post: postSlice,
     postList: postListSlice,
-		comment: commentSlice,
-		commentList: commentListSlice,
+    comment: commentSlice,
+    commentList: commentListSlice,
     member: memberSlice,
     mypage: mypage,
+    reviseMypage: reviseMypageSlice,
   },
 });
