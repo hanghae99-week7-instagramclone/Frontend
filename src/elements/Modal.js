@@ -77,11 +77,11 @@ const ModalOverlay = styled.div`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: ${(props) => props.zIndex - 1};
+  z-index: ${(props) => props.zIndex ? props.zIndex : 1};
 `;
 
 const ModalClose = styled.div`
-  position: absolute;
+  position: fixed;
   right: 1rem;
   top: 1rem;
   cursor: pointer;
@@ -103,7 +103,6 @@ const ModalWrapper = styled.div`
 const ModalInner = styled.div`
   box-sizing: border-box;
   position: relative;
-  /* box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5); */
   background-color: transparent;
   border-radius: ${(props) => props.borderRadius};
   width: ${(props) => props.width};
@@ -115,5 +114,4 @@ const ModalInner = styled.div`
   margin: 0 auto;
   padding: ${(props) => props.padding};
   outline: ${(props) => props.outline};
-  z-index: ${(props) => props.zIndex};
 `;

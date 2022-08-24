@@ -155,8 +155,8 @@ const Post = ({ postInfo }) => {
       </div>
 
       {/* 글 이미지, 버튼 */}
+      <SwiperImage data={postInfo.imgUrlList} maxWidth="100%" />
       <div className="post-image-btn">
-				<SwiperImage data={postInfo.imgUrlList} maxWidth="100%"/>
         <div className="post-btn-list">
           <div className="post-btn-container">
             {isLike ? (
@@ -227,6 +227,19 @@ const Post = ({ postInfo }) => {
         </div>
       </div>
 
+      {/* 글 상세보기 */}
+      {modalVisible && (
+        <>
+          <Detail
+            modalVisible={modalVisible}
+            setModalVisible={setModalVisible}
+            postInfo={postInfo}
+            commentList={commentList}
+            memberInfo={member}
+          />
+        </>
+      )}
+
       {/* 글 내용, 댓글 */}
       <div className="post-content-container">
         <div className="like">
@@ -248,18 +261,6 @@ const Post = ({ postInfo }) => {
             댓글 {commentList.length}개 모두 보기
           </div>
         ) : null}
-        {/* 글 상세보기 */}
-        {modalVisible && (
-          <>
-            <Detail
-              modalVisible={modalVisible}
-              setModalVisible={setModalVisible}
-              postInfo={postInfo}
-              commentList={commentList}
-							memberInfo={member}
-            />
-          </>
-        )}
 
         {commentList ? (
           <CommentList isMain={true} commentList={commentList} />
