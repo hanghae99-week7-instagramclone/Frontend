@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import SwiperImage from "../components/SwiperImage";
-import Modal from "../elements/Modal";
+import Modal from "../components/Modal";
 import { asyncEditPost, asyncWritePost } from "../redux/modules/postListSlice";
 import "./Posting.css";
 
@@ -44,8 +44,8 @@ const Posting = ({
 
   const onClickBackBtn = () => {
     if (postInfo) {
-			setModalPostingVisible(false);
-			// setModalPostOptionVisible(false);
+      setModalPostingVisible(false);
+      // setModalPostOptionVisible(false);
     } else {
       setWriteVisible(false);
       setFileImage([]);
@@ -119,12 +119,8 @@ const Posting = ({
         {/* 글 작성 내용 */}
         {writeVisible ? (
           <div className="modal-posting-write-content">
-            <div
-              className="modal-posting-img-preview"
-              style={{ display: "flex" }}
-            >
-              <SwiperImage data={fileImageUrl}/>
-              {/* <img src={fileImageUrl[0]} alt="" /> */}
+            <div className="modal-posting-img-preview">
+              <SwiperImage data={fileImageUrl} maxWidth="100%" />
             </div>
             <div className="modal-posting-write-wrap">
               {/* <div className="modal-posting-write"> */}
@@ -162,8 +158,7 @@ const Posting = ({
         ) : (
           <div className="modal-posting-content">
             <div>사진과 동영상을 여기에 끌어다 놓으세요</div>
-            <button className="modal-posting-img-btn">
-              <label htmlFor="file">컴퓨터에서 선택</label>
+            <div className="modal-posting-choose-img">
               <input
                 type="file"
                 multiple="multiple"
@@ -172,7 +167,15 @@ const Posting = ({
                 accept="image/*"
                 onChange={onImgChange}
               />
-            </button>
+              <div
+                className="modal-posting-img-btn"
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+              >
+                컴퓨터에서 선택
+              </div>
+            </div>
           </div>
         )}
       </div>

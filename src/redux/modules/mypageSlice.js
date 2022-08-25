@@ -1,6 +1,7 @@
 import React from "react";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { apis } from "../../shared/api";
 
 const initialState = {
   mypage: {},
@@ -29,9 +30,16 @@ export const changeFollowerThunk = createAsyncThunk(
   "follower/getfollowerThunk",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.post(
-        `http://43.200.178.245/api/follow/${payload}` //toMemberId
-      );
+      // const data = await axios.post(
+      //   process.env.REACT_APP_URL + `/api/follow/${payload}`, //toMemberId
+			// 	{
+			// 		headers: {
+			// 			Authorization: localStorage.getItem('token')
+			// 		}
+			// 	}
+      // );
+			const data = await apis.pressFollow(payload);
+			console.log(data);
       return thunkAPI.fulfillWithValue(data.data); // 엑스트라 리듀서로 넘겨줌
     } catch (error) {
       return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
@@ -116,6 +124,7 @@ export const mypageSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
       console.log("this is error");
+			console.log(action.payload);
     },
   },
 });

@@ -15,6 +15,7 @@ export default function Home() {
   };
 
   return (
+		<div style={{height: "100vh"}}>
     <div className="Container">
       <img
         className="homeImg"
@@ -44,5 +45,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+		</div>
   );
 }

@@ -13,7 +13,6 @@ const SwiperImage = ({ data, maxWidth, minHeight }) => {
   });
 
   const nextSlide = () => {
-    console.log(currentImgIndex + 1);
     setCurrentImgIndex(currentImgIndex + 1);
     setStyle({
       transform: `translateX(-${currentImgIndex + 1}00%)`,
@@ -22,7 +21,6 @@ const SwiperImage = ({ data, maxWidth, minHeight }) => {
   };
 
   const prevSlide = () => {
-    console.log(currentImgIndex - 1);
     setCurrentImgIndex(currentImgIndex - 1);
     setStyle({
       transform: `translateX(-${currentImgIndex - 1}00%)`,
@@ -54,9 +52,13 @@ const SwiperImage = ({ data, maxWidth, minHeight }) => {
 };
 
 const SwiperContainer = styled.div`
+	width: 100%;
   max-width: ${(props) => props.maxWidth};
+	height: 100%;
   position: relative;
   overflow: hidden;
+	display: flex;
+	justify-content: center;
 `;
 
 const SwiperShowContainer = styled.div`

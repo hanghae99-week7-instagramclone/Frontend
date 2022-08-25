@@ -1,0 +1,35 @@
+.recommend-container {
+	width: 300px;
+	height: fit-content;
+	margin: 20px 30px;
+	/* background-color: aliceblue; */
+}
+
+.recommend-header {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.recommend-profile {
+	display: flex;
+	align-items: center;
+	font-size: 18px;
+}
+
+.recommend-profile > img {
+	width: 56px;
+	height: 56px;
+	margin-right: 20px;
+	border-radius: 30px;
+}
+
+.recommend-content {
+	margin: 10px auto;
+	font-size: 15px;
+	color: #8e8e8e;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

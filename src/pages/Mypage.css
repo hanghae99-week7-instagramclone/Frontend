@@ -43,6 +43,10 @@
   width: 170px;
 }
 
+.my-image > img {
+	border-radius: 100px;
+}
+
 .right-info {
   width: 70%;
   height: 190px;

@@ -20,6 +20,7 @@ export const asyncGetOneMemberProfile = createAsyncThunk(
   async (payload, thunkAPI) => {
     const response = await apis.getOneMemberProfile(payload);
 
+		// console.log(response);
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
     } else {
@@ -42,7 +43,7 @@ export const createMemberDB = (data) => {
             window.alert(
               `${response.data.data.nickname}님 회원가입을 축하드립니다!`
             ),
-            window.location.replace("/home")
+            window.location.replace("/")
           );
         }
       })
@@ -67,7 +68,7 @@ export const loginMemberDB = (data) => {
             localStorage.setItem("token", response.headers.authorization),
             localStorage.setItem("id", response.data.data.id),
             alert(`환영합니다.`),
-            window.location.replace("/")
+            window.location.replace("/main")
           );
         }
       })
@@ -99,6 +100,8 @@ export const putReviseThunk = createAsyncThunk(
 const initialState = {
   memberlist: [],
   member: {},
+	mypage: {},
+	me: {}
 };
 
 const memberSlice = createSlice({
@@ -113,7 +116,12 @@ const memberSlice = createSlice({
 
     [asyncGetOneMemberProfile.fulfilled]: (state, action) => {
       // action.payload -> member
-      state.member = action.payload;
+      // state.member = action.payload;
+			if (action.payload.id === +localStorage.getItem('id')) {
+				state.me = action.payload;
+			} else {
+				state.member = action.payload;
+			}
     },
 
     [putReviseThunk.fulfilled]: (state, action) => {
