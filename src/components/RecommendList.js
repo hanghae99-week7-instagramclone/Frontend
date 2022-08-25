@@ -10,7 +10,6 @@ const RecommendList = ({ memberInfo }) => {
 	const navigate = useNavigate();
 	
   let memberList = useSelector((state) => state.member.memberlist);
-	
 	// console.log(memberList);
 
   const onCheckMemberList = () => {
@@ -42,7 +41,7 @@ const RecommendList = ({ memberInfo }) => {
   
 	useEffect(() => {
     dispatch(asyncGetAllMembers());
-		console.log(memberList);
+		// console.log(memberList);
 	}, [dispatch, JSON.stringify(memberList)])
 
 

@@ -11,8 +11,9 @@ import timeCalc from "../shared/time";
 import CommentList from "./CommentList";
 import "./Post.css";
 import SwiperImage from "./SwiperImage";
+import { asyncGetOneMemberProfile } from "../redux/modules/memberSlice";
 
-const Post = ({ postInfo }) => {
+const Post = ({ postInfo, memberInfo }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,19 +22,16 @@ const Post = ({ postInfo }) => {
   const [modalPostOptionVisible, setModalPostOptionVisible] = useState(false);
   const [modalPostingVisible, setModalPostingVisible] = useState(false);
 
-  const member = useSelector((state) => state.member.member);
+  let member = useSelector((state) => state.member.member);
+	member = member.length > 0 ? member : memberInfo;
 
   const post = useSelector((state) => state.post.post);
-	// post = post ? post : postInfo;
+	// post = post.length > 0 ? post : postInfo;
 
   // 댓글 작성
   const [comment, setComment] = useState("");
-
-  const [isLike, setIsLike] = useState(false);
-
-  // const post = useSelector((state) => state.post.post);
-  // console.log(post !== undefined);
-  // const postCheck = post !== undefined ? postInfo : post;
+	
+  const [isLike, setIsLike] = useState(postInfo.heartByMe);
 
   let commentList = useSelector((state) => state.comment.commentlist);
 
@@ -45,7 +43,6 @@ const Post = ({ postInfo }) => {
     commentList = postInfo.commentResponseDto;
   }
 
-  // console.log("Post commentlist", commentList);
   if (commentList) {
     commentList = commentList
       .slice()
@@ -54,39 +51,53 @@ const Post = ({ postInfo }) => {
           new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
       );
   }
-	
-  useEffect(() => {
-		// console.log(postInfo);
-		
-		// if (post.length === 0) {
-		// 	dispatch(asyncGetOnePost(postInfo.id));
-		// }
-		
-    // console.log(commentList);
-    const checkLike = postInfo.likeResponseDto?.find(
-      (item) => item.nickname === member.nickname,
-    );
 
-    if (checkLike) {
-      // console.log(checkLike);
-      setIsLike(true);
-    }
-    // console.log(post);
-    // dispatch(asyncGetOnePost(postInfo.id));
-  }, [dispatch, JSON.stringify(post)]);
-
-  const onClickLikeBtn = async () => {
+	const onClickLikeBtn = async () => {
     console.log("click like");
     await dispatch(asyncPressLike(postInfo.id));
     await dispatch(asyncGetOnePost(postInfo.id));
     setIsLike(!isLike);
     console.log(post);
   };
+		
+  useEffect(() => {
+		// console.log(postInfo);
+
+		// if (post.length <= 0) {
+		// 	dispatch(asyncGetOnePost())
+		// }
+
+		// if (member.length <= 0) {
+		// 	dispatch(asyncGetOneMemberProfile(localStorage.getItem('id')));
+		// }
+		
+    // const checkLike = postInfo.likeResponseDto?.find(
+		// 	(item) => item.nickname === member.nickname,
+		// );
+			
+    // if (checkLike) {
+    //   setIsLike(true);
+    // }
+
+  }, [dispatch, JSON.stringify(post), isLike]);
+
 
   const onPostComment = () => {
-    dispatch(asyncPostComment({ comment, postId: postInfo.id }));
-    setComment("");
+		if (comment === '') {
+			alert('댓글을 입력해주세요!')
+		} else {
+	    dispatch(asyncPostComment({ comment, postId: postInfo.id }));
+	    setComment("");
+		}
   };
+
+	const onCheckPostAuthor = () => {
+		if (postInfo.authorId === +localStorage.getItem('id')) {
+			setModalPostOptionVisible(true)
+		} else {
+			alert('작성자만 수정할 수 있습니다!');
+		}
+	}
 
   const onRemovePost = (postId) => {
     console.log("post page!!", postId);
@@ -148,7 +159,7 @@ const Post = ({ postInfo }) => {
           <span>{postInfo.nickname}</span>
         </div>
         <svg
-          onClick={() => setModalPostOptionVisible(true)}
+          onClick={onCheckPostAuthor}
           aria-label="옵션 더 보기"
           role="img"
           viewBox="0 0 24 24"
