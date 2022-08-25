@@ -1,0 +1,18 @@
+.recommend-user-container {
+	padding: 10px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.recommend-user-profile {
+	display: flex;
+	align-items: center;
+}
+
+.recommend-user-profile > img {
+	width: 32px;
+	height: 32px;
+	margin-right: 20px;
+	border-radius: 30px;
+}

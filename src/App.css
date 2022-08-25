@@ -1,3 +1,17 @@
+.layout {
+  display: flex;
+  background-color: #fafafa;
+  height: 100%;
+  border: none;
+  position: static;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  overflow: visible;
+  overscroll-behavior: auto;
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }

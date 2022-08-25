@@ -1,0 +1,114 @@
+.modal-posting-wrapper {
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+}
+
+.modal-posting-header {
+  height: 50px;
+  font-weight: bold;
+  border-bottom: 1px solid #8e8e8e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-posting-img-preview-header {
+  width: 100%;
+  margin: auto 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 글 작성 */
+.modal-posting-write-content {
+  width: 100%;
+  display: flex;
+	/* background-color: #8e8e8e; */
+}
+
+.modal-posting-img-preview {
+  width: 60%;
+  /* height: 60vh;
+	max-height: 80vh; */
+  padding-bottom: 20px;
+  overflow: hidden;
+  display: flex;
+  align-content: center;
+}
+
+.modal-posting-img-preview > img {
+  width: 100%;
+  object-fit: contain;
+}
+
+/* .post-comment-input {
+  width: 70%;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+} */
+
+.modal-posting-write-wrap {
+	width: 40%;
+}
+
+.modal-posting-write-textarea {
+	border-bottom: 1px solid #8e8e8e;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.modal-posting-write-textarea > textarea {
+  width: 85%;
+  height: 200px;
+  padding: 5px 20px;
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+.modal-posting-etc > div {
+	height: 30px;
+	padding: 10px 20px;
+	border-bottom: 1px solid #8e8e8e;
+	display: flex;
+	align-items: center;
+	font-size: 15px;
+}
+
+
+/* 이미지 업로드 */
+
+.modal-posting-choose-img > input {
+	display: none;
+}
+
+
+.modal-posting-content {
+  height: 60vh;
+  max-height: 80vh;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-posting-img-btn {
+  margin-top: 40px;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #0095f6;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}

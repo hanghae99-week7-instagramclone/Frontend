@@ -1,30 +1,70 @@
 import axios from "axios";
 
-const tokencheck = document.cookie;
-const token = tokencheck.split("=")[1];
 const api = axios.create({
-  // 실제 베이스 유알엘
-  //   baseURL: "http://13.125.107.22:8080",
-
-  headers: {
-    "content-type": "application/json;charset=UTF-8",
-    accept: "application/json",
-    // accept: "application/json,",
-    token: token,
-  },
+  baseURL: process.env.REACT_APP_URL,
 });
+const token = localStorage.getItem("token");
+api.defaults.headers.common["authorization"] = token ? `${token}` : null;
 
-api.interceptors.request.use(function (config) {
-  const accessToken = document.cookie.split("=")[1];
-  config.headers.common["authorization"] = `${accessToken}`;
-  return config;
-});
+export const apis = {
+  createMember: (data) =>
+    api.post("/members/signup", data, {
+      "Content-Type": "application/json",
+    }),
 
-const apiMultipart = axios.create({
-  //   baseURL: "http://13.125.107.22:8080",
-  headers: {
-    "content-type": "multipart/form-data",
-    token: token,
-  },
-});
-export const apis = {};
+  checkEmail: async (email) =>
+    await api.get("/members/email-check", { params: { email: email } }),
+
+  checkNickname: async (nickname) =>
+    await api.get("/members/nickname-check", {
+      params: { nickname: nickname },
+    }),
+
+  loginMember: (data) =>
+    api.post("/members/login", data, {
+      "Content-Type": "application/json",
+    }),
+
+  getAllMembers: () => api.get("/members"),
+
+  getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
+
+  getAllPosts: () => api.get("/api/posts"),
+
+  getOnePost: (postId) => api.get(`/api/posts/${postId}`),
+
+  writePost: (data) =>
+    api.post("/api/posts", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+
+  editPost: (data, postId) =>
+    api.put(`/api/posts/${postId}`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }),
+
+  removePost: (postId) => api.delete(`/api/posts/${postId}`),
+
+  getCommentsByPost: (postId) => api.get(`/api/posts/${postId}/comments`),
+
+  writeComment: (data, postId) =>
+    api.post(`/api/posts/${postId}/comments`, data, {
+      "Content-type": "application/json",
+    }),
+
+  removeComment: (postId, commentId) =>
+    api.delete(`/api/posts/${postId}/comments/${commentId}`),
+
+  pressLike: (postId) => api.post(`/api/posts/${postId}/likes`),
+
+  editMyPage: (memberId, data) =>
+    api.put(`/api/profile/${memberId}`, data, {
+      "Content-Type": "multipart/form-data",
+    }),
+
+	pressFollow: (memberId) => api.post(`api/follow/${memberId}`), 
+};

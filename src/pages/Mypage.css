@@ -1,0 +1,326 @@
+.whole-mypage {
+  width: 950px;
+  height: 100vh;
+  padding: 0px 10px;
+  /* background-color: lightgray; */
+}
+
+.mypage-frame {
+  padding: 5px;
+  /* 패딩은 임시로 */
+  /* background-color: pink; */
+}
+
+.wrap-info {
+  max-width: 100%;
+  height: 230px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* 가로축-중심축 */
+  align-items: center;
+  /* 세로축-중심축 */
+  padding: 10px 0px 15px 15px;
+  /* border: 2px solid yellow; */
+  /* background-color: purple; */
+}
+
+.image-area {
+  height: 170px;
+  width: 170px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30%;
+  padding: 20px;
+  position: relative;
+  /* background-color: orange; */
+}
+
+.my-image {
+  position: absolute;
+  height: 170px;
+  width: 170px;
+}
+
+.my-image > img {
+	border-radius: 100px;
+}
+
+.right-info {
+  width: 70%;
+  height: 190px;
+  padding: 2px;
+  margin-left: 22px;
+  /* background-color: red; */
+}
+
+.info-line-1 {
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 5px 0px 0px;
+  margin-bottom: 18px;
+  /* background-color: yellowgreen; */
+}
+
+.user-nickname {
+  font-size: 28px;
+  font-weight: 340;
+  margin: 0px 30px 0px 0px;
+  background-color: ;
+}
+
+.button-lets-revise-mypage {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px 8px 0px 0px;
+  padding: 7px 10px 5px 10px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button-send-message {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px 8px 0px 0px;
+  padding: 7px 7px 5px 8px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button-follow {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 25px 6px 25px;
+  background-color: transparent;
+  border: 1px solid #0095f6;
+  color: white;
+  background-color: #0095f6;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0px 18px 0px 0px;
+}
+
+.button-unfollow {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 12px 6px 13px;
+  background-color: transparent;
+  border: 1px solid rgb(225, 225, 225);
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0px 18px 0px 0px;
+}
+
+.info-option {
+  cursor: pointer;
+  padding-bottom: 3px;
+}
+
+.info-line-2 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 24px;
+  /* background-color: yellow; */
+}
+
+.post-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-post {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.post-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.follower-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-follower {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.follower-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.follow-area {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+  padding: 0px 40px 0px 0px;
+  background-color: ;
+}
+
+.mypage-follow {
+  margin: 0px 5px 0px 0px;
+  background-color: ;
+}
+
+.follow-number {
+  font-weight: bold;
+  background-color: ;
+}
+
+.info-line-3 {
+  /* background-color: white; */
+}
+
+.mypage-username {
+  font-weight: bold;
+  margin-bottom: 6px;
+  background-color: ;
+}
+
+.mypage-bio {
+  font-weight: 430;
+  margin-bottom: 5px;
+  background-color: ;
+}
+
+.mypage-url {
+  color: rgb(22, 60, 99);
+  font-weight: 710;
+  background-color: ;
+}
+
+.hr-line {
+  height: 1px;
+  border: 0;
+  background-color: lightgray;
+}
+
+.mypage-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+
+  border: 0;
+  box-sizing: border-box;
+  color: var(--grey-5);
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  /* var(--font-weight-system-semibold); */
+
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 8px 0px 16px 0px;
+  position: relative;
+  text-align: center;
+  vertical-align: baseline;
+
+  /* background-color: lightblue; */
+}
+
+.mypage-navbar-wrap {
+  background-color: ;
+}
+
+.navbar-posts-icon {
+  padding: 1px 8px 0px 0px;
+  font-size: 10px;
+  background-color: ;
+}
+
+.navbar-posts {
+  /* border: 1px solid black; */
+  padding: 0px 65px 0px 0px;
+  cursor: pointer;
+  background-color: ;
+}
+
+.navbar-reels-icon {
+  color: rgb(155, 155, 155);
+  padding: 2px 6px 0px 0px;
+  font-size: 14px;
+  background-color: ;
+}
+
+.navbar-reels {
+  color: rgb(155, 155, 155);
+  padding: 0px 65px 0px 0px;
+  background-color: ;
+}
+
+.navbar-tagged-icon {
+  color: rgb(155, 155, 155);
+  padding: 3px 6px 0px 0px;
+  font-size: 15px;
+  background-color: ;
+}
+
+.navbar-tagged {
+  color: rgb(155, 155, 155);
+  background-color: ;
+}
+
+.post-box {
+  /* height: 400px; */
+  /* height: 100%; */
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+  /* object-fit: contain; */
+
+  /* background-color: lightseagreen; */
+}
+
+.div-post-image {
+  width: 295px;
+  height: 295px;
+  margin-bottom: 28px;
+  background-size: contain;
+  box-sizing: border-box;
+  /* border: 1px solid black; */
+  /* background-size: cover; */
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  background-color: pink;
+  /* background-image: url("https://i.pinimg.com/originals/d1/06/9f/d1069fdb4aab2a9e5eb862895d9c4c0b.jpg"); */
+}
+
+.post-image-set {
+  /* max-width: 295px; */
+  /* max-height: 295px; */
+  object-fit: cover;
+  /* ㄴ이미지가 div에 꽉차게 하는 속성 */
+  width: 100%;
+  height: auto;
+  /* background-size: contain; */
+}
