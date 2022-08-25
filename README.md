@@ -19,7 +19,7 @@ https://www.notion.so/SA-1-abee07a086044fbbb5aa815b3cce5b79
 Frontend(React)
 
 김자성 - 회원가입, 로그인, 프로필 수정<br>
-우수진 - 마이페이지<br>
+우수진 - 마이페이지, 프로필 수정<br>
 배아랑이 - 메인화면, 상세화면<br>
 
 <br>
@@ -117,9 +117,8 @@ Backend
 <br>
 
 8. 프로필 편집 화면<br>
-<img src="./src/iamge/edit_profile.png" width="500px" height="350px">
+<img srx="./src/iamge/스크린샷 2022-08-25 22.34.31.png" width="500px" height="350px">
 <br>
-
 
 <br>
 
