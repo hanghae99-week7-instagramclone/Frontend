@@ -19,7 +19,7 @@ const Main = () => {
     <>
       <Header/>
       <div className="main-content">
-        <PostList />
+        <PostList memberInfo={member}/>
 				<RecommendList memberInfo={member}/>
       </div>
     </>

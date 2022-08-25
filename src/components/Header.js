@@ -16,7 +16,7 @@ const Header = () => {
 	useEffect(() => {
 		dispatch(asyncGetOneMemberProfile(localStorage.getItem('id')));
 		// console.log('header', member)
-	}, [dispatch]);
+	}, [dispatch, member]);
 
   const onClickPosting = () => {
     return (

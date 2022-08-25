@@ -15,6 +15,15 @@ const Comment = ({ comment }) => {
     dispatch(asyncRemoveComment({ postId: postId, commentId: commentId }));
     setCommentOptionVisible(false);
   };
+	
+	const onCheckCommentAuthor = () => {
+		console.log(comment);
+		if (comment.memberId === +localStorage.getItem('id')) {
+			setCommentOptionVisible(true)
+		} else {
+			alert('작성자만 수정할 수 있습니다!');
+		}
+	}
 
   const showCommentOption = (postId, commentId) => {
     return (
@@ -55,7 +64,7 @@ const Comment = ({ comment }) => {
 
           <button
             className="comment-option"
-            onClick={() => setCommentOptionVisible(true)}
+            onClick={onCheckCommentAuthor}
           >
             <svg aria-label="옵션 더 보기" role="img" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="1.5"></circle>
