@@ -1,4 +1,5 @@
 # 인스타그램 클론코딩
+<img src="https://fontmeme.com/images/instagram-new-logo.png" width="300px"/>
 
 인스타그램 클론코딩
 <br>
@@ -127,11 +128,11 @@ Backend
 <details>
 <summary>API 명세서 보기</summary>
 <div markdown="1">
-<img src="./src/iamge/api1.png" width="500px" height="600px">
-<img src="./src/iamge/api2.png" width="500px" height="500px">
-<img src="./src/iamge/api3.png" width="500px" height="600px">
-<img src="./src/iamge/api4.png" width="500px" height="600px">
-<img src="./src/iamge/api5.png" width="500px" height="400px">
+<img src="./src/iamge/api1.png" width="700px" height="800px">
+<img src="./src/iamge/api2.png" width="700px" height="600px">
+<img src="./src/iamge/api3.png" width="700px" height="800px">
+<img src="./src/iamge/api4.png" width="700px" height="800px">
+<img src="./src/iamge/api5.png" width="700px" height="600px">
 </div>
 </details>
 
