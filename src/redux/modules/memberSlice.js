@@ -100,6 +100,8 @@ export const putReviseThunk = createAsyncThunk(
 const initialState = {
   memberlist: [],
   member: {},
+	mypage: {},
+	me: {}
 };
 
 const memberSlice = createSlice({
@@ -114,7 +116,12 @@ const memberSlice = createSlice({
 
     [asyncGetOneMemberProfile.fulfilled]: (state, action) => {
       // action.payload -> member
-      state.member = action.payload;
+      // state.member = action.payload;
+			if (action.payload.id === +localStorage.getItem('id')) {
+				state.me = action.payload;
+			} else {
+				state.member = action.payload;
+			}
     },
 
     [putReviseThunk.fulfilled]: (state, action) => {

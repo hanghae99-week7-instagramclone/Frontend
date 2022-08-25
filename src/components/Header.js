@@ -11,11 +11,12 @@ const Header = () => {
   const [modalPostingVisible, setModalPostingVisible] = useState(false);
 
 	// 로그인한 유저 정보
-	const member = useSelector((state) => state.member.member);
+	const member = useSelector((state) => state.member.me);
 
 	useEffect(() => {
 		dispatch(asyncGetOneMemberProfile(localStorage.getItem('id')));
-	})
+		// console.log('header', member)
+	}, [dispatch]);
 
   const onClickPosting = () => {
     return (

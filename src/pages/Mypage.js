@@ -25,7 +25,8 @@ const Mypage = () => {
   const dispatch = useDispatch();
   //const { isLoading, error, mypage, stateOfFollow } = useSelector(
   const navigate = useNavigate();
-  const member = useSelector((state) => state.member.member);
+  const me = useSelector((state) => state.member.me);
+  let member = useSelector((state) => state.member.member);
   let postImageList = useSelector((state) => state.mypage.postImageList);
   const [image, setImage] = useState(
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
@@ -42,6 +43,7 @@ const Mypage = () => {
   const [postImage, setPostImage] = useState([]);
 
   const [follow, setFollow] = useState(false);
+	// console.log(member.followByMe);
 
   // const onClickHandlerFollow = (e) => {
   //   const { name, value } = e.target;
@@ -51,7 +53,9 @@ const Mypage = () => {
   //   }
   // };
 
-  const isMe = member?.id === memberId;
+  const isMe = me?.id === +memberId;
+  member = isMe ? me : member;
+  // console.log(me.id, +memberId, isMe);
   // console.log(isMe);
 
   // console.log(postImageList);
@@ -75,8 +79,7 @@ const Mypage = () => {
   //   dispatch(FollowToggle());
   // };
 
-
-	// 역순으로 출력
+  // 역순으로 출력
 
   // let list = [];
   // for (let i=postImageList.length-1; i>=0; i--) {
@@ -93,9 +96,16 @@ const Mypage = () => {
       );
   }
 
+	const onChangeFollower = async () => {
+		await dispatch(changeFollowerThunk(member.id));
+		await dispatch(asyncGetOneMemberProfile(memberId));
+		setFollow(!follow);
+	}
+
   useEffect(() => {
-    console.log(member);
-    console.log(memberId);
+    // console.log(member);
+		// console.log(follow);
+    // console.log(memberId);
 
     if (member?.id !== memberId) {
       // 	//memberId값을 넣어야함
@@ -103,8 +113,12 @@ const Mypage = () => {
       dispatch(getPostImageListThunk(memberId));
     }
 
-    console.log(postImageList);
-  }, [dispatch, memberId]);
+		if (member.followByMe) {
+			setFollow(true);
+		}
+
+    // console.log(postImageList);
+  }, [dispatch, JSON.stringify(member)]);
 
   // 프로필 수정 버튼에서
   // {isMe?
@@ -170,7 +184,7 @@ const Mypage = () => {
                   </button>
                 ) : null} */}
 
-                {isMe ? null : (
+                {isMe ? (
                   <div>
                     <button
                       onClick={() => {
@@ -180,6 +194,9 @@ const Mypage = () => {
                     >
                       프로필 편집
                     </button>
+                  </div>
+                ) : (
+                  <div>
                     <button className="button-send-message">
                       메시지 보내기
                     </button>
@@ -190,14 +207,14 @@ const Mypage = () => {
                   //follow자리에 mypage.~~ 넣기.
                   <button
                     className="button-unfollow"
-                    onClick={() => dispatch(changeFollowerThunk(member.id))}
+                    onClick={onChangeFollower}
                   >
                     팔로우 취소
                   </button>
                 ) : (
                   <button
                     className="button-follow"
-                    onClick={() => dispatch(changeFollowerThunk(member.id))}
+                    onClick={onChangeFollower}
                   >
                     팔로우
                   </button>

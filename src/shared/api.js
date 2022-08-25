@@ -65,4 +65,6 @@ export const apis = {
     api.put(`/api/profile/${memberId}`, data, {
       "Content-Type": "multipart/form-data",
     }),
+
+	pressFollow: (memberId) => api.post(`api/follow/${memberId}`), 
 };
