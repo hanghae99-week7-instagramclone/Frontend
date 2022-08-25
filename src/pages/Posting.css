@@ -86,6 +86,12 @@
 
 
 /* 이미지 업로드 */
+
+.modal-posting-choose-img > input {
+	display: none;
+}
+
+
 .modal-posting-content {
   height: 60vh;
   max-height: 80vh;
@@ -97,6 +103,12 @@
 }
 
 .modal-posting-img-btn {
-  margin-top: 60px;
-  background-color: aqua;
+  margin-top: 40px;
+	padding: 10px;
+	border-radius: 10px;
+	background-color: #0095f6;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
 }

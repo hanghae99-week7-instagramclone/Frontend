@@ -58,7 +58,7 @@ const postSlice = createSlice({
       state.post = action.payload;
     },
     [asyncPressLike.fulfilled]: (state, action) => {
-      console.log(action);
+      // console.log(action);
       // state.post = action.payload;
 
       // const nickname = localStorage.getItem("nickname");
