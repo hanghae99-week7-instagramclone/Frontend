@@ -117,7 +117,7 @@ Backend
 <br>
 
 8. 프로필 편집 화면<br>
-<img srx="./src/iamge/스크린샷 2022-08-25 22.34.31.png" width="500px" height="350px">
+<img src="./src/iamge/revise.png" width="500px" height="350px">
 <br>
 
 <br>
