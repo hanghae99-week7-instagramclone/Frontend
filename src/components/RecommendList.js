@@ -11,8 +11,6 @@ const RecommendList = ({ memberInfo }) => {
 
   let memberList = useSelector((state) => state.member.memberlist);
 
-  // console.log(memberList);
-
   const onCheckMemberList = () => {
     if (memberList.length > 0) {
       // memberList.filter((item) => item.followByMe === false)
@@ -40,8 +38,9 @@ const RecommendList = ({ memberInfo }) => {
 
   useEffect(() => {
     dispatch(asyncGetAllMembers());
-    console.log(memberList);
-  }, [dispatch, JSON.stringify(memberList)]);
+
+		// console.log(memberList);
+	}, [dispatch, JSON.stringify(memberList)])
 
   return (
     <div className="recommend-container">
