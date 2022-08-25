@@ -19,6 +19,7 @@ import {
 import postListSlice from "../redux/modules/postListSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { asyncGetOneMemberProfile } from "../redux/modules/memberSlice";
+import Modal from "../components/Modal";
 
 const Mypage = () => {
   const memberId = useParams().id;
@@ -44,6 +45,8 @@ const Mypage = () => {
 
   const [follow, setFollow] = useState(false);
 	// console.log(member.followByMe);
+
+	const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
 
   // const onClickHandlerFollow = (e) => {
   //   const { name, value } = e.target;
@@ -103,7 +106,7 @@ const Mypage = () => {
 	}
 
   useEffect(() => {
-    // console.log(member);
+    console.log(member);
 		// console.log(follow);
     // console.log(memberId);
 
@@ -147,6 +150,38 @@ const Mypage = () => {
   //      </button>
   //    );
   //};
+
+	const onLogout = () => {
+		localStorage.clear();
+		alert('로그아웃 되었습니다!');
+		navigate('/');
+	}
+	
+  const onShowLogoutOption = () => {
+    return (
+      modalLogoutVisible && (
+        <>
+          <Modal
+            maxWidth="300px"
+            outline="none"
+            zIndex="50"
+            modalVisible={modalLogoutVisible}
+            setModalVisible={setModalLogoutVisible}
+          >
+            <div className="comment-option-modal-wrapper">
+              <div 
+								onClick={() => onLogout()}
+								className="modal-delete-btn"
+							>
+								로그아웃
+							</div>
+              <div onClick={() => setModalLogoutVisible(false)}>취소</div>
+            </div>
+          </Modal>
+        </>
+      )
+    );
+  };
 
   return (
     <>
@@ -220,7 +255,8 @@ const Mypage = () => {
                   </button>
                 )}
 
-                <p className="info-option">•••</p>
+                <p className="info-option" onClick={() => setModalLogoutVisible(true)}>•••</p>
+								{onShowLogoutOption()}
               </div>
               <div className="info-line-2">
                 <div className="post-area">

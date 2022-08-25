@@ -12,12 +12,12 @@ const RecommendList = ({ memberInfo }) => {
   let memberList = useSelector((state) => state.member.memberlist);
 	
 	// console.log(memberList);
-	useEffect(() => {
-	}, [memberList])
-
 
   const onCheckMemberList = () => {
     if (memberList.length > 0) {
+
+			// memberList.filter((item) => item.followByMe === false)
+			
 			memberList = memberList
 			.slice()
 			.sort(
@@ -39,9 +39,12 @@ const RecommendList = ({ memberInfo }) => {
     }
   };
 
-  useEffect(() => {
+  
+	useEffect(() => {
     dispatch(asyncGetAllMembers());
-  }, [dispatch]);
+		console.log(memberList);
+	}, [dispatch, JSON.stringify(memberList)])
+
 
   return (
     <div className="recommend-container">
