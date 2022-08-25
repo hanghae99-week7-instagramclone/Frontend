@@ -121,7 +121,7 @@ const Mypage = () => {
 		}
 
     // console.log(postImageList);
-  }, [dispatch, JSON.stringify(member)]);
+  }, [JSON.stringify(member)]);
 
   // 프로필 수정 버튼에서
   // {isMe?

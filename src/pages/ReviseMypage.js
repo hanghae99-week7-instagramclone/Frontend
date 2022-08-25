@@ -14,6 +14,7 @@ import {
   putReviseThunk,
 } from "../redux/modules/memberSlice.js";
 import { apis } from "../shared/api.js";
+import { useNavigate } from "react-router-dom";
 
 //response.headers.authorization로 저장한 setToken의 값은 지금 로그인 한 유저의 정보가 맞는지??
 
@@ -25,8 +26,10 @@ import { apis } from "../shared/api.js";
 // console.log( response.headers.authorization );
 
 const ReviseMypage = () => {
+	const navigate = useNavigate();
+
   const memberId = localStorage.getItem("id"); // 로컬스토리지에 있는 memberId 가져오기
-  const member = useSelector((state) => state.member.member);
+  const member = useSelector((state) => state.member.me);
   const [btnState, setBtnState] = useState(false);
   const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
   // 이미지가 없을 시 기본 프로필
@@ -61,7 +64,7 @@ const ReviseMypage = () => {
     //memberId값을 넣어야함
 
     dispatch(asyncGetOneMemberProfile(localStorage.getItem("id")));
-  }, [dispatch, member]);
+  }, [member]);
 
   //input 태그 안에 value에다가 값이 저장 -> 1. state 바꿔놔야함(어떻게 바꾸는지)
 
@@ -111,6 +114,7 @@ const ReviseMypage = () => {
     dispatch(putReviseThunk({ formData, memberId }));
 
     setReviseProfile(initialState);
+		navigate(-1);
   };
   //dispatch(putReviseThunk(reviseUserInfo.id));
 
