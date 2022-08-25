@@ -42,7 +42,7 @@ const Detail = ({
     .slice()
     .sort(
       (a, b) =>
-        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
     );
 
   const onClickLikeBtn = async () => {
@@ -52,20 +52,31 @@ const Detail = ({
     setIsLike(!isLike);
   };
 
-  useEffect(() => {
-  }, [dispatch, JSON.stringify(postInfo)]);
+  useEffect(() => {}, [dispatch, JSON.stringify(postInfo)]);
 
   const onPostComment = () => {
-    dispatch(asyncPostComment({ comment, postId: postInfo.id }));
-    setComment("");
+		if (comment === '') {
+			alert('댓글을 입력해주세요!')
+		} else {
+	    dispatch(asyncPostComment({ comment, postId: postInfo.id }));
+	    setComment("");
+		}
   };
-	
+
   const onRemovePost = (postId) => {
     console.log("post page!!", postId);
     dispatch(asyncRemovePost(postId));
     setModalPostOptionVisible(false);
-		setModalVisible(false);
+    setModalVisible(false);
   };
+
+	const onCheckPostAuthor = () => {
+		if (postInfo.authorId === +localStorage.getItem('id')) {
+			setModalPostOptionVisible(true)
+		} else {
+			alert('작성자만 수정할 수 있습니다!');
+		}
+	}
 
   const onShowPostOption = (postId) => {
     return (
@@ -104,7 +115,6 @@ const Detail = ({
     );
   };
 
-
   return (
     <>
       <Modal
@@ -142,7 +152,7 @@ const Detail = ({
                 <button>팔로잉</button>
               </div>
               <svg
-                onClick={() => setModalPostOptionVisible(true)}
+                onClick={onCheckPostAuthor}
                 aria-label="옵션 더 보기"
                 role="img"
                 viewBox="0 0 24 24"
@@ -165,7 +175,7 @@ const Detail = ({
                 </div>
                 <div className="post-content detail-content">
                   <span className="post-nickname">{postInfo.nickname}</span>
-                  <span>{postInfo.content}</span>
+                  <span className="post-content">{postInfo.content}</span>
                   <div className="post-createdAt">
                     {timeCalc(postInfo.createdAt)}
                   </div>

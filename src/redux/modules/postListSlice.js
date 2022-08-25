@@ -18,6 +18,20 @@ export const asyncGetAllPosts = createAsyncThunk(
   },
 );
 
+export const asyncGetInifiteScrollPosts = createAsyncThunk(
+	"postList/getInfiniteScrollPosts",
+	async (payload, thunkAPI) => {
+		const response = await apis.getInfiniteScrollPosts(payload.page, payload.size);
+		console.log(response.data);
+		
+    if (response.status === 200 && response.data.success === true) {
+      return {page: response.data.number, content: response.data.content};
+    } else {
+      return null;
+    }
+	}
+)
+
 export const asyncWritePost = createAsyncThunk(
   "post/writePost",
   async (payload, thunkAPI) => {
@@ -72,15 +86,23 @@ const postListSlice = createSlice({
       // action.payload -> post list
       state.postList = action.payload;
     },
+
+		[asyncGetInifiteScrollPosts.fulfilled]: (state, action) => {
+			console.log('infinite', action);
+			state.postList = action.payload;
+		},
+
     [asyncWritePost.fulfilled]: (state, action) => {
       state.postList.push(action.payload);
     },
+
     [asyncRemovePost.fulfilled]: (state, action) => {
       console.log("reducer", action);
       state.postList = state.postList.filter(
         (item) => item.id === action.payload,
       );
     },
+
     [asyncEditPost.fulfilled]: (state, action) => {
       console.log("reducer", state, action);
       state.postList = state.postList.map((item) => {

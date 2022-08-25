@@ -6,7 +6,7 @@
 
   display: flex;
   align-items: center;
-	/* position: fixed; */
+  /* position: fixed; */
 }
 
 .header-container {
@@ -53,6 +53,7 @@
 .user-profile > img {
   width: 25px;
   height: 25px;
+  margin-top: 2px;
   margin-left: 22px;
   border-radius: 30px;
 }

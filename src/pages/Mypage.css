@@ -44,7 +44,8 @@
 }
 
 .my-image > img {
-	border-radius: 100px;
+  object-fit: cover;
+  border-radius: 100px;
 }
 
 .right-info {
@@ -291,17 +292,17 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   overflow: hidden;
   /* object-fit: contain; */
-
+  gap: 28px;
   /* background-color: lightseagreen; */
 }
 
 .div-post-image {
-  width: 295px;
+  width: calc(33.3333% - 19px);
   height: 295px;
-  margin-bottom: 28px;
+  /* margin-bottom: 28px; */
   background-size: contain;
   box-sizing: border-box;
   /* border: 1px solid black; */
@@ -311,7 +312,6 @@
   flex-wrap: wrap;
   justify-content: center;
   /* align-items: center; */
-  background-color: pink;
   /* background-image: url("https://i.pinimg.com/originals/d1/06/9f/d1069fdb4aab2a9e5eb862895d9c4c0b.jpg"); */
 }
 
