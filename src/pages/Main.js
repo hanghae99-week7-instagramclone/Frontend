@@ -7,20 +7,20 @@ import { asyncGetOneMemberProfile } from "../redux/modules/memberSlice";
 import "./Main.css";
 
 const Main = () => {
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const member = useSelector((state) => state.member.me);
+  const member = useSelector((state) => state.member.me);
 
-	useEffect(() => {
-		dispatch(asyncGetOneMemberProfile(localStorage.getItem('id')));
-	}, [dispatch]);
+  useEffect(() => {
+    dispatch(asyncGetOneMemberProfile(localStorage.getItem("id")));
+  }, [dispatch]);
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className="main-content">
         <PostList />
-				<RecommendList memberInfo={member}/>
+        <RecommendList memberInfo={member} />
       </div>
     </>
   );

@@ -1,18 +1,56 @@
 .recommend-user-container {
-	padding: 10px 0;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: coral; */
 }
 
 .recommend-user-profile {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  /* background-color: cornflowerblue; */
+}
+
+.recommend-user-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.recommend-user-nick {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.recommend-new-txt {
+  font-size: 12px;
+  color: rgb(103, 103, 103);
 }
 
 .recommend-user-profile > img {
-	width: 32px;
-	height: 32px;
-	margin-right: 20px;
-	border-radius: 30px;
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  border-radius: 30px;
+  /* background-color: darkgreen; */
+}
+
+.recommend-button-follow {
+  background-color: transparent;
+  border: 0px solid transparent;
+  border-radius: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #0095f6;
+  cursor: pointer;
+}
+
+.recommend-button-unfollow {
+  background-color: transparent;
+  border: 0px solid transparent;
+  border-radius: 0px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #0095f6;
+  cursor: pointer;
 }

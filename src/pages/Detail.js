@@ -42,7 +42,7 @@ const Detail = ({
     .slice()
     .sort(
       (a, b) =>
-        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+        new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
     );
 
   const onClickLikeBtn = async () => {
@@ -52,19 +52,18 @@ const Detail = ({
     setIsLike(!isLike);
   };
 
-  useEffect(() => {
-  }, [dispatch, JSON.stringify(postInfo)]);
+  useEffect(() => {}, [dispatch, JSON.stringify(postInfo)]);
 
   const onPostComment = () => {
     dispatch(asyncPostComment({ comment, postId: postInfo.id }));
     setComment("");
   };
-	
+
   const onRemovePost = (postId) => {
     console.log("post page!!", postId);
     dispatch(asyncRemovePost(postId));
     setModalPostOptionVisible(false);
-		setModalVisible(false);
+    setModalVisible(false);
   };
 
   const onShowPostOption = (postId) => {
@@ -103,7 +102,6 @@ const Detail = ({
       )
     );
   };
-
 
   return (
     <>
@@ -165,7 +163,7 @@ const Detail = ({
                 </div>
                 <div className="post-content detail-content">
                   <span className="post-nickname">{postInfo.nickname}</span>
-                  <span>{postInfo.content}</span>
+                  <span className="post-content">{postInfo.content}</span>
                   <div className="post-createdAt">
                     {timeCalc(postInfo.createdAt)}
                   </div>

@@ -22,7 +22,11 @@ const PostList = () => {
       {postList.length > 0 ? (
         postList?.map((item) => <Post key={item.id} postInfo={item} />)
       ) : (
-        <div style={{ width: "500px", textAlign: "center", marginTop: "100px"}}>글이 없습니다.</div>
+        <div
+          style={{ width: "500px", textAlign: "center", marginTop: "100px" }}
+        >
+          글이 없습니다.
+        </div>
       )}
     </div>
   );
