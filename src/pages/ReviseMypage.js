@@ -26,17 +26,37 @@ import { useNavigate } from "react-router-dom";
 // console.log( response.headers.authorization );
 
 const ReviseMypage = () => {
-	const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const memberId = localStorage.getItem("id"); // 로컬스토리지에 있는 memberId 가져오기
   const member = useSelector((state) => state.member.me);
-  const [btnState, setBtnState] = useState(false);
+  // const [btnState, setBtnState] = useState(false);
   const [fileImage, setFileImage] = useState(""); // 프로필 이미지 파일을 저장할 변수
   // 이미지가 없을 시 기본 프로필
   const [image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+    member?.profileUrl
+      ? member.profileUrl
+      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
   const fileInput = useRef(null);
+
+  const initialState = {
+    nickname: member?.nickname,
+    username: member?.username,
+    websiteUrl: member?.websiteUrl,
+    bio: member?.bio,
+  };
+
+  //dispatch(putReviseThunk(reviseUserInfo.id));
+
+  const [reviseProfile, setReviseProfile] = useState(initialState);
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
+    setReviseProfile({ ...reviseProfile, [name]: value });
+  };
+
+  console.log(member);
 
   // 프로필 사진 변경
   const onProfileChange = (e) => {
@@ -62,9 +82,8 @@ const ReviseMypage = () => {
 
   useEffect(() => {
     //memberId값을 넣어야함
-
     dispatch(asyncGetOneMemberProfile(localStorage.getItem("id")));
-  }, [member]);
+  }, [dispatch]);
 
   //input 태그 안에 value에다가 값이 저장 -> 1. state 바꿔놔야함(어떻게 바꾸는지)
 
@@ -73,32 +92,6 @@ const ReviseMypage = () => {
   //     dispatch
   // else
   //     아무것도안함
-
-  const initialState = {
-    nickname: "",
-    username: "",
-    websiteUrl: "",
-    bio: "",
-  };
-  //dispatch(putReviseThunk(reviseUserInfo.id));
-
-  const [reviseProfile, setReviseProfile] = useState(initialState);
-
-  const onChangeHandler = (e) => {
-    const { name, value } = e.target;
-    setReviseProfile({ ...reviseProfile, [name]: value });
-
-    if (
-      reviseProfile.nickname &&
-      reviseProfile.username &&
-      reviseProfile.websiteUrl &&
-      reviseProfile.bio.length > 0
-    ) {
-      setBtnState(true);
-    } else {
-      setBtnState(false);
-    }
-  };
 
   const onClickProfileUpdate = () => {
     const formData = new FormData();
@@ -112,9 +105,6 @@ const ReviseMypage = () => {
     formData.append("data", blob);
 
     dispatch(putReviseThunk({ formData, memberId }));
-
-    setReviseProfile(initialState);
-		navigate(-1);
   };
   //dispatch(putReviseThunk(reviseUserInfo.id));
 
@@ -131,7 +121,7 @@ const ReviseMypage = () => {
       }
     });
   };
-  
+
   return (
     <>
       <Header />
@@ -141,7 +131,7 @@ const ReviseMypage = () => {
             <div className="revise-image-area">
               <div className="revise-image">
                 <img
-                  src={member?.profileUrl ? member.profileUrl : image}
+                  src={image}
                   alt=""
                   style={{ width: "50px", height: "50px" }}
                 ></img>
@@ -156,7 +146,7 @@ const ReviseMypage = () => {
               </div>
             </div>
             <div className="show-and-change">
-              <div className="revise-show-nickname">{member.nickname}</div>
+              <div className="revise-show-nickname">{member?.nickname}</div>
               <div
                 className="revise-change-image"
                 onClick={() => {
@@ -175,7 +165,6 @@ const ReviseMypage = () => {
               name="username"
               value={reviseProfile.username || ""}
               onChange={onChangeHandler}
-              placeholder={member.username}
             ></input>
           </div>
           <div className="revise-line-3">
@@ -183,12 +172,9 @@ const ReviseMypage = () => {
             <input
               className="revise-nickname-input"
               type="text"
-              value={reviseProfile.nickname || ""}
               name="nickname"
+              value={reviseProfile.nickname || ""}
               onChange={onChangeHandler}
-              
-              onBlur={handleNicknameCheck}
-              placeholder={member.nickname}
             ></input>
           </div>
           <div className="revise-line-4">
@@ -196,10 +182,9 @@ const ReviseMypage = () => {
             <input
               className="revise-url-input"
               type="text"
-              value={reviseProfile.websiteUrl || ""}
               name="websiteUrl"
+              value={reviseProfile.websiteUrl || ""}
               onChange={onChangeHandler}
-              placeholder={member.websiteUrl}
             ></input>
           </div>
           <div className="revise-line-5">
@@ -207,16 +192,15 @@ const ReviseMypage = () => {
             <textarea
               className="revise-bio-input"
               type="text"
-              value={reviseProfile.bio || ""}
               name="bio"
+              value={reviseProfile.bio || ""}
               onChange={onChangeHandler}
-              placeholder={member.bio}
             ></textarea>
           </div>
           <button
             className="revise-sub-button"
             onClick={onClickProfileUpdate}
-            disabled={btnState ? false : true}
+            // disabled={btnState ? false : true}
           >
             제출
           </button>

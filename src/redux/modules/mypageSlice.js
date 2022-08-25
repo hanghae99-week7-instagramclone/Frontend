@@ -116,7 +116,8 @@ export const mypageSlice = createSlice({
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
     [changeFollowerThunk.fulfilled]: (state, action) => {
-      state.mypage.followers = action.payload; // followers 자리에 api바뀐 값 기재하기
+			console.log(action.payload);
+      // state.mypage.followers = action.payload; // followers 자리에 api바뀐 값 기재하기
       // isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
       console.log("팔로우 성공");
     },

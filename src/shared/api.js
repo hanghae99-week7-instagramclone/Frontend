@@ -1,4 +1,5 @@
 import axios from "axios";
+import { createDispatchHook } from "react-redux";
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_URL,
@@ -30,6 +31,14 @@ export const apis = {
   getOneMemberProfile: (memberId) => api.get(`/api/profile/${memberId}`),
 
   getAllPosts: () => api.get("/api/posts"),
+
+	getInfiniteScrollPosts: (page, size) => api.get("api/posts/infinite-scroll", {
+		params: {
+			page: page,
+			size: size,
+			sort: "createdAt,desc"
+		}
+	}),
 
   getOnePost: (postId) => api.get(`/api/posts/${postId}`),
 

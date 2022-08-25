@@ -27,25 +27,46 @@
   flex-direction: row;
   margin-bottom: 20px;
   margin-right: 80px;
+  width: 250px;
   /* background-color: blueviolet; */
 }
 
 .revise-image-area {
-  padding: 5px;
+  padding: 1px;
   /* 패딩은 임시로 */
-  margin-right: 34px;
+  margin-right: 40px;
+  margin-top: 4px;
+  width: 70px;
+  max-width: 40px;
+  max-height: 40px;
+  /* align-items: right; */
+
+  justify-content: center;
+  align-items: center;
+
   /* background-color: aquamarine; */
 }
 
 .revise-image {
-  width: 40px;
-  height: 40px;
+  max-width: 45px;
+  max-height: 45px;
+  /* justify-content: center;
+  align-items: center; */
+  border-radius: 100px;
+  /* background-color: black; */
+}
+
+.revise-image > img {
+  max-width: 40px;
+  max-height: 40px;
   border-radius: 100px;
   background-color: black;
 }
+
 .show-and-change {
   display: flex;
   flex-direction: column;
+  margin-right: 18px;
   /* background-color: darkgreen; */
 }
 
