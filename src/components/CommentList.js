@@ -4,10 +4,10 @@ import Comment from "./Comment";
 import "./CommentList.css";
 
 const CommentList = ({ isMain, commentList }) => {
-	// console.log(commentList);
-	
+  // console.log(commentList);
+
   let comments = useSelector((state) => state.comment.commentlist);
-	// console.log('comments', comments);
+  // console.log('comments', comments);
 
   return (
     <div className="comment-list">
@@ -16,14 +16,12 @@ const CommentList = ({ isMain, commentList }) => {
             return (
               <div className="comment-content" key={item.id}>
                 <span className="comment-nickname">{item.nickname}</span>
-                <span>{item.content}</span>
+                <span className="comment-content-yoyo">{item.content}</span>
               </div>
             );
           })
         : commentList.map((item) => {
-            return (
-							<Comment comment={item} key={item.id}/>
-            );
+            return <Comment comment={item} key={item.id} />;
           })}
     </div>
   );

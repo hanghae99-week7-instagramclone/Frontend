@@ -20,7 +20,7 @@ export const asyncGetOneMemberProfile = createAsyncThunk(
   async (payload, thunkAPI) => {
     const response = await apis.getOneMemberProfile(payload);
 
-		// console.log(response);
+    // console.log(response);
     if (response.status === 200 && response.data.success === true) {
       return response.data.data;
     } else {
@@ -83,25 +83,32 @@ export const loginMemberDB = (data) => {
 export const putReviseThunk = createAsyncThunk(
   "member/putRevise",
   async (payload, thunkAPI) => {
-    try {
-      const data = await apis.editMyPage(payload.memberId, payload.formData);
-      //   const data = await axios.put(
-      //     `http://43.200.178.245/api/profile/${payload}`,
-      //     payload
-      //   );
-      console.log(data.data.data);
-      return thunkAPI.fulfillWithValue(data.data.data); // 엑스트라 리듀서로 넘겨줌
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error); // 엑스트라 리듀서로 넘겨줌
-    }
+    await apis
+      .editMyPage(payload.memberId, payload.formData)
+      .then((response) => {
+        console.log(response);
+        if (response.data.success === false) {
+          return window.alert(response.data.message);
+        } else {
+          return (
+            window.alert(response.data.status.message),
+            window.location.replace(`/mypage/${payload.memberId}`)
+          );
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          alert(error.response.data.message);
+        }
+      });
   }
 );
 
 const initialState = {
   memberlist: [],
   member: {},
-	mypage: {},
-	me: {}
+  mypage: {},
+  me: {},
 };
 
 const memberSlice = createSlice({
@@ -117,16 +124,11 @@ const memberSlice = createSlice({
     [asyncGetOneMemberProfile.fulfilled]: (state, action) => {
       // action.payload -> member
       // state.member = action.payload;
-			if (action.payload.id === +localStorage.getItem('id')) {
-				state.me = action.payload;
-			} else {
-				state.member = action.payload;
-			}
-    },
-
-    [putReviseThunk.fulfilled]: (state, action) => {
-      // action.payload -> member
-      state.mypage = action.payload;
+      if (action.payload.id === +localStorage.getItem("id")) {
+        state.me = action.payload;
+      } else {
+        state.member = action.payload;
+      }
     },
   },
 });

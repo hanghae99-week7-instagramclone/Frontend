@@ -30,7 +30,7 @@ const Mypage = () => {
   let member = useSelector((state) => state.member.member);
   let postImageList = useSelector((state) => state.mypage.postImageList);
   const [image, setImage] = useState(
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
   );
 
   // const { mypage } = useSelector((state) => state.mypage);
@@ -44,9 +44,9 @@ const Mypage = () => {
   const [postImage, setPostImage] = useState([]);
 
   const [follow, setFollow] = useState(false);
-	// console.log(member.followByMe);
+  // console.log(member.followByMe);
 
-	const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
+  const [modalLogoutVisible, setModalLogoutVisible] = useState(false);
 
   // const onClickHandlerFollow = (e) => {
   //   const { name, value } = e.target;
@@ -95,30 +95,24 @@ const Mypage = () => {
       .slice()
       .sort(
         (a, b) =>
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
       );
   }
 
-	const onChangeFollower = async () => {
-		await dispatch(changeFollowerThunk(member.id));
-		await dispatch(asyncGetOneMemberProfile(memberId));
-		setFollow(!follow);
-	}
+  const onChangeFollower = async () => {
+    await dispatch(changeFollowerThunk(member.id));
+    await dispatch(asyncGetOneMemberProfile(memberId));
+    setFollow(!follow);
+  };
 
   useEffect(() => {
-    console.log(member);
-		// console.log(follow);
-    // console.log(memberId);
+    // 	//memberId값을 넣어야함
+    dispatch(asyncGetOneMemberProfile(memberId));
+    dispatch(getPostImageListThunk(memberId));
 
-    if (member?.id !== memberId) {
-      // 	//memberId값을 넣어야함
-      dispatch(asyncGetOneMemberProfile(memberId));
-      dispatch(getPostImageListThunk(memberId));
+    if (member.followByMe) {
+      setFollow(true);
     }
-
-		if (member.followByMe) {
-			setFollow(true);
-		}
 
     // console.log(postImageList);
   }, [JSON.stringify(member)]);
@@ -151,12 +145,12 @@ const Mypage = () => {
   //    );
   //};
 
-	const onLogout = () => {
-		localStorage.clear();
-		alert('로그아웃 되었습니다!');
-		navigate('/');
-	}
-	
+  const onLogout = () => {
+    localStorage.clear();
+    alert("로그아웃 되었습니다!");
+    navigate("/");
+  };
+
   const onShowLogoutOption = () => {
     return (
       modalLogoutVisible && (
@@ -169,12 +163,9 @@ const Mypage = () => {
             setModalVisible={setModalLogoutVisible}
           >
             <div className="comment-option-modal-wrapper">
-              <div 
-								onClick={() => onLogout()}
-								className="modal-delete-btn"
-							>
-								로그아웃
-							</div>
+              <div onClick={() => onLogout()} className="modal-delete-btn">
+                로그아웃
+              </div>
               <div onClick={() => setModalLogoutVisible(false)}>취소</div>
             </div>
           </Modal>
@@ -247,16 +238,18 @@ const Mypage = () => {
                     팔로우 취소
                   </button>
                 ) : (
-                  <button
-                    className="button-follow"
-                    onClick={onChangeFollower}
-                  >
+                  <button className="button-follow" onClick={onChangeFollower}>
                     팔로우
                   </button>
                 )}
 
-                <p className="info-option" onClick={() => setModalLogoutVisible(true)}>•••</p>
-								{onShowLogoutOption()}
+                <p
+                  className="info-option"
+                  onClick={() => setModalLogoutVisible(true)}
+                >
+                  •••
+                </p>
+                {onShowLogoutOption()}
               </div>
               <div className="info-line-2">
                 <div className="post-area">
