@@ -40,12 +40,16 @@ const Recommend = ({ memberInfo }) => {
               : "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/510px-Default_pfp.svg.png?20220226140232"
           }
         />
-        <span>{memberInfo.nickname}</span>
+        <div className="recommend-user-wrap">
+          <span className="recommend-user-nick">{memberInfo.nickname}</span>
+          <span className="recommend-new-txt">Instagram 신규 가입</span>
+        </div>
       </div>
       {/* <button>팔로우</button> */}
       {follow ? (
         <button
-          className="button-unfollow"
+
+           className="recommend-button-unfollow"
           // onClick={() => onChangeFollower(memberInfo)}
 					onClick={onClickFollowBtn}
         >
@@ -53,9 +57,10 @@ const Recommend = ({ memberInfo }) => {
         </button>
       ) : (
         <button
-          className="button-follow"
+         className="recommend-button-follow"
           // onClick={() => onChangeFollower(memberInfo)}
 					onClick={onClickFollowBtn}
+
         >
           팔로우
         </button>

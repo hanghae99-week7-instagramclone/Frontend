@@ -26,7 +26,9 @@ const Post = ({ postInfo, memberInfo }) => {
 	member = member.length > 0 ? member : memberInfo;
 
   const post = useSelector((state) => state.post.post);
+
 	// post = post.length > 0 ? post : postInfo;
+
 
   // 댓글 작성
   const [comment, setComment] = useState("");
@@ -48,9 +50,29 @@ const Post = ({ postInfo, memberInfo }) => {
       .slice()
       .sort(
         (a, b) =>
-          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
       );
   }
+  useEffect(() => {
+    // console.log(postInfo);
+
+    // if (post.length === 0) {
+    // 	dispatch(asyncGetOnePost(postInfo.id));
+    // }
+
+    // console.log(commentList);
+    const checkLike = postInfo.likeResponseDto?.find(
+      (item) => item.nickname === member.nickname
+    );
+
+    if (checkLike) {
+      // console.log(checkLike);
+      setIsLike(true);
+    }
+    // console.log(post);
+    // dispatch(asyncGetOnePost(postInfo.id));
+  }, [dispatch, JSON.stringify(post)]);
+
 
 	const onClickLikeBtn = async () => {
     console.log("click like");
@@ -253,8 +275,8 @@ const Post = ({ postInfo, memberInfo }) => {
             postInfo={post.id ? post : postInfo}
             commentList={commentList}
             memberInfo={member}
-						isLike={isLike}
-						setIsLike={setIsLike}
+            isLike={isLike}
+            setIsLike={setIsLike}
           />
         </>
       )}
@@ -302,7 +324,9 @@ const Post = ({ postInfo, memberInfo }) => {
             onChange={(e) => setComment(e.target.value)}
           ></textarea>
         </div>
-        <button onClick={() => onPostComment()}>게시</button>
+        <button className="post-comment-button" onClick={() => onPostComment()}>
+          게시
+        </button>
       </div>
     </div>
   );
